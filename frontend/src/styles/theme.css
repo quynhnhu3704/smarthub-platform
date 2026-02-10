@@ -1,0 +1,13 @@
+body {
+  margin: 0;
+  font-family: system-ui;
+}
+
+.hero {
+  height: 40vh;
+  background: linear-gradient(135deg, #6f42c1, #8e63f7);
+}
+
+.footer {
+  background: linear-gradient(180deg, #6f42c1, #4e2a9e);
+}
