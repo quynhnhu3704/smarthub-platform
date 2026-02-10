@@ -4,6 +4,8 @@ npm install express dotenv
 npm install mongoose express-session connect-mongo bcryptjs cookie-parser jsonwebtoken passport passport-local
 npm install -g express-generator
 npm install express dotenv
+npm install cors
+
 
 mkdir controllers, models, routes, middlewares, database, config
 mkdir controllers\auth, controllers\customer, controllers\staff, controllers\owner
