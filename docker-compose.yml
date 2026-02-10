@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./backend
+    container_name: smarthub-backend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./backend/.env
+    volumes:
+      - ./backend:/app
+    command: node app.js
+
+  ai:
+    build: ./ai
+    container_name: smarthub-ai
+    ports:
+      - "8000:8000"

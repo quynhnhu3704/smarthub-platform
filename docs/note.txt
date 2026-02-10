@@ -1,23 +1,86 @@
-smarthub-platform/
+NodeJS
+npm init -y
+npm install express dotenv
+npm install mongoose express-session connect-mongo bcryptjs cookie-parser jsonwebtoken passport passport-local
+npm install -g express-generator
+npm install express dotenv
+
+mkdir controllers, models, routes, middlewares, database, config
+mkdir controllers\auth, controllers\customer, controllers\staff, controllers\owner
+
+
+backend/
 │
-├── backend/          # NodeJS (API, Auth, Order, User…)
-│   ├── src/
-│   └── package.json
+├── app.js
+├── .env
 │
-├── frontend/         # ReactJS
-│   ├── src/
-│   └── package.json
-│
-├── ai/               # Python (crawl, recommend, model)
-│   ├── crawler/
-│   ├── recommender/
-│   └── requirements.txt
+├── config/
+│   ├── db.js
+│   ├── jwt.js
+│   └── swagger.js
 │
 ├── database/
-│   ├── schema.sql
-│   └── seed.sql
+│   ├── migrations/
+│   └── seeders/
 │
-├── docs/
-│   └── architecture.md
+├── models/
+│   ├── User.model.js        # bảng user chung
+│   ├── Role.model.js        # customer / staff / owner
+│   ├── Product.model.js
+│   ├── Brand.model.js
+│   ├── Order.model.js
+│   └── OrderItem.model.js
 │
-└── README.md
+├── controllers/
+│   ├── auth/
+│   │   └── auth.controller.js
+│   │
+│   ├── customer/
+│   │   ├── customer.controller.js
+│   │   └── order.controller.js
+│   │
+│   ├── staff/
+│   │   ├── staff.controller.js
+│   │   └── product.controller.js
+│   │
+│   └── owner/
+│       ├── owner.controller.js
+│       ├── report.controller.js
+│       └── employee.controller.js
+│
+├── routes/
+│   ├── auth.routes.js
+│   ├── customer.routes.js
+│   ├── staff.routes.js
+│   └── owner.routes.js
+│
+├── middlewares/
+│   ├── auth.middleware.js        # xác thực JWT
+│   ├── role.middleware.js        # phân quyền
+│   ├── validate.middleware.js
+│   └── error.middleware.js
+│
+├── services/
+│   ├── auth.service.js
+│   ├── product.service.js
+│   ├── order.service.js
+│   └── recommendation.service.js   # gọi Python AI
+│
+└── utils/
+    ├── response.js
+    └── constants.js
+
+
+
+==============================================================
+ReactJS
+npm create vite@latest frontend
+✔ Select a framework: › React
+✔ Select a variant: › JavaScript
+
+http://localhost:5173
+
+cd frontend
+npm install
+npm run dev
+npm install axios react-router-dom
