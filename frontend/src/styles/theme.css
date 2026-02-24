@@ -169,3 +169,39 @@ main {
 .about-title i {
   color: #b085f5;
 }
+
+.badge-light-gray {
+  background-color: #f1f3f5;
+  color: var(--na-ink);
+  font-weight: 500;
+}
+
+.product-title a {
+  transition: color 0.3s ease;
+}
+
+.product-title a:hover {
+  color: var(--na-primary) !important;
+}
+
+.product-img {
+  height: 190px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  margin-top: 12px;        /* hạ hình xuống */
+}
+
+.card-na:hover .product-img {
+  transform: translateY(-8px);
+}
+
+/* Quan trọng: bỏ overflow hidden của card */
+.card-na {
+  border-radius: 12px;
+  padding-top: 8px;        /* tạo khoảng thở phía trên */
+  transition: box-shadow 0.3s ease;
+}
+
+.price {
+  font-size: 1.15rem;
+}

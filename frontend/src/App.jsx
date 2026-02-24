@@ -1,10 +1,19 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Layout from "./layout/Layout"
-import Home from "./pages/Home"
+import ProductList from "./pages/products/ProductList"
+import ProductDetail from "./pages/products/ProductDetail"
 
-export default function App() {
+function App() {
   return (
-    <Layout>
-      <Home />
-    </Layout>
+    <BrowserRouter>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<ProductList />} />
+          <Route path="/products/:id" element={<ProductDetail />} />
+        </Routes>
+      </Layout>
+    </BrowserRouter>
   )
 }
+
+export default App

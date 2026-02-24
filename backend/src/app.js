@@ -1,7 +1,8 @@
 // src/app.js
 import express from "express"
 import mongoose from "mongoose"
-import Product from "./models/Product.js"
+import productRoutes from "./routes/productRoutes.js"
+import cors from "cors"
 
 class App {
   constructor() {
@@ -12,6 +13,7 @@ class App {
   }
 
   setupMiddleware() {
+    this.app.use(cors())
     this.app.use(express.json())
   }
 
@@ -26,14 +28,7 @@ class App {
   }
 
   setupRoutes() {
-    this.app.get("/api/products", async (req, res) => {
-      try {
-        const products = await Product.find()
-        res.json(products)
-      } catch (err) {
-        res.status(500).json({ message: err.message })
-      }
-    })
+    this.app.use("/api/products", productRoutes)
   }
 
   start() {
