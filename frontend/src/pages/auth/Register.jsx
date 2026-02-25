@@ -134,18 +134,18 @@ export default function Register() {
 
             <div className="mb-3">
               <label className="form-label fw-medium">Email <span className="text-danger">*</span></label>
-              <input type="email" className="form-control" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+              <input type="email" className="form-control" placeholder="vd: example@gmail.com" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
             </div>
 
             <div className="mb-3">
               <label className="form-label fw-medium">Số điện thoại <span className="text-danger">*</span></label>
-              <input type="tel" className="form-control" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+              <input type="tel" className="form-control" placeholder="vd: 0123456789" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
             </div>
 
             <div className="mb-5">
               <label className="form-label fw-medium">Mật khẩu <span className="text-danger">*</span></label>
               <div className="input-group">
-                <input type={showPassword ? "text" : "password"} className="form-control" required value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
+                <input type={showPassword ? "text" : "password"} className="form-control" placeholder="vd: 123456" required value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
                 <span className="input-group-text" style={{ cursor: "pointer" }} onClick={() => setShowPassword(!showPassword)}>
                   <i className={`bi ${showPassword ? "bi-eye" : "bi-eye-slash"}`}></i>
                 </span>

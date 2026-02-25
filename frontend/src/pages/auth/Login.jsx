@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom"
 export default function Login() {
   const [form, setForm] = useState({ username: "", password: "" })
   const [error, setError] = useState("")
+  const [success, setSuccess] = useState("")
   const [showPassword, setShowPassword] = useState(false)
   const { login } = useContext(AuthContext)
   const navigate = useNavigate()
@@ -16,15 +17,19 @@ export default function Login() {
     try {
       const data = await loginUser(form)
       login(data)
-      navigate("/")
+      setSuccess("Đăng nhập thành công! Đang chuyển hướng...")
+      setError("")
+      setTimeout(() => navigate("/"), 1200)
     } catch (err) {
       setError(err.message)
+      setSuccess("")
     }
   }
 
   const handleReset = () => {
     setForm({ username: "", password: "" })
     setError("")
+    setSuccess("")
   }
 
   return (
@@ -34,17 +39,18 @@ export default function Login() {
           <h3 className="text-center mb-4 fw-bold text-primary">Đăng nhập</h3>
 
           {error && <div className="alert alert-danger">{error}</div>}
+          {success && <div className="alert alert-success">{success}</div>}
 
           <form onSubmit={handleSubmit} spellCheck="false">
             <div className="mb-3">
               <label className="form-label fw-medium">Tên đăng nhập <span className="text-danger">*</span></label>
-              <input type="text" className="form-control" placeholder="owner hoặc staff1" required value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} />
+              <input type="text" className="form-control" placeholder="vd: owner / staff1" required value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} />
             </div>
             
             <div className="mb-5">
               <label className="form-label fw-medium">Mật khẩu <span className="text-danger">*</span></label>
               <div className="input-group">
-                <input type={showPassword ? "text" : "password"} className="form-control" placeholder="123456" required value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
+                <input type={showPassword ? "text" : "password"} className="form-control" placeholder="vd: 123456" required value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
                 <span className="input-group-text" style={{ cursor: "pointer" }} onClick={() => setShowPassword(!showPassword)}>
                   <i className={`bi ${showPassword ? "bi-eye" : "bi-eye-slash"}`}></i>
                 </span>
