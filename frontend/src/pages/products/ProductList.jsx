@@ -1,3 +1,4 @@
+// src/pages/products/ProductList.jsx
 import { useEffect, useState, useMemo } from "react"
 import { Link } from "react-router-dom"
 import { getProducts } from "../../services/productService"

@@ -1,3 +1,4 @@
+// src/components/Sidebar.jsx
 export default function Sidebar({ open }) {
   return (
     <div className={`sidebar bg-white shadow-sm ${open ? "active" : ""}`}>

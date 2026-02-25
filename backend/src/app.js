@@ -1,8 +1,9 @@
 // src/app.js
+import cors from "cors"
 import express from "express"
 import mongoose from "mongoose"
 import productRoutes from "./routes/productRoutes.js"
-import cors from "cors"
+import authRoutes from "./routes/authRoutes.js"
 
 class App {
   constructor() {
@@ -29,6 +30,7 @@ class App {
 
   setupRoutes() {
     this.app.use("/api/products", productRoutes)
+    this.app.use("/api/auth", authRoutes)
   }
 
   start() {

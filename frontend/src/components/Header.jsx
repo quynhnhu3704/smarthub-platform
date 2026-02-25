@@ -1,3 +1,4 @@
+// src/components/Header.jsx
 export default function Header() {
   return (
     <header className="hero py-5 py-lg-6" style={{ height: "40vh" }}>
