@@ -5,17 +5,23 @@ import jwt from "jsonwebtoken"
 
 export const register = async (req, res) => {
   try {
-    const { name, email, phone, password } = req.body
+    const { name, username, email, phone, password } = req.body
 
     const existingUser = await User.findOne({ email })
     if (existingUser) {
       return res.status(400).json({ message: "Email already exists" })
     }
 
+    const existingUsername = await User.findOne({ username })
+    if (existingUsername) {
+      return res.status(400).json({ message: "Username already exists" })
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10)
 
     const user = await User.create({
       name,
+      username,
       email,
       phone,
       password: hashedPassword
@@ -30,9 +36,9 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
   try {
-    const { email, password } = req.body
+    const { username, password } = req.body
 
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ username })
     if (!user) {
       return res.status(400).json({ message: "Invalid credentials" })
     }
@@ -53,6 +59,7 @@ export const login = async (req, res) => {
       user: {
         id: user._id,
         name: user.name,
+        username: user.username,
         email: user.email,
         phone: user.phone,
         role: user.role

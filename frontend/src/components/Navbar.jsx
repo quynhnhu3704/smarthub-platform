@@ -36,14 +36,14 @@ export default function Navbar({ toggleSidebar }) {
             {user ? (
               <li className="nav-item dropdown ms-lg-2">
                 <button className="btn btn-primary dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown">
-                  <i className="bi bi-person-circle me-2"></i>{user.name}
+                  <i className="bi bi-person-circle me-2"></i>{user.username}
                 </button>
                 <ul className="dropdown-menu dropdown-menu-end shadow">
                   <li><a className="dropdown-item" href="#">Thông tin cá nhân</a></li>
                   <li><a className="dropdown-item" href="#">Đơn hàng của tôi</a></li>
                   <li><hr className="dropdown-divider" /></li>
                   <li>
-                    <a className="dropdown-item text-danger" href="#" onClick={(e) => { e.preventDefault(); logout() }}>
+                    <a className="dropdown-item text-danger" href="#" onClick={(e) => { e.preventDefault(); if (window.confirm("Bạn có chắc muốn đăng xuất không?")) logout() }}>
                       <i className="bi bi-box-arrow-right me-2"></i>Đăng xuất
                     </a>
                   </li>

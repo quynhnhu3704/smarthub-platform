@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/AuthContext"
 import { useNavigate } from "react-router-dom"
 
 export default function Login() {
-  const [form, setForm] = useState({ email: "", password: "" })
+  const [form, setForm] = useState({ username: "", password: "" })
   const [error, setError] = useState("")
   const [showPassword, setShowPassword] = useState(false)
   const { login } = useContext(AuthContext)
@@ -23,7 +23,7 @@ export default function Login() {
   }
 
   const handleReset = () => {
-    setForm({ email: "", password: "" })
+    setForm({ username: "", password: "" })
     setError("")
   }
 
@@ -37,14 +37,14 @@ export default function Login() {
 
           <form onSubmit={handleSubmit} spellCheck="false">
             <div className="mb-3">
-              <label className="form-label fw-medium">Email <span className="text-danger">*</span></label>
-              <input type="email" className="form-control" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+              <label className="form-label fw-medium">Tên đăng nhập <span className="text-danger">*</span></label>
+              <input type="text" className="form-control" placeholder="owner hoặc staff1" required value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} />
             </div>
-
+            
             <div className="mb-5">
               <label className="form-label fw-medium">Mật khẩu <span className="text-danger">*</span></label>
               <div className="input-group">
-                <input type={showPassword ? "text" : "password"} className="form-control" required value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
+                <input type={showPassword ? "text" : "password"} className="form-control" placeholder="123456" required value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
                 <span className="input-group-text" style={{ cursor: "pointer" }} onClick={() => setShowPassword(!showPassword)}>
                   <i className={`bi ${showPassword ? "bi-eye" : "bi-eye-slash"}`}></i>
                 </span>
@@ -62,9 +62,7 @@ export default function Login() {
 
             <div className="text-center mt-4 small">
               Bạn chưa có tài khoản?{" "}
-              <span className="text-primary fw-semibold" style={{ cursor: "pointer" }} onClick={() => navigate("/register")}>
-                Đăng ký ngay
-              </span>
+              <span className="text-primary fw-semibold" style={{ cursor: "pointer" }} onClick={() => navigate("/register")}>Đăng ký ngay</span>
             </div>
           </form>
         </div>
