@@ -8,6 +8,12 @@ export default function Navbar({ toggleSidebar }) {
   const navigate = useNavigate()
   const [keyword, setKeyword] = useState("")
 
+  const handleSearch = (e) => {
+    e.preventDefault()
+    if (keyword.trim()) navigate(`/products?keyword=${keyword.trim()}`)
+    else navigate("/products")
+  }
+
   return (
     <nav className="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
       <div className="container-fluid px-5">
@@ -16,20 +22,17 @@ export default function Navbar({ toggleSidebar }) {
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
           <span className="navbar-toggler-icon"></span>
         </button>
-
         <div id="nav" className="collapse navbar-collapse">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-2">
             <li className="nav-item me-4">
-              <form className="d-flex" onSubmit={(e) => { e.preventDefault(); if (keyword.trim()) navigate(`/products?keyword=${keyword}`) }}>
+              <form className="d-flex" onSubmit={handleSearch}>
                 <input className="form-control me-2" type="text" placeholder="Tìm điện thoại..." style={{ width: "220px" }} value={keyword} onChange={(e) => setKeyword(e.target.value)} />
                 <button className="btn btn-outline-primary" type="submit"><i className="bi bi-search"></i></button>
               </form>
             </li>
-
             <li className="nav-item"><a className="nav-link" href="/">Trang chủ</a></li>
             <li className="nav-item"><a className="nav-link" href="#products">Sản phẩm</a></li>
             <li className="nav-item"><a className="nav-link" href="#cart">Giỏ hàng</a></li>
-
             {user ? (
               <li className="nav-item dropdown ms-lg-2">
                 <button className="btn btn-primary dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown">

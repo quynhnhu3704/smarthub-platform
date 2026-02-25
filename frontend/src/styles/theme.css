@@ -205,3 +205,34 @@ main {
 .price {
   font-size: 1.15rem;
 }
+
+.pagination {
+  --bs-pagination-padding-x: 0.9rem;
+  --bs-pagination-padding-y: 0.55rem;
+  --bs-pagination-font-size: 1rem;
+}
+
+.page-link {
+  border-radius: 10px !important;
+  margin: 0 3px;
+  border: none;
+  background: #f1efff;
+  color: var(--na-primary);
+  transition: all .2s ease;
+}
+
+.page-link:hover {
+  background: var(--na-accent);
+  color: #fff;
+}
+
+.page-item.active .page-link {
+  background: var(--na-primary);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(91,33,182,.25);
+}
+
+.pagination {
+  background: transparent !important;
+  box-shadow: none !important;
+}

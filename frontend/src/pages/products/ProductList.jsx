@@ -1,38 +1,34 @@
 // src/pages/products/ProductList.jsx
-import { useEffect, useState, useMemo } from "react"
+import { useEffect, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { getProducts } from "../../services/productService"
 import Header from "../../components/Header"
 
 function ProductList() {
   const [products, setProducts] = useState([])
+  const [brands, setBrands] = useState([])
   const [selectedBrand, setSelectedBrand] = useState("")
   const [priceRange, setPriceRange] = useState("")
   const [sortOrder, setSortOrder] = useState("")
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
+  const productsPerPage = 10
+
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
   const keyword = queryParams.get("keyword") || ""
 
-  useEffect(() => { getProducts().then(setProducts).catch(console.error) }, [])
+  useEffect(() => { setCurrentPage(1) }, [keyword, selectedBrand, priceRange, sortOrder])
 
-  const brands = useMemo(() => { return [...new Set(products.map(p => p.brand))] }, [products])
-
-  const filteredProducts = useMemo(() => {
-    let result = products.filter(product => {
-      let matchBrand = true
-      let matchPrice = true
-      let matchKeyword = true
-      if (selectedBrand) { matchBrand = product.brand === selectedBrand }
-      if (priceRange === "low") { matchPrice = product.price < 5000000 }
-      else if (priceRange === "mid") { matchPrice = product.price >= 5000000 && product.price <= 15000000 }
-      else if (priceRange === "high") { matchPrice = product.price > 15000000 }
-      if (keyword) { matchKeyword = product.product_name.toLowerCase().includes(keyword.toLowerCase()) }
-      return matchBrand && matchPrice && matchKeyword
-    })
-    if (sortOrder === "asc") { result = result.sort((a, b) => a.price - b.price) }
-    else if (sortOrder === "desc") { result = result.sort((a, b) => b.price - a.price) }
-    return result
-  }, [products, selectedBrand, priceRange, sortOrder, keyword])
+  useEffect(() => {
+    getProducts(currentPage, productsPerPage, keyword, selectedBrand, priceRange, sortOrder)
+      .then(data => {
+        setProducts(data.products || [])
+        setTotalPages(data.totalPages || 1)
+        setBrands(data.brands || [])
+      })
+      .catch(console.error)
+  }, [currentPage, keyword, selectedBrand, priceRange, sortOrder])
 
   return (
     <>
@@ -41,12 +37,13 @@ function ProductList() {
         <div className="container-fluid px-4">
           <div className="row">
             <div className="col-12">
+
               <div className="d-flex flex-wrap align-items-end justify-content-between mb-4 gap-3">
                 <div>
                   {keyword ? (
                     <>
                       <h2 className="section-heading mb-1">Kết quả tìm kiếm cho "<span className="text-primary">{keyword}</span>"</h2>
-                      <div className="text-muted">Tìm thấy {filteredProducts.length} sản phẩm phù hợp</div>
+                      <div className="text-muted">Tìm thấy {products.length} sản phẩm phù hợp</div>
                     </>
                   ) : (
                     <>
@@ -57,19 +54,19 @@ function ProductList() {
                 </div>
 
                 <div className="d-flex gap-2">
-                  <select className="form-select" value={selectedBrand} onChange={(e) => setSelectedBrand(e.target.value)}>
+                  <select className="form-select" value={selectedBrand} onChange={e => setSelectedBrand(e.target.value)}>
                     <option value="">Tất cả brand</option>
-                    {brands.map(brand => (<option key={brand} value={brand}>{brand}</option>))}
+                    {brands.map(brand => <option key={brand} value={brand}>{brand}</option>)}
                   </select>
 
-                  <select className="form-select" value={priceRange} onChange={(e) => setPriceRange(e.target.value)}>
+                  <select className="form-select" value={priceRange} onChange={e => setPriceRange(e.target.value)}>
                     <option value="">Tất cả giá</option>
                     <option value="low">Dưới 5 triệu</option>
                     <option value="mid">5 - 15 triệu</option>
                     <option value="high">Trên 15 triệu</option>
                   </select>
 
-                  <select className="form-select" value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
+                  <select className="form-select" value={sortOrder} onChange={e => setSortOrder(e.target.value)}>
                     <option value="">Sắp xếp</option>
                     <option value="asc">Giá: Thấp → Cao</option>
                     <option value="desc">Giá: Cao → Thấp</option>
@@ -78,10 +75,10 @@ function ProductList() {
               </div>
 
               <div className="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4">
-                {filteredProducts.length === 0 && (<h5 className="text-muted">Không có sản phẩm phù hợp.</h5>)}
-                {filteredProducts.map(product => (
+                {products.length === 0 && <div className="col-12"><h5 className="text-muted">Không có sản phẩm phù hợp.</h5></div>}
+                {products.map(product => (
                   <div key={product._id} className="col">
-                    <div className="card-na h-100">
+                    <div className="card-na h-100 shadow-sm border-0">
                       <div className="position-relative overflow-hidden">
                         <Link to={`/products/${product._id}`}>
                           <img src={product.image_url} className="w-100 product-img" alt={product.product_name} />
@@ -96,11 +93,29 @@ function ProductList() {
                           <span className="badge badge-light-gray">{product.ram}GB RAM</span>
                           <span className="badge badge-light-gray">{product.storage}GB</span>
                         </div>
-                        <div className="price text-danger fw-bold">{product.price.toLocaleString()} ₫</div>
+                        <div className="price text-danger fw-bold">{product.price?.toLocaleString()} ₫</div>
                       </div>
                     </div>
                   </div>
                 ))}
+              </div>
+
+              <div className="d-flex justify-content-center mt-5">
+                <nav>
+                  <ul className="pagination pagination-lg shadow-sm">
+                    <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+                      <button className="page-link rounded-start" onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}>←</button>
+                    </li>
+                    {[...Array(totalPages)].map((_, index) => (
+                      <li key={index} className={`page-item ${currentPage === index + 1 ? "active" : ""}`}>
+                        <button className="page-link fw-semibold" onClick={() => setCurrentPage(index + 1)}>{index + 1}</button>
+                      </li>
+                    ))}
+                    <li className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}>
+                      <button className="page-link rounded-end" onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}>→</button>
+                    </li>
+                  </ul>
+                </nav>
               </div>
 
             </div>
