@@ -1,8 +1,8 @@
-// importCSV.js
+// scripts/importCSV.js
 import fs from "fs"
 import csv from "csv-parser"
 import mongoose from "mongoose"
-import Product from "./src/models/Product.js"
+import Product from "../src/models/Product.js"
 import dotenv from "dotenv"
 
 dotenv.config()
@@ -16,7 +16,7 @@ const runImport = async () => {
 
     const results = []
 
-    fs.createReadStream("products.csv")
+    fs.createReadStream("../data/products.csv")
       .pipe(
         csv({
           mapHeaders: ({ header }) =>
@@ -62,3 +62,5 @@ const runImport = async () => {
 }
 
 runImport()
+
+// To run this script, use the command: node scripts/importCSV.js
