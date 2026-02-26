@@ -1,4 +1,5 @@
-FROM node:18
+# frontend/Dockerfile
+FROM node:20
 
 WORKDIR /app
 
