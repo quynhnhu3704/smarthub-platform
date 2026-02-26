@@ -1,6 +1,4 @@
 # docker-compose.yml
-version: "3.9"
-
 services:
   mongo:
     image: mongo:6
@@ -21,9 +19,6 @@ services:
       - .env
     depends_on:
       - mongo
-    volumes:
-      - ./backend:/app
-    command: node server.js
 
   frontend:
     build: ./frontend
@@ -33,9 +28,6 @@ services:
       - "5173:5173"
     depends_on:
       - backend
-    volumes:
-      - ./frontend:/app
-    command: npm run dev -- --host
 
 volumes:
   mongo_data:

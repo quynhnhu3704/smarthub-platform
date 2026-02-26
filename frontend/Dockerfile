@@ -5,8 +5,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --legacy-peer-deps \
- && npm rebuild rollup
+RUN npm install --legacy-peer-deps
 
 COPY . .
 
