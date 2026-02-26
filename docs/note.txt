@@ -16,6 +16,58 @@ docker-compose build product
 docker-compose up product
 
 
+src/
+ ├─ components/
+ ├─ layouts/
+ │   ├─ MainLayout.jsx
+ │   └─ DashboardLayout.jsx
+ ├─ pages/
+ │   ├─ shop/                  // phía khách
+ │   │   ├─ ProductList.jsx
+ │   │   └─ ProductDetail.jsx
+ │   │
+ │   ├─ dashboard/             // quản lý nội bộ (staff + owner)
+ │   │   ├─ products/
+ │   │   │   ├─ ProductList.jsx
+ │   │   │   ├─ ProductCreate.jsx
+ │   │   │   ├─ ProductEdit.jsx
+ │   │   │   └─ ProductDetail.jsx (nếu cần xem)
+ │   │   │
+ │   │   ├─ users/              // quản lý user chung
+ │   │   │   ├─ UserList.jsx
+ │   │   │   ├─ UserCreate.jsx
+ │   │   │   ├─ UserEdit.jsx
+ │   │   │   └─ UserDetail.jsx
+ │   │   │
+ │   │   ├─ orders/
+ │   │   │   ├─ OrderList.jsx
+ │   │   │   └─ OrderDetail.jsx
+ │   │   │
+ │   │   └─ index.jsx           // dashboard home
+ │   │
+ │   ├─ account/                // profile cá nhân
+ │   │   ├─ Profile.jsx
+ │   │   └─ ChangePassword.jsx
+ │   │
+ │   └─ auth/
+ │       ├─ Login.jsx
+ │       └─ Register.jsx
+ │
+ ├─ services/
+ ├─ routes/
+ └─ App.jsx
+
+
+
+dashboard/products/
+dashboard/users/
+dashboard/orders/
+dashboard/categories/
+dashboard/brands/
+dashboard/reports/
+
+
+
 
 
 ============================================================================================================================

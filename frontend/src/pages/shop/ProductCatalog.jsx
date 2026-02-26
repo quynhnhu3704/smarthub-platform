@@ -1,10 +1,10 @@
-// src/pages/products/ProductList.jsx
+// src/pages/shop/ProductCatalog.jsx
 import { useEffect, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { getProducts } from "../../services/productService"
 import Header from "../../components/Header"
 
-function ProductList() {
+function ProductCatalog() {
   const [products, setProducts] = useState([])
   const [brands, setBrands] = useState([])
   const [selectedBrand, setSelectedBrand] = useState("")
@@ -137,4 +137,4 @@ function ProductList() {
   )
 }
 
-export default ProductList
+export default ProductCatalog

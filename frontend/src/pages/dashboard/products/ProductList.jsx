@@ -1,8 +1,9 @@
+// src/pages/dashboard/products/ProductList.jsx
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import axios from "axios"
 
-function ProductManagement() {
+function ProductList() {
   const [products, setProducts] = useState([])
   const [keyword, setKeyword] = useState("")
   const [loading, setLoading] = useState(true)
@@ -40,7 +41,7 @@ function ProductManagement() {
       </div>
 
       <div className="d-flex mx-auto justify-content-between align-items-center" style={{ width: "95%" }}>
-        <Link to="/admin/products/create" className="btn btn-primary fw-semibold">
+        <Link to="/dashboard/products/create" className="btn btn-primary fw-semibold">
           <i className="bi bi-database-add me-1"></i> Thêm sản phẩm
         </Link>
 
@@ -92,7 +93,7 @@ function ProductManagement() {
                     <td className="text-center">{p.battery} mAh</td>
                     <td className="text-center">{p.rating_value} ({p.rating_count})</td>
                     <td className="text-center">
-                      <Link to={`/admin/products/edit/${p._id}`} className="btn btn-sm btn-warning" style={{ fontSize: "0.95em" }}>
+                      <Link to={`/dashboard/products/edit/${p._id}`} className="btn btn-sm btn-warning" style={{ fontSize: "0.95em" }}>
                         <i className="bi bi-pencil-square"></i> Sửa
                       </Link>&nbsp;
                       <button onClick={() => handleDelete(p._id)} className="btn btn-sm btn-danger" style={{ fontSize: "0.95em" }}>
@@ -118,4 +119,4 @@ function ProductManagement() {
   )
 }
 
-export default ProductManagement
+export default ProductList

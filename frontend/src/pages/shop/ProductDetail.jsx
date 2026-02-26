@@ -1,4 +1,4 @@
-// src/pages/products/ProductDetail.jsx
+// src/pages/shop/ProductDetail.jsx
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { getProductById } from "../../services/productService"
