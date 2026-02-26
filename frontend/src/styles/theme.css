@@ -3,7 +3,9 @@
 :root{
   --na-primary: #6f42c1;   /* tím chủ đạo */
   --na-primary-2: #5936a3; /* tím đậm hơn */
+  --na-primary-3: #452783; /* tím đậm nhất */
   --na-accent: #b085f5;    /* tím nhạt accent */
+  --na-accent-strong: #8c5fe0; /* tím nhạt đậm hơn */
   --na-ink: #2c1f4a;       /* chữ đậm tím than */
   --na-muted: #7a6c9d;     /* chữ phụ */
   --na-bg: #f5f3fb;        /* nền tím rất nhạt */

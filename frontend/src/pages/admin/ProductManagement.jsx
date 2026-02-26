@@ -34,7 +34,10 @@ function ProductManagement() {
 
   return (
     <>
-      <h2 className="text-center fw-semibold my-3">Danh sách sản phẩm</h2>
+      <div className="text-center my-4">
+        <h2 className="fw-bold mb-1">Danh sách sản phẩm</h2>
+        <div className="text-muted">{products.length} sản phẩm</div>
+      </div>
 
       <div className="d-flex mx-auto justify-content-between align-items-center" style={{ width: "95%" }}>
         <Link to="/admin/products/create" className="btn btn-primary fw-semibold">
@@ -57,6 +60,8 @@ function ProductManagement() {
                 <th>Hình ảnh</th>
                 <th>Thương hiệu</th>
                 <th>Giá</th>
+                <th>Giá gốc</th>
+                <th>Tồn kho</th>
                 <th>RAM</th>
                 <th>Bộ nhớ</th>
                 <th>Pin</th>
@@ -68,7 +73,7 @@ function ProductManagement() {
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan="10">
+                  <td colSpan="12">
                     <h5 className="text-center text-muted">Đang tải dữ liệu...</h5>
                   </td>
                 </tr>
@@ -79,7 +84,9 @@ function ProductManagement() {
                     <td title={p.product_name}>{p.product_name}</td>
                     <td><img src={p.image_url} width="40" height="40" className="rounded d-block mx-auto" alt="" /></td>
                     <td className="text-center">{p.brand}</td>
-                    <td className="text-center">{p.price?.toLocaleString()} ₫</td>
+                    <td className="text-end">{p.price?.toLocaleString()} ₫</td>
+                    <td className="text-end">{p.original_price?.toLocaleString()} ₫</td>
+                    <td className="text-center">{p.stock}</td>
                     <td className="text-center">{p.ram} GB</td>
                     <td className="text-center">{p.storage} GB</td>
                     <td className="text-center">{p.battery} mAh</td>
@@ -96,7 +103,7 @@ function ProductManagement() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="10">
+                  <td colSpan="12">
                     <h5 className="text-center text-muted">Hiện chưa có sản phẩm nào.</h5>
                   </td>
                 </tr>
