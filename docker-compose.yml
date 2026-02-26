@@ -1,33 +1,33 @@
-# docker-compose.yml
-services:
-  mongo:
-    image: mongo:6
-    container_name: smarthub-mongo
-    restart: always
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo_data:/data/db
+# # docker-compose.yml
+# services:
+#   mongo:
+#     image: mongo:6
+#     container_name: smarthub-mongo
+#     restart: always
+#     ports:
+#       - "27017:27017"
+#     volumes:
+#       - mongo_data:/data/db
 
-  backend:
-    build: ./backend
-    container_name: smarthub-backend
-    restart: always
-    ports:
-      - "5000:5000"
-    env_file:
-      - .env
-    depends_on:
-      - mongo
+#   backend:
+#     build: ./backend
+#     container_name: smarthub-backend
+#     restart: always
+#     ports:
+#       - "5000:5000"
+#     env_file:
+#       - .env
+#     depends_on:
+#       - mongo
 
-  frontend:
-    build: ./frontend
-    container_name: smarthub-frontend
-    restart: always
-    ports:
-      - "5173:5173"
-    depends_on:
-      - backend
+#   frontend:
+#     build: ./frontend
+#     container_name: smarthub-frontend
+#     restart: always
+#     ports:
+#       - "5173:5173"
+#     depends_on:
+#       - backend
 
-volumes:
-  mongo_data:
+# volumes:
+#   mongo_data:
