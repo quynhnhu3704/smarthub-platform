@@ -1,3 +1,24 @@
+1.	Tắt hết container cũ:
+docker-compose down -v
+2.	Xây dựng lại image service nếu cần:
+docker-compose up --build -d
+
+
+3. Build sẵn container, chỉ start lên thôi: 
+docker-compose up -d
+
+
+
+docker-compose build product
+docker-compose up product
+
+
+
+
+============================================================================================================================
+
+
+
 NodeJS
 npm init -y
 npm install express dotenv
