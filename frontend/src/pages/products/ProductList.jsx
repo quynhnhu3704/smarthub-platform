@@ -76,28 +76,39 @@ function ProductList() {
 
               <div className="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4">
                 {products.length === 0 && <div className="col-12"><h5 className="text-muted">Không có sản phẩm phù hợp.</h5></div>}
-                {products.map(product => (
-                  <div key={product._id} className="col">
-                    <div className="card-na h-100 shadow-sm border-0">
-                      <div className="position-relative overflow-hidden">
-                        <Link to={`/products/${product._id}`}>
-                          <img src={product.image_url} className="w-100 product-img" alt={product.product_name} />
-                        </Link>
-                        <span className="position-absolute top-0 start-0 m-3 badge badge-na rounded-pill">{product.brand}</span>
-                      </div>
-                      <div className="p-3 p-lg-4 d-flex flex-column">
-                        <h6 className="fw-bold mb-2 product-title">
-                          <Link to={`/products/${product._id}`} className="text-decoration-none text-dark">{product.product_name}</Link>
-                        </h6>
-                        <div className="d-flex gap-2 mb-2">
-                          <span className="badge badge-light-gray">{product.ram}GB RAM</span>
-                          <span className="badge badge-light-gray">{product.storage}GB</span>
+                {products.map(product => {
+                  const discountPercent = product.original_price && product.original_price > product.price
+                    ? Math.round((1 - product.price / product.original_price) * 100)
+                    : 0
+                  return (
+                    <div key={product._id} className="col">
+                      <div className="card-na h-100 shadow-sm border-0">
+                        <div className="position-relative overflow-hidden">
+                          <Link to={`/products/${product._id}`}>
+                            <img src={product.image_url} className="w-100 product-img" alt={product.product_name} />
+                          </Link>
+                          <span className="position-absolute top-0 start-0 m-3 badge badge-na rounded-pill">{product.brand}</span>
+                          {discountPercent > 0 && (
+                            <span className="position-absolute top-0 end-0 m-3 badge bg-danger rounded-pill">-{discountPercent}%</span>
+                          )}
                         </div>
-                        <div className="price text-danger fw-bold">{product.price?.toLocaleString()} ₫</div>
+                        <div className="p-3 p-lg-4 d-flex flex-column">
+                          <h6 className="fw-bold mb-2 product-title">
+                            <Link to={`/products/${product._id}`} className="text-decoration-none text-dark">{product.product_name}</Link>
+                          </h6>
+                          <div className="d-flex gap-2 mb-2">
+                            <span className="badge badge-light-gray">{product.ram}GB RAM</span>
+                            <span className="badge badge-light-gray">{product.storage}GB</span>
+                          </div>
+                          <div className="price text-danger fw-bold">{product.price?.toLocaleString()} ₫</div>
+                          {product.original_price && product.original_price > product.price && (
+                            <div className="original-price text-muted">{product.original_price.toLocaleString()} ₫</div>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
 
               <div className="d-flex justify-content-center mt-5">

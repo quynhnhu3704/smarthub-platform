@@ -19,6 +19,8 @@ const productSchema = new mongoose.Schema(
     weight: { type: Number },
     rating_value: { type: Number },
     rating_count: { type: Number },
+    original_price: { type: Number },
+    stock: { type: Number },
     image_url: { type: String }
   }, 
   {

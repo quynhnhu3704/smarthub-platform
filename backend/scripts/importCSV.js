@@ -16,7 +16,7 @@ const runImport = async () => {
 
     const results = []
 
-    fs.createReadStream("../data/products.csv")
+    fs.createReadStream("./data/products.csv")
       .pipe(
         csv({
           mapHeaders: ({ header }) =>
@@ -30,6 +30,8 @@ const runImport = async () => {
             product_name: item.product_name,
             brand: item.brand,
             price: toNumber(item.price),
+            original_price: toNumber(item.original_price),
+            stock: toNumber(item.stock),
             ram: toNumber(item.ram),
             storage: toNumber(item.storage),
             screen_size: toNumber(item.screen_size),

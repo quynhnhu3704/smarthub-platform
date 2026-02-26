@@ -5,6 +5,7 @@ import ProductList from "./pages/products/ProductList"
 import ProductDetail from "./pages/products/ProductDetail"
 import Login from "./pages/auth/Login"
 import Register from "./pages/auth/Register"
+import ProductManagement from "./pages/admin/ProductManagement"
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/admin/products" element={<ProductManagement />} />
         </Routes>
       </Layout>
     </BrowserRouter>

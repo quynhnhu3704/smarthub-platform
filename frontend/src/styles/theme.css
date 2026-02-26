@@ -62,7 +62,7 @@ body {
   background: 
     radial-gradient(1200px 500px at 80% -20%, rgba(111,66,193,.35), transparent),
     radial-gradient(1000px 600px at -10% 10%, rgba(176,133,245,.25), transparent),
-    url('../../public/images/banner.jpg');
+    url('/images/banner.jpg');
   background-size: cover; 
   background-position: center; 
   color:#fff; 
@@ -235,4 +235,9 @@ main {
 .pagination {
   background: transparent !important;
   box-shadow: none !important;
+}
+
+.original-price {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;   /* mỏng hơn */
 }
