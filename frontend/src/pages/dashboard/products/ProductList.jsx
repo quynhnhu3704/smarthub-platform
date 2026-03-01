@@ -24,12 +24,21 @@ function ProductList() {
   const handleSearch = (e) => { e.preventDefault(); fetchProducts() }
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Bạn có chắc muốn xóa sản phẩm này không?")) return
+    if (!window.confirm("Bạn có chắc chắn muốn xóa sản phẩm này không?")) return
+
     try {
-      await axios.delete(`/api/products/${id}`)
-      fetchProducts()
+      const token = localStorage.getItem("token")
+
+      await axios.delete(`/api/products/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+
+      setProducts(prev => prev.filter(p => p._id !== id))
+
+      alert("Xóa sản phẩm thành công.")
     } catch (error) {
       console.error(error)
+      alert("Xóa sản phẩm thất bại.")
     }
   }
 
