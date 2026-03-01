@@ -10,6 +10,7 @@ import Register from "./pages/auth/Register"
 
 import ProductList from "./pages/dashboard/products/ProductList"
 import ProductCreate from "./pages/dashboard/products/ProductCreate"
+import ProductEdit from "./pages/dashboard/products/ProductEdit"
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
 
           <Route path="/dashboard/products" element={<ProductList />} />
           <Route path="/dashboard/products/create" element={<ProductCreate />} />
+          <Route path="/dashboard/products/edit/:id" element={<ProductEdit />} />
         </Routes>
       </Layout>
     </BrowserRouter>
