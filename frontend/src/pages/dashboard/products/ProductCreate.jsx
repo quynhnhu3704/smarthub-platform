@@ -6,6 +6,8 @@ import axios from "axios"
 function ProductCreate() {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
+  const [success, setSuccess] = useState("")
   const brands = ["Apple","Samsung","Xiaomi","OPPO","Motorola","Vivo","Realme","Nokia","OnePlus","Google","Huawei","Tecno","HONOR","Nothing","Nubia","Infinix","RedMagic"]
 
   const initialForm = { product_name:"", brand:"", price:"", original_price:"", stock:"", ram:"", storage:"", screen_size:"", resolution:"", chipset:"", os:"", rear_camera:"", front_camera:"", battery:"", dimensions:"", weight:"", image_url:"" }
@@ -17,15 +19,18 @@ function ProductCreate() {
     e.preventDefault()
     try {
       setLoading(true)
+      setError("")
+      setSuccess("")
       const token = localStorage.getItem("token")
       await axios.post("/api/products",
         { ...form, price:Number(form.price), original_price:Number(form.original_price), stock:Number(form.stock), ram:Number(form.ram), storage:Number(form.storage), screen_size:Number(form.screen_size), battery:Number(form.battery), weight:Number(form.weight) },
         { headers:{ Authorization:`Bearer ${token}` } }
       )
-      alert("Thêm sản phẩm thành công.")
-      navigate("/dashboard/products")
+      setSuccess("Thêm sản phẩm thành công. Đang chuyển trang...")
+      setTimeout(() => navigate("/dashboard/products"), 1500)
     } catch {
-      alert("Thêm sản phẩm thất bại.")
+      setError("Thêm sản phẩm thất bại.")
+      setSuccess("")
     } finally {
       setLoading(false)
     }
@@ -151,6 +156,9 @@ function ProductCreate() {
                   <button type="reset" className="btn btn-outline-secondary w-100" onClick={() => setForm(initialForm)}>Đặt lại</button>
                 </div>
               </div>
+
+              {error && <div className="alert alert-danger">{error}</div>}
+              {success && <div className="alert alert-success">{success}</div>}
 
             </form>
           </div>

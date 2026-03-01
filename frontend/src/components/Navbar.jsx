@@ -2,6 +2,7 @@
 import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { AuthContext } from "../context/AuthContext"
+import { Link } from "react-router-dom"
 
 export default function Navbar({ toggleSidebar }) {
   const { user, logout } = useContext(AuthContext)
@@ -30,22 +31,33 @@ export default function Navbar({ toggleSidebar }) {
                 <button className="btn btn-outline-primary" type="submit"><i className="bi bi-search"></i></button>
               </form>
             </li>
+
             <li className="nav-item"><a className="nav-link" href="/">Trang chủ</a></li>
             <li className="nav-item"><a className="nav-link" href="#products">Sản phẩm</a></li>
             <li className="nav-item"><a className="nav-link" href="#cart">Giỏ hàng</a></li>
+
             {user ? (
               <li className="nav-item dropdown ms-lg-2">
                 <button className="btn btn-primary dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown">
                   <i className="bi bi-person-circle me-2"></i>{user.username}
                 </button>
                 <ul className="dropdown-menu dropdown-menu-end shadow">
-                  <li><a className="dropdown-item" href="#">Thông tin cá nhân</a></li>
-                  <li><a className="dropdown-item" href="#">Đơn hàng của tôi</a></li>
+                  <li><Link className="dropdown-item" to="/profile">Thông tin cá nhân</Link></li>
+                  <li><Link className="dropdown-item" to="/change-password">Thay đổi mật khẩu</Link></li>
+                  <li><Link className="dropdown-item" to="/my-orders">Đơn hàng của tôi</Link></li>
                   <li><hr className="dropdown-divider" /></li>
                   <li>
-                    <a className="dropdown-item text-danger" href="#" onClick={(e) => { e.preventDefault(); if (window.confirm("Bạn có chắc muốn đăng xuất không?")) logout() }}>
+                    <button
+                      className="dropdown-item text-danger"
+                      onClick={() => {
+                        if (window.confirm("Bạn có chắc muốn đăng xuất không?")) {
+                          logout()
+                          navigate("/")
+                        }
+                      }}
+                    >
                       <i className="bi bi-box-arrow-right me-2"></i>Đăng xuất
-                    </a>
+                    </button>
                   </li>
                 </ul>
               </li>
