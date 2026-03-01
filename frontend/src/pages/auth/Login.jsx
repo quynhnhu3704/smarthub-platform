@@ -44,13 +44,13 @@ export default function Login() {
           <form onSubmit={handleSubmit} spellCheck="false">
             <div className="mb-3">
               <label className="form-label fw-medium">Tên đăng nhập <span className="text-danger">*</span></label>
-              <input type="text" className="form-control" placeholder="vd: owner / staff1" required value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} />
+              <input type="text" className="form-control" required value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} />
             </div>
             
             <div className="mb-5">
               <label className="form-label fw-medium">Mật khẩu <span className="text-danger">*</span></label>
               <div className="input-group">
-                <input type={showPassword ? "text" : "password"} className="form-control" placeholder="vd: 123456" required value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
+                <input type={showPassword ? "text" : "password"} className="form-control" required value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
                 <span className="input-group-text" style={{ cursor: "pointer" }} onClick={() => setShowPassword(!showPassword)}>
                   <i className={`bi ${showPassword ? "bi-eye" : "bi-eye-slash"}`}></i>
                 </span>

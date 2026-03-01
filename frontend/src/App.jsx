@@ -9,6 +9,7 @@ import Login from "./pages/auth/Login"
 import Register from "./pages/auth/Register"
 
 import ProductList from "./pages/dashboard/products/ProductList"
+import ProductCreate from "./pages/dashboard/products/ProductCreate"
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/register" element={<Register />} />
 
           <Route path="/dashboard/products" element={<ProductList />} />
+          <Route path="/dashboard/products/create" element={<ProductCreate />} />
         </Routes>
       </Layout>
     </BrowserRouter>
