@@ -55,6 +55,9 @@ export default function Profile() {
           <div className="card-body p-4">
             <h3 className="text-center mb-4 fw-bold text-primary">{editing ? "Chỉnh sửa hồ sơ" : "Thông tin cá nhân"}</h3>
 
+            {error && <div className="alert alert-danger">{error}</div>}
+            {success && <div className="alert alert-success">{success}</div>}
+
             {!editing ? (
               <>
                 <div className="mb-3">
@@ -77,9 +80,6 @@ export default function Profile() {
                   <label className="form-label fw-medium">Email</label>
                   <input type="email" className="form-control" value={user.email} disabled />
                 </div>
-
-                {success && <p className="text-success text-center">{success}</p>}
-                {error && <p className="text-danger text-center">{error}</p>}
 
                 <div className="text-center mb-2">
                   <button type="button" onClick={() => setEditing(true)} className="btn btn-outline-primary fw-semibold">
@@ -109,8 +109,6 @@ export default function Profile() {
                   <label className="form-label fw-medium">Email <span className="text-danger">*</span></label>
                   <input type="email" name="email" value={form.email} onChange={handleChange} className="form-control" required />
                 </div>
-
-                {error && <p className="text-danger text-center">{error}</p>}
 
                 <div className="row">
                   <div className="col-6 mb-2">

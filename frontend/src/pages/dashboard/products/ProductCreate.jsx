@@ -157,8 +157,8 @@ function ProductCreate() {
                 </div>
               </div>
 
-              {error && <div className="alert alert-danger">{error}</div>}
-              {success && <div className="alert alert-success">{success}</div>}
+              {error && <div className="alert alert-danger mt-3">{error}</div>}
+              {success && <div className="alert alert-success mt-3">{success}</div>}
 
             </form>
           </div>

@@ -9,6 +9,7 @@ import Login from "./pages/auth/Login"
 import Register from "./pages/auth/Register"
 
 import Profile from "./pages/profile/Profile"
+import ChangePassword from "./pages/profile/ChangePassword"
 
 import ProductList from "./pages/dashboard/products/ProductList"
 import ProductCreate from "./pages/dashboard/products/ProductCreate"
@@ -27,6 +28,7 @@ function App() {
           <Route path="/register" element={<Register />} />
 
           <Route path="/profile" element={<Profile />} />
+          <Route path="/change-password" element={<ChangePassword />} />
 
           <Route path="/dashboard/products" element={<ProductList />} />
           <Route path="/dashboard/products/create" element={<ProductCreate />} />

@@ -8,6 +8,9 @@ function ProductEdit() {
   const { id } = useParams()
   const [loading, setLoading] = useState(false)
   const [fetching, setFetching] = useState(true)
+  const [error, setError] = useState("")
+  const [success, setSuccess] = useState("")
+  const [originalData, setOriginalData] = useState(null)
 
   const brands = ["Apple","Samsung","Xiaomi","OPPO","Motorola","Vivo","Realme","Nokia","OnePlus","Google","Huawei","Tecno","HONOR","Nothing","Nubia","Infinix","RedMagic"]
 
@@ -21,9 +24,10 @@ function ProductEdit() {
       try {
         const res = await axios.get(`/api/products/${id}`)
         setForm(res.data)
+        setOriginalData({ ...res.data })
       } catch {
-        alert("Không tìm thấy sản phẩm.")
-        navigate("/dashboard/products")
+        setError("Không tìm thấy sản phẩm.")
+        setTimeout(() => navigate("/dashboard/products"), 1500)
       } finally {
         setFetching(false)
       }
@@ -35,12 +39,19 @@ function ProductEdit() {
     e.preventDefault()
     try {
       setLoading(true)
+      setError("")
+      setSuccess("")
       const token = localStorage.getItem("token")
-      await axios.put(`/api/products/${id}`, { ...form, price:Number(form.price), original_price:Number(form.original_price), stock:Number(form.stock), ram:Number(form.ram), storage:Number(form.storage), screen_size:Number(form.screen_size), battery:Number(form.battery), weight:Number(form.weight) }, { headers:{ Authorization:`Bearer ${token}` } })
-      alert("Cập nhật sản phẩm thành công.")
-      navigate("/dashboard/products")
+      await axios.put(
+        `/api/products/${id}`,
+        { ...form, price:Number(form.price), original_price:Number(form.original_price), stock:Number(form.stock), ram:Number(form.ram), storage:Number(form.storage), screen_size:Number(form.screen_size), battery:Number(form.battery), weight:Number(form.weight) },
+        { headers:{ Authorization:`Bearer ${token}` } }
+      )
+      setSuccess("Cập nhật sản phẩm thành công. Đang chuyển trang...")
+      setTimeout(() => navigate("/dashboard/products"), 1500)
     } catch {
-      alert("Cập nhật sản phẩm thất bại.")
+      setError("Cập nhật sản phẩm thất bại.")
+      setSuccess("")
     } finally {
       setLoading(false)
     }
@@ -165,9 +176,12 @@ function ProductEdit() {
                   <button type="submit" className="btn btn-primary w-100" disabled={loading}>{loading ? "Đang lưu..." : "Lưu"}</button>
                 </div>
                 <div className="col-6 mb-2">
-                  <button type="button" className="btn btn-outline-secondary w-100" onClick={() => setForm(initialForm)}>Đặt lại</button>
+                  <button type="button" className="btn btn-outline-secondary w-100" onClick={() => originalData && setForm({ ...originalData })}>Đặt lại</button>
                 </div>
               </div>
+
+              {error && <div className="alert alert-danger mt-3">{error}</div>}
+              {success && <div className="alert alert-success mt-3">{success}</div>}
 
             </form>
           </div>
