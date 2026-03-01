@@ -8,15 +8,9 @@ function ProductCreate() {
   const [loading, setLoading] = useState(false)
   const brands = ["Apple","Samsung","Xiaomi","OPPO","Motorola","Vivo","Realme","Nokia","OnePlus","Google","Huawei","Tecno","HONOR","Nothing","Nubia","Infinix","RedMagic"]
 
-  const initialForm = {
-    product_name: "", brand: "", price: "", original_price: "", stock: "",
-    ram: "", storage: "", screen_size: "", resolution: "", chipset: "", os: "",
-    rear_camera: "", front_camera: "", battery: "", dimensions: "", weight: "",
-    image_url: ""
-  }
+  const initialForm = { product_name:"", brand:"", price:"", original_price:"", stock:"", ram:"", storage:"", screen_size:"", resolution:"", chipset:"", os:"", rear_camera:"", front_camera:"", battery:"", dimensions:"", weight:"", image_url:"" }
 
   const [form, setForm] = useState(initialForm)
-
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value })
 
   const handleSubmit = async e => {
@@ -24,20 +18,9 @@ function ProductCreate() {
     try {
       setLoading(true)
       const token = localStorage.getItem("token")
-      await axios.post(
-        "/api/products",
-        {
-          ...form,
-          price: Number(form.price),
-          original_price: Number(form.original_price),
-          stock: Number(form.stock),
-          ram: Number(form.ram),
-          storage: Number(form.storage),
-          screen_size: Number(form.screen_size),
-          battery: Number(form.battery),
-          weight: Number(form.weight)
-        },
-        { headers: { Authorization: `Bearer ${token}` } }
+      await axios.post("/api/products",
+        { ...form, price:Number(form.price), original_price:Number(form.original_price), stock:Number(form.stock), ram:Number(form.ram), storage:Number(form.storage), screen_size:Number(form.screen_size), battery:Number(form.battery), weight:Number(form.weight) },
+        { headers:{ Authorization:`Bearer ${token}` } }
       )
       alert("Thêm sản phẩm thành công.")
       navigate("/dashboard/products")
@@ -51,10 +34,12 @@ function ProductCreate() {
   return (
     <>
       <button type="button" className="btn btn-outline-primary ms-4 my-4" onClick={() => navigate(-1)}>← Quay lại</button>
+
       <div className="container d-flex justify-content-center align-items-center mb-5">
-        <div className="card-na border-0" style={{ maxWidth: "38rem", width: "100%" }}>
+        <div className="card-na border-0" style={{ maxWidth:"38rem", width:"100%" }}>
           <div className="card-body p-4">
             <h3 className="text-center mb-4 fw-bold text-primary">Thêm sản phẩm</h3>
+
             <form onSubmit={handleSubmit} spellCheck="false">
 
               <div className="mb-3">
@@ -67,7 +52,7 @@ function ProductCreate() {
                   <label className="form-label fw-medium">Thương hiệu <span className="text-danger">*</span></label>
                   <select name="brand" className="form-select" value={form.brand} onChange={handleChange} required>
                     <option value="">-- Chọn thương hiệu --</option>
-                    {brands.map((b, i) => <option key={i} value={b}>{b}</option>)}
+                    {brands.map((b,i)=>(<option key={i} value={b}>{b}</option>))}
                   </select>
                 </div>
                 <div className="col-6 mb-3">
@@ -145,6 +130,13 @@ function ProductCreate() {
                   <input type="number" name="weight" className="form-control" value={form.weight} onChange={handleChange} required />
                 </div>
               </div>
+
+              {form.image_url && (
+                <div className="mb-3">
+                  <div className="fw-medium mb-2">Ảnh đang hiển thị</div>
+                  <img src={form.image_url} alt="preview" style={{ width:"150px", height:"150px", objectFit:"cover" }} className="rounded-4 mb-2" />
+                </div>
+              )}
 
               <div className="mb-4">
                 <label className="form-label fw-medium">URL Hình ảnh <span className="text-danger">*</span></label>
