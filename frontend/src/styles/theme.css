@@ -255,9 +255,9 @@ main {
 
 /* SweetAlert popup đồng bộ card-na */
 .na-swal-popup {
-  width: 25rem;
+  width: 22.5rem;
   border-radius: 1.75rem !important;
-  padding: 1.6rem;
+  padding: 1.5rem;
   font-size: small;
 }
 

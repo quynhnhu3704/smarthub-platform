@@ -6,6 +6,10 @@ import Swal from "sweetalert2"
 
 function ProductList() {
   const [products, setProducts] = useState([])
+  const [brands, setBrands] = useState([])
+  const [selectedBrand, setSelectedBrand] = useState("")
+  const [priceRange, setPriceRange] = useState("")
+  const [sortOrder, setSortOrder] = useState("")
   const [keyword, setKeyword] = useState("")
   const [loading, setLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
@@ -13,37 +17,32 @@ function ProductList() {
   const [totalProducts, setTotalProducts] = useState(0)
   const productsPerPage = 10
 
-  const fetchProducts = async (page = currentPage, key = keyword) => {
+  const fetchProducts = async (page = currentPage, key = keyword, brand = selectedBrand, price = priceRange, sort = sortOrder) => {
     setLoading(true)
     try {
-      const { data } = await axios.get(`/api/products?keyword=${key}&limit=${productsPerPage}&page=${page}`)
+      const { data } = await axios.get(`/api/products?keyword=${key}&brand=${brand}&priceRange=${price}&sort=${sort}&limit=${productsPerPage}&page=${page}`)
       setProducts(data.products || [])
       setTotalPages(data.totalPages || 1)
       setTotalProducts(data.totalProducts || 0)
-    } catch (error) {
-      console.error(error)
-    }
+      setBrands(data.brands || [])
+    } catch (error) { console.error(error) }
     setLoading(false)
   }
 
-  useEffect(() => { fetchProducts(currentPage) }, [currentPage])
+  useEffect(() => { setCurrentPage(1) }, [selectedBrand, priceRange, sortOrder])
+  useEffect(() => { fetchProducts(currentPage) }, [currentPage, selectedBrand, priceRange, sortOrder])
 
   const handleSearch = (e) => { e.preventDefault(); setCurrentPage(1); fetchProducts(1, keyword) }
 
   const handleDelete = async (id) => {
     const result = await Swal.fire({
-      title: "Xác nhận xoá sản phẩm",
-      text: "Thao tác này sẽ xoá vĩnh viễn dữ liệu.",
+      title: "Xoá sản phẩm?",
+      text: "Hành động này không thể hoàn tác.",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Xoá",
+      confirmButtonText: "Xoá ngay",
       cancelButtonText: "Huỷ",
-      customClass: {
-        popup: "na-swal-popup",
-        confirmButton: "btn btn-danger",
-        cancelButton: "btn btn-outline-secondary",
-        actions: "d-flex justify-content-center gap-2 mt-4"
-      },
+      customClass: { popup: "na-swal-popup", confirmButton: "btn btn-danger", cancelButton: "btn btn-outline-secondary", actions: "d-flex justify-content-center gap-2 mt-4" },
       buttonsStyling: false
     })
     if (!result.isConfirmed) return
@@ -51,23 +50,9 @@ function ProductList() {
       const token = localStorage.getItem("token")
       await axios.delete(`/api/products/${id}`, { headers: { Authorization: `Bearer ${token}` } })
       fetchProducts(currentPage)
-      await Swal.fire({
-        icon: "success",
-        title: "Đã xoá",
-        text: "Sản phẩm đã được loại khỏi hệ thống.",
-        timer: 1300,
-        showConfirmButton: false,
-        customClass: { popup: "na-swal-popup" }
-      })
+      await Swal.fire({ icon: "success", title: "Đã xoá", text: "Sản phẩm đã được xoá.", timer: 1300, showConfirmButton: false, customClass: { popup: "na-swal-popup" } })
     } catch {
-      Swal.fire({
-        icon: "error",
-        title: "Xoá thất bại",
-        text: "Vui lòng thử lại sau.",
-        confirmButtonText: "Đóng",
-        customClass: { popup: "na-swal-popup", confirmButton: "btn btn-primary" },
-        buttonsStyling: false
-      })
+      Swal.fire({ icon: "error", title: "Xoá thất bại", text: "Vui lòng thử lại sau.", confirmButtonText: "Đóng", customClass: { popup: "na-swal-popup", confirmButton: "btn btn-primary" }, buttonsStyling: false })
     }
   }
 
@@ -88,13 +73,27 @@ function ProductList() {
         </form>
       </div>
 
+      <div className="d-flex mx-auto justify-content-end gap-2 my-4" style={{ width: "95%" }}>
+        <select className="form-select" style={{ width: "200px" }} value={selectedBrand} onChange={e => setSelectedBrand(e.target.value)}>
+          <option value="">Tất cả brand</option>
+          {brands.map(brand => <option key={brand} value={brand}>{brand}</option>)}
+        </select>
+        <select className="form-select" style={{ width: "200px" }} value={priceRange} onChange={e => setPriceRange(e.target.value)}>
+          <option value="">Tất cả giá</option>
+          <option value="low">Dưới 5 triệu</option>
+          <option value="mid">5 - 15 triệu</option>
+          <option value="high">Trên 15 triệu</option>
+        </select>
+        <select className="form-select" style={{ width: "200px" }} value={sortOrder} onChange={e => setSortOrder(e.target.value)}>
+          <option value="">Sắp xếp</option>
+          <option value="asc">Giá: Thấp → Cao</option>
+          <option value="desc">Giá: Cao → Thấp</option>
+        </select>
+      </div>
+
       <div className="d-flex justify-content-center">
-        <div className="table-responsive my-5 position-relative" style={{ width: "95%" }}>
-          {loading && (
-            <div className="position-absolute top-0 end-0 p-2">
-              <div className="spinner-border spinner-border-sm text-primary" role="status"></div>
-            </div>
-          )}
+        <div className="table-responsive position-relative" style={{ width: "95%" }}>
+          {loading && <div className="position-absolute top-0 end-0 p-2"><div className="spinner-border spinner-border-sm text-primary" role="status"></div></div>}
           <table className="table table-striped table-hover table-borderless align-middle" style={{ fontSize: "0.85em" }}>
             <thead className="text-center">
               <tr>
@@ -134,7 +133,7 @@ function ProductList() {
         </div>
       </div>
 
-      <div className="d-flex justify-content-center mb-5">
+      <div className="d-flex justify-content-center my-5">
         <nav>
           <ul className="pagination pagination-lg shadow-sm">
             <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>

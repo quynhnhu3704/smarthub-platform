@@ -1,18 +1,30 @@
-// src/components/Navbar.jsx
 import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { AuthContext } from "../context/AuthContext"
 import { Link } from "react-router-dom"
+import Swal from "sweetalert2"
 
 export default function Navbar({ toggleSidebar }) {
   const { user, logout } = useContext(AuthContext)
   const navigate = useNavigate()
   const [keyword, setKeyword] = useState("")
 
-  const handleSearch = (e) => {
-    e.preventDefault()
-    if (keyword.trim()) navigate(`/products?keyword=${keyword.trim()}`)
-    else navigate("/products")
+  const handleSearch = (e) => { e.preventDefault(); if (keyword.trim()) navigate(`/products?keyword=${keyword.trim()}`); else navigate("/products") }
+
+  const handleLogout = async () => {
+    const result = await Swal.fire({
+      title: "Đăng xuất?",
+      text: "Bạn có chắc chắn muốn đăng xuất?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Đăng xuất",
+      cancelButtonText: "Huỷ",
+      customClass: { popup: "na-swal-popup", confirmButton: "btn btn-danger", cancelButton: "btn btn-outline-secondary", actions: "d-flex justify-content-center gap-2 mt-4" },
+      buttonsStyling: false
+    })
+    if (!result.isConfirmed) return
+    logout()
+    navigate("/")
   }
 
   return (
@@ -20,9 +32,7 @@ export default function Navbar({ toggleSidebar }) {
       <div className="container-fluid px-5">
         <button className="btn btn-outline-primary me-3" onClick={toggleSidebar}>&#9776;</button>
         <a className="navbar-brand fw-bold ms-3" href="/"><i className="bi bi-phone me-2"></i>SmartHub</a>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
-          <span className="navbar-toggler-icon"></span>
-        </button>
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"><span className="navbar-toggler-icon"></span></button>
         <div id="nav" className="collapse navbar-collapse">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-2">
             <li className="nav-item me-4">
@@ -31,31 +41,19 @@ export default function Navbar({ toggleSidebar }) {
                 <button className="btn btn-outline-primary" type="submit"><i className="bi bi-search"></i></button>
               </form>
             </li>
-
             <li className="nav-item"><a className="nav-link" href="/">Trang chủ</a></li>
             <li className="nav-item"><a className="nav-link" href="#products">Sản phẩm</a></li>
             <li className="nav-item"><a className="nav-link" href="#cart">Giỏ hàng</a></li>
-
             {user ? (
               <li className="nav-item dropdown ms-lg-2">
-                <button className="btn btn-primary dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown">
-                  <i className="bi bi-person-circle me-2"></i>{user.username}
-                </button>
+                <button className="btn btn-primary dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown"><i className="bi bi-person-circle me-2"></i>{user.username}</button>
                 <ul className="dropdown-menu dropdown-menu-end shadow">
                   <li><Link className="dropdown-item" to="/profile">Thông tin cá nhân</Link></li>
                   <li><Link className="dropdown-item" to="/change-password">Đổi mật khẩu</Link></li>
                   <li><Link className="dropdown-item" to="/my-orders">Đơn hàng của tôi</Link></li>
                   <li><hr className="dropdown-divider" /></li>
                   <li>
-                    <button
-                      className="dropdown-item text-danger"
-                      onClick={() => {
-                        if (window.confirm("Bạn có chắc muốn đăng xuất không?")) {
-                          logout()
-                          navigate("/")
-                        }
-                      }}
-                    >
+                    <button className="dropdown-item text-danger" onClick={handleLogout}>
                       <i className="bi bi-box-arrow-right me-2"></i>Đăng xuất
                     </button>
                   </li>

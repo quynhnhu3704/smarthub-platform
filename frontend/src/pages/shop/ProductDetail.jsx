@@ -7,8 +7,17 @@ function ProductDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
   const [product, setProduct] = useState(null)
+  const [loading, setLoading] = useState(true)
 
-  useEffect(() => { getProductById(id).then(setProduct).catch(console.error) }, [id])
+  useEffect(() => {
+    setLoading(true)
+    getProductById(id)
+      .then(res => setProduct(res))
+      .catch(console.error)
+      .finally(() => setLoading(false))
+  }, [id])
+
+  if (loading) return <div className="text-center mt-5">Đang tải...</div>
 
   if (!product) {
     return (
@@ -66,24 +75,19 @@ function ProductDetail() {
               <div className="row g-3">
                 <div className="col-md-6"><div className="p-3 bg-white rounded-3 shadow-sm h-100"><div className="text-muted small mb-1">Chipset</div><div className="fw-semibold">{product.chipset}</div></div></div>
                 <div className="col-md-6"><div className="p-3 bg-white rounded-3 shadow-sm h-100"><div className="text-muted small mb-1">Hệ điều hành</div><div className="fw-semibold">{product.os}</div></div></div>
-
                 <div className="col-md-4"><div className="p-3 bg-white rounded-3 shadow-sm h-100"><div className="text-muted small mb-1">RAM</div><div className="fw-semibold">{product.ram} GB</div></div></div>
                 <div className="col-md-4"><div className="p-3 bg-white rounded-3 shadow-sm h-100"><div className="text-muted small mb-1">Bộ nhớ</div><div className="fw-semibold">{product.storage} GB</div></div></div>
                 <div className="col-md-4"><div className="p-3 bg-white rounded-3 shadow-sm h-100"><div className="text-muted small mb-1">Màn hình</div><div className="fw-semibold">{product.screen_size} inch</div></div></div>
-
                 <div className="col-md-4"><div className="p-3 bg-white rounded-3 shadow-sm h-100"><div className="text-muted small mb-1">Độ phân giải</div><div className="fw-semibold">{product.resolution}</div></div></div>
                 <div className="col-md-4"><div className="p-3 bg-white rounded-3 shadow-sm h-100"><div className="text-muted small mb-1">Camera sau</div><div className="fw-semibold">{product.rear_camera}</div></div></div>
                 <div className="col-md-4"><div className="p-3 bg-white rounded-3 shadow-sm h-100"><div className="text-muted small mb-1">Camera trước</div><div className="fw-semibold">{product.front_camera}</div></div></div>
-
                 <div className="col-md-4"><div className="p-3 bg-white rounded-3 shadow-sm h-100"><div className="text-muted small mb-1">Pin</div><div className="fw-semibold">{product.battery} mAh</div></div></div>
                 <div className="col-md-4"><div className="p-3 bg-white rounded-3 shadow-sm h-100"><div className="text-muted small mb-1">Kích thước</div><div className="fw-semibold">{product.dimensions}</div></div></div>
                 <div className="col-md-4"><div className="p-3 bg-white rounded-3 shadow-sm h-100"><div className="text-muted small mb-1">Trọng lượng</div><div className="fw-semibold">{product.weight} g</div></div></div>
               </div>
             </div>
 
-            <button className="btn btn-primary btn-lg mt-auto align-self-start fw-semibold d-flex align-items-center gap-2">
-              <i className="bi bi-cart-plus fs-5"></i> Thêm vào giỏ hàng
-            </button>
+            <button className="btn btn-primary btn-lg mt-auto align-self-start fw-semibold d-flex align-items-center gap-2"><i className="bi bi-cart-plus fs-5"></i> Thêm vào giỏ hàng</button>
 
           </div>
         </div>
