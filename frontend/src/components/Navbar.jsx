@@ -43,7 +43,7 @@ export default function Navbar({ toggleSidebar }) {
                 </button>
                 <ul className="dropdown-menu dropdown-menu-end shadow">
                   <li><Link className="dropdown-item" to="/profile">Thông tin cá nhân</Link></li>
-                  <li><Link className="dropdown-item" to="/change-password">Thay đổi mật khẩu</Link></li>
+                  <li><Link className="dropdown-item" to="/change-password">Đổi mật khẩu</Link></li>
                   <li><Link className="dropdown-item" to="/my-orders">Đơn hàng của tôi</Link></li>
                   <li><hr className="dropdown-divider" /></li>
                   <li>

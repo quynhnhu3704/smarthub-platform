@@ -53,7 +53,7 @@ export default function Profile() {
       <div className="container d-flex justify-content-center align-items-center mb-5">
         <div className="card-na border-0" style={{ maxWidth: "32rem", width: "100%" }}>
           <div className="card-body p-4">
-            <h3 className="text-center mb-4 fw-bold text-primary">{editing ? "Chỉnh sửa hồ sơ" : "Thông tin cá nhân"}</h3>
+            <h3 className="text-center mb-4 fw-bold text-primary">{editing ? "Chỉnh sửa thông tin" : "Thông tin cá nhân"}</h3>
 
             {error && <div className="alert alert-danger">{error}</div>}
             {success && <div className="alert alert-success">{success}</div>}
