@@ -251,3 +251,16 @@ main {
   text-decoration: line-through;
   text-decoration-thickness: 1px;   /* mỏng hơn */
 }
+
+
+/* SweetAlert popup đồng bộ card-na */
+.na-swal-popup {
+  width: 25rem;
+  border-radius: 1.75rem !important;
+  padding: 1.6rem;
+  font-size: small;
+}
+
+.swal2-icon {
+  margin-top: 0.5rem;
+}

@@ -24,7 +24,12 @@ export const getProducts = async (req, res) => {
 
     const total = await Product.countDocuments(query)
     const products = await Product.find(query).sort(sort).skip(skip).limit(limit)
-    const brands = await Product.distinct("brand", query)
+    
+    // chỉ lấy brand theo keyword, không phụ thuộc priceRange
+    let brandQuery = {}
+    if (keyword) brandQuery.product_name = { $regex: keyword, $options: "i" }
+
+    const brands = await Product.distinct("brand", brandQuery)
 
     res.json({
       products,

@@ -12,13 +12,25 @@ function ProductCatalog() {
   const [sortOrder, setSortOrder] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
+  const [totalProducts, setTotalProducts] = useState(0)
   const productsPerPage = 10
 
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
   const keyword = queryParams.get("keyword") || ""
 
-  useEffect(() => { setCurrentPage(1) }, [keyword, selectedBrand, priceRange, sortOrder])
+  // ✅ Khi search thì reset toàn bộ filter
+  useEffect(() => {
+    setSelectedBrand("")
+    setPriceRange("")
+    setSortOrder("")
+    setCurrentPage(1)
+  }, [keyword])
+
+  // ✅ Khi filter/sort thì chỉ reset page
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [selectedBrand, priceRange, sortOrder])
 
   useEffect(() => {
     getProducts(currentPage, productsPerPage, keyword, selectedBrand, priceRange, sortOrder)
@@ -26,6 +38,7 @@ function ProductCatalog() {
         setProducts(data.products || [])
         setTotalPages(data.totalPages || 1)
         setBrands(data.brands || [])
+        setTotalProducts(data.totalProducts || 0)
       })
       .catch(console.error)
   }, [currentPage, keyword, selectedBrand, priceRange, sortOrder])
@@ -43,7 +56,7 @@ function ProductCatalog() {
                   {keyword ? (
                     <>
                       <h2 className="section-heading mb-1">Kết quả tìm kiếm cho "<span className="text-primary">{keyword}</span>"</h2>
-                      <div className="text-muted">Tìm thấy {products.length} sản phẩm phù hợp</div>
+                      <div className="text-muted">Tìm thấy {totalProducts} sản phẩm phù hợp</div>
                     </>
                   ) : (
                     <>
