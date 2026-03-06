@@ -15,6 +15,15 @@ import ProductList from "./pages/dashboard/products/ProductList"
 import ProductCreate from "./pages/dashboard/products/ProductCreate"
 import ProductEdit from "./pages/dashboard/products/ProductEdit"
 
+import CustomerList from "./pages/dashboard/customers/CustomerList"
+import CustomerCreate from "./pages/dashboard/customers/CustomerCreate"
+import CustomerEdit from "./pages/dashboard/customers/CustomerEdit"
+
+import StaffList from "./pages/dashboard/staff/StaffList"
+import StaffCreate from "./pages/dashboard/staff/StaffCreate"
+import StaffEdit from "./pages/dashboard/staff/StaffEdit"
+
+
 function App() {
   return (
     <BrowserRouter>
@@ -33,6 +42,14 @@ function App() {
           <Route path="/dashboard/products" element={<ProductList />} />
           <Route path="/dashboard/products/create" element={<ProductCreate />} />
           <Route path="/dashboard/products/edit/:id" element={<ProductEdit />} />
+
+          <Route path="/dashboard/customers" element={<CustomerList />} />
+          <Route path="/dashboard/customers/create" element={<CustomerCreate />} />
+          <Route path="/dashboard/customers/edit/:id" element={<CustomerEdit />} />
+
+          <Route path="/dashboard/staff" element={<StaffList />} />
+          <Route path="/dashboard/staff/create" element={<StaffCreate />} />
+          <Route path="/dashboard/staff/edit/:id" element={<StaffEdit />} />
         </Routes>
       </Layout>
     </BrowserRouter>

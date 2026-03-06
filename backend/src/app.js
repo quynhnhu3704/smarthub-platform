@@ -5,6 +5,8 @@ import mongoose from "mongoose"
 import productRoutes from "./routes/productRoutes.js"
 import authRoutes from "./routes/authRoutes.js"
 import userRoutes from "./routes/userRoutes.js"
+import customerRoutes from "./routes/customerRoutes.js"
+import staffRoutes from "./routes/staffRoutes.js"
 
 class App {
   constructor() {
@@ -33,6 +35,8 @@ class App {
     this.app.use("/api/products", productRoutes)
     this.app.use("/api/auth", authRoutes)
     this.app.use("/api/users", userRoutes)
+    this.app.use("/api/customers", customerRoutes)
+    this.app.use("/api/staff", staffRoutes)
   }
 
   start() {

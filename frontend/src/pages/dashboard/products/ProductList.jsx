@@ -20,13 +20,25 @@ function ProductList() {
   const fetchProducts = async (page = currentPage, key = keyword, brand = selectedBrand, price = priceRange, sort = sortOrder) => {
     setLoading(true)
     try {
-      const { data } = await axios.get(`/api/products?keyword=${key}&brand=${brand}&priceRange=${price}&sort=${sort}&limit=${productsPerPage}&page=${page}`)
+      const { data } = await axios.get("/api/products", {
+        params: {
+          keyword: key,
+          brand: brand,
+          priceRange: price,
+          sortOrder: sort,
+          limit: productsPerPage,
+          page: page
+        }
+      })
       setProducts(data.products || [])
       setTotalPages(data.totalPages || 1)
       setTotalProducts(data.totalProducts || 0)
       setBrands(data.brands || [])
-    } catch (error) { console.error(error) }
-    setLoading(false)
+    } catch (error) { 
+      console.error(error) 
+    } finally {
+      setLoading(false)
+    }
   }
 
   useEffect(() => { setCurrentPage(1) }, [selectedBrand, priceRange, sortOrder])
@@ -97,7 +109,7 @@ function ProductList() {
           <table className="table table-striped table-hover table-borderless align-middle" style={{ fontSize: "0.85em" }}>
             <thead className="text-center">
               <tr>
-                <th>STT</th><th>Tên sản phẩm</th><th>Hình ảnh</th><th>Thương hiệu</th><th>Giá</th><th>Giá gốc</th><th>Tồn kho</th><th>RAM</th><th>Bộ nhớ</th><th>Pin</th><th>Đánh giá</th><th>Thao tác</th>
+                <th>STT</th><th>Tên sản phẩm</th><th>Hình ảnh</th><th>Thương hiệu</th><th>Giá</th><th>Giá gốc</th><th>Tồn kho</th><th>Đánh giá</th><th>Ngày tạo</th><th>Thao tác</th>
               </tr>
             </thead>
             <tbody>
@@ -111,10 +123,8 @@ function ProductList() {
                     <td className="text-end">{p.price?.toLocaleString()} ₫</td>
                     <td className="text-end">{p.original_price?.toLocaleString()} ₫</td>
                     <td className="text-center">{p.stock}</td>
-                    <td className="text-center">{p.ram} GB</td>
-                    <td className="text-center">{p.storage} GB</td>
-                    <td className="text-center">{p.battery} mAh</td>
                     <td className="text-center">{p.rating_value} ({p.rating_count})</td>
+                    <td className="text-center">{new Date(p.createdAt).toLocaleString("sv-SE").replace("T", " ")}</td>
                     <td className="text-center">
                       <Link to={`/dashboard/products/edit/${p._id}`} className="btn btn-sm btn-warning" style={{ fontSize: "0.95em" }}>
                         <i className="bi bi-pencil-square"></i> Sửa
