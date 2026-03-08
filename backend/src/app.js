@@ -7,6 +7,7 @@ import authRoutes from "./routes/authRoutes.js"
 import userRoutes from "./routes/userRoutes.js"
 import customerRoutes from "./routes/customerRoutes.js"
 import staffRoutes from "./routes/staffRoutes.js"
+import cartRoutes from "./routes/cartRoutes.js"
 
 class App {
   constructor() {
@@ -37,6 +38,7 @@ class App {
     this.app.use("/api/users", userRoutes)
     this.app.use("/api/customers", customerRoutes)
     this.app.use("/api/staff", staffRoutes)
+    this.app.use("/api/cart", cartRoutes)
   }
 
   start() {
