@@ -38,101 +38,107 @@ function ProductCreate() {
 
   return (
     <>
-      <button type="button" className="btn btn-outline-primary ms-4 my-4" onClick={() => navigate(-1)}>← Quay lại</button>
+      <button type="button" className="btn btn-outline-primary ms-4 my-4" onClick={() => navigate(-1)}><i class="bi bi-arrow-left"></i> Quay lại</button>
 
-      <div className="container d-flex justify-content-center align-items-center mb-5">
+      <div className="container d-flex justify-content-center align-items-center mb-5 position-relative">
         <div className="card-na border-0" style={{ maxWidth:"38rem", width:"100%" }}>
-          <div className="card-body p-4">
+          <div className="card-body p-4 position-relative">
             <h3 className="text-center mb-4 fw-bold text-primary">Thêm sản phẩm</h3>
+
+            {loading && (
+              <div className="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-white bg-opacity-75 z-2 rounded">
+                <div className="spinner-border text-primary" role="status"><span className="visually-hidden">Loading...</span></div>
+              </div>
+            )}
 
             <form onSubmit={handleSubmit} spellCheck="false">
 
               <div className="mb-3">
                 <label className="form-label fw-medium">Tên sản phẩm <span className="text-danger">*</span></label>
-                <input type="text" name="product_name" className="form-control" value={form.product_name} onChange={handleChange} required />
+                <input type="text" name="product_name" className="form-control" value={form.product_name} onChange={handleChange} required disabled={loading} />
               </div>
 
               <div className="row">
                 <div className="col-6 mb-3">
                   <label className="form-label fw-medium">Thương hiệu <span className="text-danger">*</span></label>
-                  <select name="brand" className="form-select" value={form.brand} onChange={handleChange} required>
+                  <select name="brand" className="form-select" value={form.brand} onChange={handleChange} required disabled={loading}>
                     <option value="">-- Chọn thương hiệu --</option>
                     {brands.map((b,i)=>(<option key={i} value={b}>{b}</option>))}
                   </select>
                 </div>
                 <div className="col-6 mb-3">
                   <label className="form-label fw-medium">Tồn kho <span className="text-danger">*</span></label>
-                  <input type="number" name="stock" className="form-control" value={form.stock} onChange={handleChange} required />
+                  <input type="number" name="stock" className="form-control" value={form.stock} onChange={handleChange} required disabled={loading} />
                 </div>
               </div>
 
               <div className="row">
                 <div className="col-6 mb-3">
                   <label className="form-label fw-medium">Giá <span className="text-danger">*</span></label>
-                  <input type="number" name="price" className="form-control" value={form.price} onChange={handleChange} required />
+                  <input type="number" name="price" className="form-control" value={form.price} onChange={handleChange} required disabled={loading} />
                 </div>
                 <div className="col-6 mb-3">
                   <label className="form-label fw-medium">Giá gốc <span className="text-danger">*</span></label>
-                  <input type="number" name="original_price" className="form-control" value={form.original_price} onChange={handleChange} required />
+                  <input type="number" name="original_price" className="form-control" value={form.original_price} onChange={handleChange} required disabled={loading} />
                 </div>
               </div>
 
               <div className="row">
                 <div className="col-4 mb-3">
                   <label className="form-label fw-medium">RAM (GB) <span className="text-danger">*</span></label>
-                  <input type="number" name="ram" className="form-control" value={form.ram} onChange={handleChange} required />
+                  <input type="number" name="ram" className="form-control" value={form.ram} onChange={handleChange} required disabled={loading} />
                 </div>
                 <div className="col-4 mb-3">
                   <label className="form-label fw-medium">Bộ nhớ (GB) <span className="text-danger">*</span></label>
-                  <input type="number" name="storage" className="form-control" value={form.storage} onChange={handleChange} required />
+                  <input type="number" name="storage" className="form-control" value={form.storage} onChange={handleChange} required disabled={loading} />
                 </div>
                 <div className="col-4 mb-3">
                   <label className="form-label fw-medium">Pin (mAh) <span className="text-danger">*</span></label>
-                  <input type="number" name="battery" className="form-control" value={form.battery} onChange={handleChange} required />
+                  <input type="number" name="battery" className="form-control" value={form.battery} onChange={handleChange} required disabled={loading} />
                 </div>
               </div>
 
               <div className="row">
                 <div className="col-6 mb-3">
                   <label className="form-label fw-medium">Kích thước màn hình (inch) <span className="text-danger">*</span></label>
-                  <input type="number" step="0.1" name="screen_size" className="form-control" value={form.screen_size} onChange={handleChange} required />
+                  <input type="number" step="0.1" name="screen_size" className="form-control" value={form.screen_size} onChange={handleChange} required disabled={loading} />
                 </div>
                 <div className="col-6 mb-3">
                   <label className="form-label fw-medium">Độ phân giải <span className="text-danger">*</span></label>
-                  <input type="text" name="resolution" className="form-control" value={form.resolution} onChange={handleChange} required />
+                  <input type="text" name="resolution" className="form-control" value={form.resolution} onChange={handleChange} required disabled={loading} />
                 </div>
               </div>
 
               <div className="row">
                 <div className="col-6 mb-3">
                   <label className="form-label fw-medium">Camera sau <span className="text-danger">*</span></label>
-                  <input type="text" name="rear_camera" className="form-control" value={form.rear_camera} onChange={handleChange} required />
+                  <input type="text" name="rear_camera" className="form-control" value={form.rear_camera} onChange={handleChange} required disabled={loading} />
                 </div>
                 <div className="col-6 mb-3">
                   <label className="form-label fw-medium">Camera trước <span className="text-danger">*</span></label>
-                  <input type="text" name="front_camera" className="form-control" value={form.front_camera} onChange={handleChange} required />
+                  <input type="text" name="front_camera" className="form-control" value={form.front_camera} onChange={handleChange} required disabled={loading} />
                 </div>
               </div>
 
               <div className="row">
                 <div className="col-6 mb-3">
                   <label className="form-label fw-medium">Chipset <span className="text-danger">*</span></label>
-                  <input type="text" name="chipset" className="form-control" value={form.chipset} onChange={handleChange} required />
+                  <input type="text" name="chipset" className="form-control" value={form.chipset} onChange={handleChange} required disabled={loading} />
                 </div>
                 <div className="col-6 mb-3">
                   <label className="form-label fw-medium">Hệ điều hành <span className="text-danger">*</span></label>
-                  <input type="text" name="os" className="form-control" value={form.os} onChange={handleChange} required />
+                  <input type="text" name="os" className="form-control" value={form.os} onChange={handleChange} required disabled={loading} />
                 </div>
               </div>
 
               <div className="row">
                 <div className="col-6 mb-3">
                   <label className="form-label fw-medium">Kích thước máy <span className="text-danger">*</span></label>
-                  <input type="text" name="dimensions" className="form-control" value={form.dimensions} onChange={handleChange} required />
+                  <input type="text" name="dimensions" className="form-control" value={form.dimensions} onChange={handleChange} required disabled={loading} />
                 </div>
                 <div className="col-6 mb-3">
                   <label className="form-label fw-medium">Trọng lượng (g) <span className="text-danger">*</span></label>
-                  <input type="number" name="weight" className="form-control" value={form.weight} onChange={handleChange} required />
+                  <input type="number" name="weight" className="form-control" value={form.weight} onChange={handleChange} required disabled={loading} />
                 </div>
               </div>
 
@@ -145,7 +151,7 @@ function ProductCreate() {
 
               <div className="mb-4">
                 <label className="form-label fw-medium">URL Hình ảnh <span className="text-danger">*</span></label>
-                <input type="text" name="image_url" className="form-control" value={form.image_url} onChange={handleChange} required />
+                <input type="text" name="image_url" className="form-control" value={form.image_url} onChange={handleChange} required disabled={loading} />
               </div>
 
               <div className="row">
@@ -153,7 +159,7 @@ function ProductCreate() {
                   <button type="submit" className="btn btn-primary w-100" disabled={loading}>{loading ? "Đang lưu..." : "Lưu"}</button>
                 </div>
                 <div className="col-6 mb-2">
-                  <button type="reset" className="btn btn-outline-secondary w-100" onClick={() => setForm(initialForm)}>Đặt lại</button>
+                  <button type="reset" className="btn btn-outline-secondary w-100" onClick={() => setForm(initialForm)} disabled={loading}>Đặt lại</button>
                 </div>
               </div>
 

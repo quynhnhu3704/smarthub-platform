@@ -32,12 +32,18 @@ function CustomerCreate(){
 
   return(
     <>
-      <button type="button" className="btn btn-outline-primary ms-4 my-4" onClick={()=>navigate(-1)}>← Quay lại</button>
+      <button type="button" className="btn btn-outline-primary ms-4 my-4" onClick={()=>navigate(-1)}><i class="bi bi-arrow-left"></i> Quay lại</button>
 
-      <div className="container d-flex justify-content-center align-items-center mb-5">
+      <div className="container d-flex justify-content-center align-items-center mb-5 position-relative">
         <div className="card-na border-0" style={{maxWidth:"32rem",width:"100%"}}>
-          <div className="card-body p-4">
+          <div className="card-body p-4 position-relative">
             <h3 className="text-center mb-4 fw-bold text-primary">Thêm khách hàng</h3>
+
+            {loading && (
+              <div className="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-white bg-opacity-75 z-2 rounded">
+                <div className="spinner-border text-primary" role="status"><span className="visually-hidden">Loading...</span></div>
+              </div>
+            )}
 
             {error&&<div className="alert alert-danger mt-3">{error}</div>}
             {success&&<div className="alert alert-success mt-3">{success}</div>}
@@ -46,28 +52,28 @@ function CustomerCreate(){
 
               <div className="mb-3">
                 <label className="form-label fw-medium">Tên khách hàng <span className="text-danger">*</span></label>
-                <input type="text" name="name" className="form-control" value={form.name} onChange={handleChange} required/>
+                <input type="text" name="name" className="form-control" value={form.name} onChange={handleChange} required disabled={loading}/>
               </div>
 
               <div className="mb-3">
                 <label className="form-label fw-medium">Username <span className="text-danger">*</span></label>
-                <input type="text" name="username" className="form-control" value={form.username} onChange={handleChange} required/>
+                <input type="text" name="username" className="form-control" value={form.username} onChange={handleChange} required disabled={loading}/>
               </div>
 
               <div className="mb-3">
                 <label className="form-label fw-medium">Email <span className="text-danger">*</span></label>
-                <input type="email" name="email" className="form-control" value={form.email} onChange={handleChange} required/>
+                <input type="email" name="email" className="form-control" value={form.email} onChange={handleChange} required disabled={loading}/>
               </div>
 
               <div className="mb-3">
                 <label className="form-label fw-medium">Số điện thoại <span className="text-danger">*</span></label>
-                <input type="text" name="phone" className="form-control" value={form.phone} onChange={handleChange} required/>
+                <input type="text" name="phone" className="form-control" value={form.phone} onChange={handleChange} required disabled={loading}/>
               </div>
 
               <div className="mb-4">
                 <label className="form-label fw-medium">Mật khẩu tạm thời <span className="text-danger">*</span></label>
                 <div className="input-group">
-                  <input type={showPassword?"text":"password"} name="password" className="form-control" value={form.password} onChange={handleChange} required/>
+                  <input type={showPassword?"text":"password"} name="password" className="form-control" value={form.password} onChange={handleChange} required disabled={loading}/>
                   <span className="input-group-text" style={{cursor:"pointer"}} onClick={()=>setShowPassword(!showPassword)}>
                     <i className={`bi ${showPassword?"bi-eye":"bi-eye-slash"}`}></i>
                   </span>
@@ -79,7 +85,7 @@ function CustomerCreate(){
                   <button type="submit" className="btn btn-primary w-100" disabled={loading}>{loading?"Đang lưu...":"Lưu"}</button>
                 </div>
                 <div className="col-6 mb-2">
-                  <button type="reset" className="btn btn-outline-secondary w-100" onClick={()=>setForm(initialForm)}>Đặt lại</button>
+                  <button type="reset" className="btn btn-outline-secondary w-100" onClick={()=>setForm(initialForm)} disabled={loading}>Đặt lại</button>
                 </div>
               </div>
 
