@@ -99,7 +99,7 @@ main {
 
 .sidebar {
   position: fixed;
-  top: 3.5em;
+  top: 3.875em;
   left: 0;
   width: 17.5em;
   height: calc(100vh - 3.5em);
@@ -220,9 +220,11 @@ main {
   --bs-pagination-padding-x: 0.9rem;
   --bs-pagination-padding-y: 0.55rem;
   --bs-pagination-font-size: 1rem;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
-.page-link {
+.pagination .page-link {
   border-radius: 10px !important;
   margin: 0 3px;
   border: none;
@@ -231,27 +233,22 @@ main {
   transition: all .2s ease;
 }
 
-.page-link:hover {
+.pagination .page-link:hover {
   background: var(--na-accent);
   color: #fff;
+  transform: scale(1.08); /* scale nhẹ để nổi hơn khi hover */
 }
 
-.page-item.active .page-link {
+.pagination .page-item.active .page-link {
   background: var(--na-primary);
   color: #fff;
   box-shadow: 0 4px 12px rgba(91,33,182,.25);
-}
-
-.pagination {
-  background: transparent !important;
-  box-shadow: none !important;
 }
 
 .original-price {
   text-decoration: line-through;
   text-decoration-thickness: 1px;   /* mỏng hơn */
 }
-
 
 /* SweetAlert popup đồng bộ card-na */
 .na-swal-popup {
@@ -263,4 +260,9 @@ main {
 
 .swal2-icon {
   margin-top: 0.5rem;
+}
+
+.qty-disabled {
+  opacity: 0.35;
+  pointer-events: none;
 }

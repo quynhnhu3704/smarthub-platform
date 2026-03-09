@@ -148,8 +148,8 @@ function StaffList() {
                       <td className="text-center text-muted">{new Date(s.createdAt).toLocaleDateString("vi-VN", { day: "2-digit", month: "short", year: "numeric" }).replace("thg", "Thg")}</td>
                       <td className="text-center">
                         <div className="d-flex gap-2 justify-content-center">
-                          <Link to={`/dashboard/staff/edit/${s._id}`} className="btn btn-sm btn-warning d-flex align-items-center gap-1 rounded-3" title="Sửa nhân viên"><i className="bi bi-pencil-square"></i></Link>
-                          <button onClick={() => handleDelete(s._id)} className="btn btn-sm btn-danger d-flex align-items-center gap-1 rounded-3" title="Xóa nhân viên"><i className="bi bi-trash"></i></button>
+                          <Link to={`/dashboard/staff/edit/${s._id}`} className="btn btn-sm btn-warning d-flex align-items-center gap-1 rounded-pill" title="Sửa nhân viên"><i className="bi bi-pencil-square"></i></Link>
+                          <button onClick={() => handleDelete(s._id)} className="btn btn-sm btn-danger d-flex align-items-center gap-1 rounded-pill" title="Xóa nhân viên"><i className="bi bi-trash"></i></button>
                         </div>
                       </td>
                     </tr>

@@ -1,11 +1,13 @@
 import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { AuthContext } from "../context/AuthContext"
+import { CartContext } from "../context/CartContext"
 import { Link } from "react-router-dom"
 import Swal from "sweetalert2"
 
 export default function Navbar({ toggleSidebar }) {
   const { user, logout } = useContext(AuthContext)
+  const { cartCount } = useContext(CartContext)
   const navigate = useNavigate()
   const [keyword, setKeyword] = useState("")
 
@@ -43,7 +45,17 @@ export default function Navbar({ toggleSidebar }) {
             </li>
             <li className="nav-item"><a className="nav-link" href="/">Trang chủ</a></li>
             <li className="nav-item"><a className="nav-link" href="#products">Sản phẩm</a></li>
-            <li className="nav-item"><a className="nav-link" href="#cart">Giỏ hàng</a></li>
+            <li className="nav-item position-relative">
+              <Link className="nav-link" to="/cart">
+                <i className="bi bi-cart3 fs-5"></i>
+                {cartCount > 0 && (
+                  <span className="position-absolute top-25 start-75 translate-middle badge rounded-pill bg-danger" style={{ fontSize: "0.75rem", padding: "0.25rem 0.35rem"}}>
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
+            </li>
+
             {user ? (
               <li className="nav-item dropdown ms-lg-2">
                 <button className="btn btn-primary dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown"><i className="bi bi-person-circle me-2"></i>{user.username}</button>

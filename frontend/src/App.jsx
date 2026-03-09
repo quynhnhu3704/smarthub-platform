@@ -1,6 +1,7 @@
 // src/App.jsx
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Layout from "./layout/Layout"
+import ScrollToTop from "./components/ScrollToTop";
 
 import ProductCatalog from "./pages/shop/ProductCatalog"
 import ProductDetail from "./pages/shop/ProductDetail"
@@ -23,11 +24,13 @@ import StaffList from "./pages/dashboard/staff/StaffList"
 import StaffCreate from "./pages/dashboard/staff/StaffCreate"
 import StaffEdit from "./pages/dashboard/staff/StaffEdit"
 
+import Cart from "./pages/cart/Cart"
 
 function App() {
   return (
     <BrowserRouter>
       <Layout>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<ProductCatalog />} />
           <Route path="/products" element={<ProductCatalog />} />
@@ -50,6 +53,9 @@ function App() {
           <Route path="/dashboard/staff" element={<StaffList />} />
           <Route path="/dashboard/staff/create" element={<StaffCreate />} />
           <Route path="/dashboard/staff/edit/:id" element={<StaffEdit />} />
+
+          <Route path="/cart" element={<Cart />} />
+
         </Routes>
       </Layout>
     </BrowserRouter>

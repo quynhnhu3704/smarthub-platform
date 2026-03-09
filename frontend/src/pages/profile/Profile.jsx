@@ -10,6 +10,7 @@ export default function Profile() {
   const [form, setForm] = useState({ username: "", name: "", email: "", phone: "" })
   const [error, setError] = useState("")
   const [success, setSuccess] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const roleMap = { owner: "Chủ cửa hàng", staff: "Nhân viên", customer: "Khách hàng" }
   const getRoleLabel = (role) => roleMap[role] || role
@@ -34,12 +35,13 @@ export default function Profile() {
     setError("")
     setSuccess("")
     try {
+      setLoading(true)
       const data = await updateProfile(form)
       setUser(data.user)
       login({ token: localStorage.getItem("token"), user: data.user })
       setEditing(false)
       setSuccess("Cập nhật thành công")
-    } catch (err) { setError(err.message) }
+    } catch (err) { setError(err.message) } finally { setLoading(false) }
   }
 
   if (!user) return <div className="text-center mt-5">Loading...</div>
@@ -50,10 +52,16 @@ export default function Profile() {
         <i className="bi bi-arrow-left"></i> Quay lại
       </button>
 
-      <div className="container d-flex justify-content-center align-items-center mb-5">
+      <div className="container d-flex justify-content-center align-items-center mb-5 position-relative">
         <div className="card-na border-0" style={{ maxWidth: "32rem", width: "100%" }}>
-          <div className="card-body p-4">
+          <div className="card-body p-4 position-relative">
             <h3 className="text-center mb-4 fw-bold text-primary">{editing ? "Chỉnh sửa thông tin" : "Thông tin cá nhân"}</h3>
+
+            {loading && (
+              <div className="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-white bg-opacity-75 z-2 rounded">
+                <div className="spinner-border text-primary" role="status"><span className="visually-hidden">Loading...</span></div>
+              </div>
+            )}
 
             {error && <div className="alert alert-danger">{error}</div>}
             {success && <div className="alert alert-success">{success}</div>}
@@ -91,11 +99,11 @@ export default function Profile() {
               <form onSubmit={handleSubmit} spellCheck="false">
                 <div className="mb-3">
                   <label className="form-label fw-medium">Tên đăng nhập <span className="text-danger">*</span></label>
-                  <input type="text" name="username" value={form.username} onChange={handleChange} className="form-control" required />
+                  <input type="text" name="username" value={form.username} onChange={handleChange} className="form-control" required disabled={loading} />
                 </div>
                 <div className="mb-3">
                   <label className="form-label fw-medium">Họ tên <span className="text-danger">*</span></label>
-                  <input type="text" name="name" value={form.name} onChange={handleChange} className="form-control" required />
+                  <input type="text" name="name" value={form.name} onChange={handleChange} className="form-control" required disabled={loading} />
                 </div>
                 <div className="mb-3">
                   <label className="form-label fw-medium">Vai trò</label>
@@ -103,19 +111,19 @@ export default function Profile() {
                 </div>
                 <div className="mb-3">
                   <label className="form-label fw-medium">Số điện thoại <span className="text-danger">*</span></label>
-                  <input type="tel" name="phone" value={form.phone} onChange={handleChange} className="form-control" required />
+                  <input type="tel" name="phone" value={form.phone} onChange={handleChange} className="form-control" required disabled={loading} />
                 </div>
                 <div className="mb-3">
                   <label className="form-label fw-medium">Email <span className="text-danger">*</span></label>
-                  <input type="email" name="email" value={form.email} onChange={handleChange} className="form-control" required />
+                  <input type="email" name="email" value={form.email} onChange={handleChange} className="form-control" required disabled={loading} />
                 </div>
 
                 <div className="row">
                   <div className="col-6 mb-2">
-                    <button type="submit" className="btn btn-primary w-100">Lưu</button>
+                    <button type="submit" className="btn btn-primary w-100" disabled={loading}>{loading ? "Đang lưu..." : "Lưu"}</button>
                   </div>
                   <div className="col-6 mb-2">
-                    <button type="button" onClick={handleReset} className="btn btn-outline-secondary w-100">Đặt lại</button>
+                    <button type="button" onClick={handleReset} className="btn btn-outline-secondary w-100" disabled={loading}>Đặt lại</button>
                   </div>
                 </div>
               </form>

@@ -186,8 +186,8 @@ function ProductList() {
                       <td className="text-center text-muted">{new Date(p.createdAt).toLocaleDateString("vi-VN", { day: "2-digit", month: "short", year: "numeric" }).replace("thg", "Thg")}</td>
                       <td className="text-center">
                         <div className="d-flex gap-2 justify-content-center">
-                          <Link to={`/dashboard/products/edit/${p._id}`} className="btn btn-sm btn-warning d-flex align-items-center gap-1 rounded-3" title="Sửa sản phẩm"><i className="bi bi-pencil-square"></i></Link>
-                          <button onClick={() => handleDelete(p._id)} className="btn btn-sm btn-danger d-flex align-items-center gap-1 rounded-3" title="Xóa sản phẩm"><i className="bi bi-trash"></i></button>
+                          <Link to={`/dashboard/products/edit/${p._id}`} className="btn btn-sm btn-warning d-flex align-items-center gap-1 rounded-pill" title="Sửa sản phẩm"><i className="bi bi-pencil-square"></i></Link>
+                          <button onClick={() => handleDelete(p._id)} className="btn btn-sm btn-danger d-flex align-items-center gap-1 rounded-pill" title="Xóa sản phẩm"><i className="bi bi-trash"></i></button>
                         </div>
                       </td>
                     </tr>
