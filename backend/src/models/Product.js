@@ -4,7 +4,11 @@ import mongoose from "mongoose"
 const productSchema = new mongoose.Schema(
   {
     product_name: { type: String, required: true },
-    brand: { type: String, required: true },
+    brand: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Brand",
+      required: true
+    },
     price: { type: Number, required: true },
     ram: { type: Number },
     storage: { type: Number },
@@ -21,7 +25,12 @@ const productSchema = new mongoose.Schema(
     rating_count: { type: Number },
     original_price: { type: Number },
     stock: { type: Number },
-    image_url: { type: String }
+    image_url: { type: String },
+    status: {
+      type: String,
+      enum: ["active", "inactive"],
+      default: "active"
+    }
   }, 
   {
     timestamps: true,

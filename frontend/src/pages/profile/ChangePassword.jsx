@@ -38,7 +38,7 @@ export default function ChangePassword() {
 
   return (
     <>
-      <button type="button" className="btn btn-outline-primary ms-4 my-4" onClick={() => navigate(-1)}><i class="bi bi-arrow-left"></i> Quay lại</button>
+      <button type="button" className="btn btn-outline-primary ms-4 my-4" onClick={() => navigate(-1)}><i className="bi bi-arrow-left"></i> Quay lại</button>
       <div className="container d-flex justify-content-center align-items-center mb-5 position-relative">
         <div className="card-na border-0" style={{ maxWidth:"32rem", width:"100%" }}>
           <div className="card-body p-4 position-relative">

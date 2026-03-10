@@ -194,3 +194,7 @@ src/
 
 
 
+mongosh
+show dbs
+use smarthub
+db.users.updateMany({}, { $set: { status: "active" } })

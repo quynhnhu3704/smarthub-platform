@@ -13,14 +13,21 @@ function StaffEdit() {
   const [success, setSuccess] = useState("")
   const [showPassword, setShowPassword] = useState(false)
 
-  const [form, setForm] = useState({ name: "", username: "", email: "", phone: "", password: "" })
+  const [form, setForm] = useState({ name: "", username: "", email: "", phone: "", password: "", status:"active" })
 
   useEffect(() => {
     const fetchStaff = async () => {
       try {
         setFetching(true)
         const data = await getStaffById(id)
-        setForm({ name: data.name || "", username: data.username || "", email: data.email || "", phone: data.phone || "", password: "" })
+        setForm({
+          name: data.name || "",
+          username: data.username || "",
+          email: data.email || "",
+          phone: data.phone || "",
+          password: "",
+          status: data.status || "active"
+        })
       } catch (err) {
         setError("Không tải được thông tin nhân viên.")
       } finally {
@@ -50,11 +57,11 @@ function StaffEdit() {
     }
   }
 
-  if (fetching) return <div className="text-center mt-5">Đang tải...</div>
+  if (fetching) return <div className="text-center mt-5" style={{ minHeight:"60vh" }}>Đang tải...</div>
 
   return (
     <>
-      <button type="button" className="btn btn-outline-primary ms-4 my-4" onClick={() => navigate(-1)}><i class="bi bi-arrow-left"></i> Quay lại</button>
+      <button type="button" className="btn btn-outline-primary ms-4 my-4" onClick={() => navigate(-1)}><i className="bi bi-arrow-left"></i> Quay lại</button>
 
       <div className="container d-flex justify-content-center align-items-center mb-5 position-relative">
         <div className="card-na border-0" style={{ maxWidth: "32rem", width: "100%" }}>
@@ -102,6 +109,14 @@ function StaffEdit() {
                     <i className={`bi ${showPassword ? "bi-eye" : "bi-eye-slash"}`}></i>
                   </span>
                 </div>
+              </div>
+
+              <div className="mb-4">
+                <label className="form-label fw-medium">Trạng thái</label>
+                <select name="status" className="form-select" value={form.status} onChange={handleChange} disabled={loading}>
+                  <option value="active">Hoạt động</option>
+                  <option value="inactive">Không hoạt động</option>
+                </select>
               </div>
 
               <div className="row">

@@ -70,7 +70,7 @@ function ProductList() {
   };
 
   return (
-    <div className="container-fluid py-4" style={{ width: "97.5%" }}>
+    <div className="container-fluid py-4" style={{ width: "97.5%", minHeight:"67.5vh" }}>
       <div className="d-flex justify-content-between align-items-center mb-4">
         <div><h2 className="fw-bold mb-1">Danh sách sản phẩm</h2><div className="text-muted fs-6">Tổng cộng: <strong>{totalProducts.toLocaleString()}</strong> sản phẩm</div></div>
         <Link to="/dashboard/products/create" className="btn btn-primary d-flex align-items-center gap-2 shadow-sm"><i className="bi bi-folder-plus"></i> Thêm mới</Link>
@@ -88,7 +88,7 @@ function ProductList() {
             <div className="col-lg-2 col-md-3 col-sm-6">
               <select className="form-select" value={selectedBrand} onChange={(e) => setSelectedBrand(e.target.value)}>
                 <option value="">Tất cả thương hiệu</option>
-                {brands.map((brand) => <option key={brand} value={brand}>{brand}</option>)}
+                {brands.map((brand) => (<option key={brand._id} value={brand._id}>{brand.name}</option>))}
               </select>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6">
@@ -169,10 +169,10 @@ function ProductList() {
                       <td className="text-center fw-bold">{(currentPage - 1) * productsPerPage + index + 1}</td>
                       <td className="fw-medium" title={p.product_name}>{p.product_name}</td>
                       <td className="text-center"><img src={p.image_url} alt={p.product_name} className="rounded object-fit-cover" style={{ width: "50px", height: "50px" }} /></td>
-                      <td className="text-center">{p.brand || "-"}</td>
+                      <td className="text-center">{p.brand?.name || "-"}</td>
                       <td className="text-end fw-semibold text-primary">{p.price?.toLocaleString("vi-VN")} ₫</td>
                       <td className="text-end text-muted">{p.original_price ? `${p.original_price.toLocaleString("vi-VN")} ₫` : "-"}</td>
-                      <td className="text-center"><span className={`badge rounded-pill px-3 py-2 fw-bold ${p.stock > 10 ? "bg-success-subtle text-success" : p.stock > 0 ? "bg-warning-subtle text-warning" : "bg-danger-subtle text-danger"}`}>{p.stock}</span></td>                      
+                      <td className="text-center"><span className={`badge rounded-pill px-3 py-2 fw-bold ${p.stock > 10 ? "bg-success-subtle text-success" : p.stock > 0 ? "bg-warning-subtle text-warning" : "bg-danger-subtle text-danger"}`}>{p.stock}</span></td>
                       <td className="text-center">
                         <span className="text-warning" style={{ fontSize: "0.85em "}}>
                           {Array.from({ length: 5 }, (_, i) => {
@@ -183,7 +183,7 @@ function ProductList() {
                           })}
                         </span> <small className="text-muted">({p.rating_count || 0})</small>
                       </td>
-                      <td className="text-center text-muted">{new Date(p.createdAt).toLocaleDateString("vi-VN", { day: "2-digit", month: "short", year: "numeric" }).replace("thg", "Thg")}</td>
+                      <td className="text-center text-muted">{new Date(p.createdAt).toISOString().split("T")[0]}</td>
                       <td className="text-center">
                         <div className="d-flex gap-2 justify-content-center">
                           <Link to={`/dashboard/products/edit/${p._id}`} className="btn btn-sm btn-warning d-flex align-items-center gap-1 rounded-pill" title="Sửa sản phẩm"><i className="bi bi-pencil-square"></i></Link>

@@ -49,7 +49,7 @@ export default function Navbar({ toggleSidebar }) {
               <Link className="nav-link" to="/cart">
                 <i className="bi bi-cart3 fs-5"></i>
                 {cartCount > 0 && (
-                  <span className="position-absolute top-25 start-75 translate-middle badge rounded-pill bg-danger" style={{ fontSize: "0.75rem", padding: "0.25rem 0.35rem"}}>
+                  <span className="position-absolute top-25 start-75 translate-middle badge rounded-pill bg-danger" style={{ fontSize: "0.75rem" }}>
                     {cartCount}
                   </span>
                 )}

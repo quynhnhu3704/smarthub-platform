@@ -68,7 +68,7 @@ function CustomerList() {
   };
 
   return (
-    <div className="container-fluid py-4" style={{ width: "97.5%" }}>
+    <div className="container-fluid py-4" style={{ width: "97.5%", minHeight:"67.5vh" }}>
       <div className="d-flex justify-content-between align-items-center mb-4">
         <div><h2 className="fw-bold mb-1">Danh sách khách hàng</h2><div className="text-muted fs-6">Tổng cộng: <strong>{totalCustomers.toLocaleString()}</strong> khách hàng</div></div>
         <Link to="/dashboard/customers/create" className="btn btn-primary d-flex align-items-center gap-2 shadow-sm"><i className="bi bi-folder-plus"></i> Thêm mới</Link>
@@ -83,8 +83,8 @@ function CustomerList() {
                 <button className="btn btn-outline-primary" type="submit"><i className="bi bi-search"></i></button>
               </form>
             </div>
-            <div className="col-lg-8 col-md-6 d-flex align-items-center justify-content-end">
-              <button className="btn btn-outline-secondary" onClick={() => { setKeyword(""); setCurrentPage(1); }}>
+            <div className="col-lg-2 col-md-3 col-sm-6 d-flex align-items-center ms-auto">
+              <button className="btn btn-outline-secondary w-100" onClick={() => { setKeyword(""); setCurrentPage(1); }}>
                 <i className="bi bi-arrow-repeat me-1"></i>Xóa bộ lọc
               </button>
             </div>
@@ -97,7 +97,7 @@ function CustomerList() {
           {loading ? (
             <div className="table-responsive">
               <table className="table mb-0">
-                <thead><tr><th colSpan="8"><div className="placeholder-glow"><div className="placeholder col-12 bg-secondary rounded" style={{ height: "40px" }}></div></div></th></tr></thead>
+                <thead><tr><th colSpan="9"><div className="placeholder-glow"><div className="placeholder col-12 bg-secondary rounded" style={{ height: "40px" }}></div></div></th></tr></thead>
                 <tbody>
                   {[...Array(8)].map((_, i) => (
                     <tr key={i}>
@@ -108,6 +108,7 @@ function CustomerList() {
                       <td><div className="placeholder col-6 bg-secondary rounded"></div></td>
                       <td><div className="placeholder col-4 bg-secondary rounded"></div></td>
                       <td><div className="placeholder col-4 bg-secondary rounded"></div></td>
+                      <td><div className="placeholder col-6 bg-secondary rounded"></div></td>
                       <td><div className="placeholder col-6 bg-secondary rounded"></div></td>
                     </tr>
                   ))}
@@ -132,6 +133,7 @@ function CustomerList() {
                     <th>Email</th>
                     <th>Điện thoại</th>
                     <th>Vai trò</th>
+                    <th>Trạng thái</th>
                     <th>Ngày tạo</th>
                     <th>Thao tác</th>
                   </tr>
@@ -145,7 +147,12 @@ function CustomerList() {
                       <td className="text-center">{c.email}</td>
                       <td className="text-center">{c.phone || "-"}</td>
                       <td className="text-center"><span className="badge rounded-pill bg-secondary-subtle text-secondary fw-bold">{c.role}</span></td>
-                      <td className="text-center text-muted">{new Date(c.createdAt).toLocaleDateString("vi-VN", { day: "2-digit", month: "short", year: "numeric" }).replace("thg", "Thg")}</td>
+                      <td className="text-center">
+                        {c.status === "active"
+                          ? <span className="badge rounded-pill bg-success-subtle text-success">active</span>
+                          : <span className="badge rounded-pill bg-danger-subtle text-danger">inactive</span>}
+                      </td>
+                      <td className="text-center text-muted">{new Date(c.createdAt).toISOString().split("T")[0]}</td>
                       <td className="text-center">
                         <div className="d-flex gap-2 justify-content-center">
                           <Link to={`/dashboard/customers/edit/${c._id}`} className="btn btn-sm btn-warning d-flex align-items-center gap-1 rounded-pill" title="Sửa khách hàng"><i className="bi bi-pencil-square"></i></Link>

@@ -57,7 +57,7 @@ export const getStaffById = async (req, res) => {
 // POST /api/staff
 export const createStaff = async (req, res) => {
   try {
-    const { name, username, email, phone, password } = req.body
+    const { name, username, email, phone, password, status } = req.body
 
     const userExists = await User.findOne({
       $or: [{ email }, { username }]
@@ -72,7 +72,8 @@ export const createStaff = async (req, res) => {
       email,
       phone,
       password,
-      role: "staff"
+      role: "staff",
+      status
     })
 
     res.status(201).json({
@@ -105,6 +106,7 @@ export const updateStaff = async (req, res) => {
     staff.username = req.body.username || staff.username
     staff.email = req.body.email || staff.email
     staff.phone = req.body.phone || staff.phone
+    staff.status = req.body.status || staff.status
 
     if (req.body.password) staff.password = req.body.password
 

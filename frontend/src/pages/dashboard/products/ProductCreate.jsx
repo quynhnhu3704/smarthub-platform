@@ -1,5 +1,5 @@
 // src/pages/dashboard/products/ProductCreate.jsx
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 
@@ -8,7 +8,17 @@ function ProductCreate() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const [success, setSuccess] = useState("")
-  const brands = ["Apple","Samsung","Xiaomi","OPPO","Motorola","Vivo","Realme","Nokia","OnePlus","Google","Huawei","Tecno","HONOR","Nothing","Nubia","Infinix","RedMagic"]
+  const [brands, setBrands] = useState([])
+
+  useEffect(() => {
+    const fetchBrands = async () => {
+      try {
+        const { data } = await axios.get("/api/brands")
+        setBrands(data.brands || [])
+      } catch {}
+    }
+    fetchBrands()
+  }, [])
 
   const initialForm = { product_name:"", brand:"", price:"", original_price:"", stock:"", ram:"", storage:"", screen_size:"", resolution:"", chipset:"", os:"", rear_camera:"", front_camera:"", battery:"", dimensions:"", weight:"", image_url:"" }
 
@@ -38,7 +48,7 @@ function ProductCreate() {
 
   return (
     <>
-      <button type="button" className="btn btn-outline-primary ms-4 my-4" onClick={() => navigate(-1)}><i class="bi bi-arrow-left"></i> Quay lại</button>
+      <button type="button" className="btn btn-outline-primary ms-4 my-4" onClick={() => navigate(-1)}><i className="bi bi-arrow-left"></i> Quay lại</button>
 
       <div className="container d-flex justify-content-center align-items-center mb-5 position-relative">
         <div className="card-na border-0" style={{ maxWidth:"38rem", width:"100%" }}>
@@ -63,7 +73,7 @@ function ProductCreate() {
                   <label className="form-label fw-medium">Thương hiệu <span className="text-danger">*</span></label>
                   <select name="brand" className="form-select" value={form.brand} onChange={handleChange} required disabled={loading}>
                     <option value="">-- Chọn thương hiệu --</option>
-                    {brands.map((b,i)=>(<option key={i} value={b}>{b}</option>))}
+                    {brands.map(b=>(<option key={b._id} value={b._id}>{b.name}</option>))}
                   </select>
                 </div>
                 <div className="col-6 mb-3">

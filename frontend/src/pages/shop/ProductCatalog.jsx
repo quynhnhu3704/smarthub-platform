@@ -34,12 +34,18 @@ function ProductCatalog() {
 
   useEffect(() => {
     setLoading(true)
-    getProducts(currentPage, productsPerPage, keyword, selectedBrand, priceRange, sortOrder)
+    getProducts(currentPage, productsPerPage, keyword, selectedBrand, priceRange, sortOrder)      
       .then(data => {
-        setProducts(data.products || [])
+        const activeBrands = (data.brands || []).filter(b => b.status !== "inactive")
+
+        const activeProducts = (data.products || []).filter(
+          p => p.brand && p.brand.status !== "inactive"
+        )
+
+        setProducts(activeProducts)
         setTotalPages(data.totalPages || 1)
-        setBrands(data.brands || [])
-        setTotalProducts(data.totalProducts || 0)
+        setBrands(activeBrands)
+        setTotalProducts(activeProducts.length)
       })
       .catch(console.error)
       .finally(() => setLoading(false))
@@ -80,7 +86,7 @@ function ProductCatalog() {
                 <div className="d-flex gap-2">
                   <select className="form-select" value={selectedBrand} onChange={e => setSelectedBrand(e.target.value)}>
                     <option value="">Tất cả brand</option>
-                    {brands.map(brand => <option key={brand} value={brand}>{brand}</option>)}
+                    {brands.map((brand) => (<option key={brand._id} value={brand._id}>{brand.name}</option>))}
                   </select>
                   <select className="form-select" value={priceRange} onChange={e => setPriceRange(e.target.value)}>
                     <option value="">Tất cả giá</option>
@@ -129,9 +135,7 @@ function ProductCatalog() {
                 ) : (
                   <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
                     {products.map(product => {
-                      const discountPercent = product.original_price && product.original_price > product.price
-                        ? Math.round((1 - product.price / product.original_price) * 100)
-                        : 0
+                      const discountPercent = product.original_price && product.original_price > product.price ? Math.round((1 - product.price / product.original_price) * 100) : 0
                       return (
                         <div key={product._id} className="col">
                           <div className="card-na h-100 shadow-sm border-0">
@@ -139,7 +143,7 @@ function ProductCatalog() {
                               <Link to={`/products/${product._id}`}>
                                 <img src={product.image_url} className="w-100 product-img" alt={product.product_name} />
                               </Link>
-                              <span className="position-absolute top-0 start-0 m-3 badge badge-na rounded-pill">{product.brand}</span>
+                              <span className="position-absolute top-0 start-0 m-3 badge badge-na rounded-pill">{product.brand?.name}</span>
                               {discountPercent > 0 && (
                                 <span className="position-absolute top-0 end-0 m-3 badge bg-danger rounded-pill">-{discountPercent}%</span>
                               )}

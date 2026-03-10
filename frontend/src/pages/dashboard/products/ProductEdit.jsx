@@ -11,20 +11,38 @@ function ProductEdit() {
   const [error, setError] = useState("")
   const [success, setSuccess] = useState("")
   const [originalData, setOriginalData] = useState(null)
+  const [brands, setBrands] = useState([])
 
-  const brands = ["Apple","Samsung","Xiaomi","OPPO","Motorola","Vivo","Realme","Nokia","OnePlus","Google","Huawei","Tecno","HONOR","Nothing","Nubia","Infinix","RedMagic"]
-
-  const initialForm = { product_name:"", brand:"", price:"", original_price:"", stock:"", ram:"", storage:"", screen_size:"", resolution:"", chipset:"", os:"", rear_camera:"", front_camera:"", battery:"", dimensions:"", weight:"", image_url:"" }
+  const initialForm = { product_name:"", brand:"", price:"", original_price:"", stock:"", ram:"", storage:"", screen_size:"", resolution:"", chipset:"", os:"", rear_camera:"", front_camera:"", battery:"", dimensions:"", weight:"", image_url:"", status:"active" }
 
   const [form, setForm] = useState(initialForm)
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value })
 
   useEffect(() => {
+    const fetchBrands = async () => {
+      try {
+        const { data } = await axios.get("/api/brands")
+        setBrands(data.brands || [])
+      } catch {}
+    }
+    fetchBrands()
+  }, [])
+
+  useEffect(() => {
     const fetchProduct = async () => {
       try {
         const res = await axios.get(`/api/products/${id}`)
-        setForm(res.data)
-        setOriginalData({ ...res.data })
+        setForm({
+          ...res.data,
+          brand: res.data.brand?._id || "",
+          status: res.data.status || "active"
+        })
+
+        setOriginalData({
+          ...res.data,
+          brand: res.data.brand?._id || "",
+          status: res.data.status || "active"
+        })
       } catch {
         setError("Không tìm thấy sản phẩm.")
         setTimeout(() => navigate("/dashboard/products"), 1500)
@@ -57,11 +75,11 @@ function ProductEdit() {
     }
   }
 
-  if (fetching) return <div className="text-center mt-5">Đang tải...</div>
+  if (fetching) return <div className="text-center mt-5" style={{ minHeight:"60vh" }}>Đang tải...</div>
 
   return (
     <>
-      <button type="button" className="btn btn-outline-primary ms-4 my-4" onClick={() => navigate(-1)}><i class="bi bi-arrow-left"></i> Quay lại</button>
+      <button type="button" className="btn btn-outline-primary ms-4 my-4" onClick={() => navigate(-1)}><i className="bi bi-arrow-left"></i> Quay lại</button>
 
       <div className="container d-flex justify-content-center align-items-center mb-5 position-relative">
         <div className="card-na border-0" style={{ maxWidth:"38rem", width:"100%" }}>
@@ -86,7 +104,7 @@ function ProductEdit() {
                   <label className="form-label fw-medium">Thương hiệu <span className="text-danger">*</span></label>
                   <select name="brand" className="form-select" value={form.brand} onChange={handleChange} required disabled={loading}>
                     <option value="">-- Chọn thương hiệu --</option>
-                    {brands.map((b,i)=>(<option key={i} value={b}>{b}</option>))}
+                    {brands.map(b=>(<option key={b._id} value={b._id}>{b.name}</option>))}
                   </select>
                 </div>
                 <div className="col-6 mb-3">
@@ -175,6 +193,14 @@ function ProductEdit() {
               <div className="mb-4">
                 <label className="form-label fw-medium">URL Hình ảnh <span className="text-danger">*</span></label>
                 <input type="text" name="image_url" className="form-control" value={form.image_url} onChange={handleChange} required disabled={loading} />
+              </div>
+
+              <div className="mb-4">
+                <label className="form-label fw-medium">Trạng thái</label>
+                <select name="status" className="form-select" value={form.status} onChange={handleChange} disabled={loading}>
+                  <option value="active">Hoạt động</option>
+                  <option value="inactive">Không hoạt động</option>
+                </select>
               </div>
 
               <div className="row">

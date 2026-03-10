@@ -1,5 +1,6 @@
 // src/controllers/productController.js
 import Product from "../models/Product.js"
+import Brand from "../models/Brand.js"
 import mongoose from "mongoose"
 
 // GET /api/products
@@ -10,34 +11,29 @@ export const getProducts = async (req, res) => {
     const skip = (page - 1) * limit
     const { keyword, brand, priceRange, sortOrder } = req.query
 
-    let query = {}
+    const activeBrandIds = (await Brand.find({ status: "active" }).select("_id")).map(b => b._id)
 
+    let query = { brand: { $in: activeBrandIds } }
     if (keyword) query.product_name = { $regex: keyword, $options: "i" }
-    if (brand) query.brand = brand
+    if (brand && mongoose.Types.ObjectId.isValid(brand)) query.brand = brand
     if (priceRange === "low") query.price = { $lt: 5000000 }
     else if (priceRange === "mid") query.price = { $gte: 5000000, $lte: 15000000 }
     else if (priceRange === "high") query.price = { $gt: 15000000 }
 
-    let sort = {}
+    let sort = { createdAt: -1 } // mặc định: sản phẩm mới nhất lên đầu
     if (sortOrder === "asc") sort.price = 1
     else if (sortOrder === "desc") sort.price = -1
 
     const total = await Product.countDocuments(query)
-    const products = await Product.find(query).sort(sort).skip(skip).limit(limit)
-    
-    // chỉ lấy brand theo keyword, không phụ thuộc priceRange
+    const products = await Product.find(query).populate("brand").sort(sort).skip(skip).limit(limit)
+
     let brandQuery = {}
     if (keyword) brandQuery.product_name = { $regex: keyword, $options: "i" }
 
-    const brands = await Product.distinct("brand", brandQuery)
+    const brandDocs = await Brand.find({ status: "active" })
+    const brands = brandDocs.map(b => ({ _id: b._id, name: b.name }))
 
-    res.json({
-      products,
-      currentPage: page,
-      totalPages: Math.ceil(total / limit),
-      totalProducts: total,
-      brands
-    })
+    res.json({ products, currentPage: page, totalPages: Math.ceil(total / limit), totalProducts: total, brands })
   } catch (error) {
     res.status(500).json({ message: "Server error" })
   }
@@ -48,7 +44,7 @@ export const getProductById = async (req, res) => {
   try {
     const { id } = req.params
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({ message: "Invalid ID" })
-    const product = await Product.findById(id)
+    const product = await Product.findById(id).populate("brand")
     if (!product) return res.status(404).json({ message: "Product not found" })
     res.json(product)
   } catch (error) {
@@ -69,7 +65,7 @@ export const createProduct = async (req, res) => {
 // PUT /api/products/:id
 export const updateProduct = async (req, res) => {
   try {
-    const product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    const product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true }).populate("brand")
     if (!product) return res.status(404).json({ message: "Product not found" })
     res.json(product)
   } catch (error) {

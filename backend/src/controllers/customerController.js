@@ -38,10 +38,10 @@ export const getCustomerById = async (req, res) => {
 // POST /api/customers
 export const createCustomer = async (req, res) => {
   try {
-    const { name, username, email, phone, password } = req.body
+    const { name, username, email, phone, password, status } = req.body
     const userExists = await User.findOne({ $or: [{ email }, { username }] })
     if (userExists) return res.status(400).json({ message: "User already exists" })
-    const customer = await User.create({ name, username, email, phone, password, role: "customer" })
+    const customer = await User.create({ name, username, email, phone, password, role: "customer", status })
     res.status(201).json({ _id: customer._id, name: customer.name, username: customer.username, email: customer.email, phone: customer.phone, role: customer.role })
   } catch (error) {
     res.status(500).json({ message: "Server error" })
@@ -59,6 +59,8 @@ export const updateCustomer = async (req, res) => {
     customer.username = req.body.username || customer.username
     customer.email = req.body.email || customer.email
     customer.phone = req.body.phone || customer.phone
+    customer.status = req.body.status || customer.status
+    
     if (req.body.password) customer.password = req.body.password
     const updatedCustomer = await customer.save()
     res.json({ _id: updatedCustomer._id, name: updatedCustomer.name, username: updatedCustomer.username, email: updatedCustomer.email, phone: updatedCustomer.phone, role: updatedCustomer.role })

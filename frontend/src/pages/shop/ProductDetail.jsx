@@ -138,7 +138,7 @@ function ProductDetail() {
           <div className="card-na p-4 position-sticky rounded-4" style={{ top: "5em" }}>
             <div className="position-relative">
               <img src={product.image_url} alt={product.product_name} className="product-detail-img w-100 rounded-4 transition-all"/>
-              <span className="position-absolute top-0 start-0 fs-6 badge badge-na rounded-pill fw-bold">{product.brand}</span>
+              <span className="position-absolute top-0 start-0 fs-6 badge badge-na rounded-pill fw-bold">{product.brand?.name}</span>
               {discountPercent > 0 && (
                 <span className="position-absolute top-0 end-0 fs-6 badge bg-danger rounded-pill fw-bold">
                   -{discountPercent}%

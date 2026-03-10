@@ -24,6 +24,12 @@ import StaffList from "./pages/dashboard/staff/StaffList"
 import StaffCreate from "./pages/dashboard/staff/StaffCreate"
 import StaffEdit from "./pages/dashboard/staff/StaffEdit"
 
+import BrandList from "./pages/dashboard/brands/BrandList"
+import BrandCreate from "./pages/dashboard/brands/BrandCreate"
+import BrandEdit from "./pages/dashboard/brands/BrandEdit"
+
+
+
 import Cart from "./pages/cart/Cart"
 
 function App() {
@@ -53,6 +59,11 @@ function App() {
           <Route path="/dashboard/staff" element={<StaffList />} />
           <Route path="/dashboard/staff/create" element={<StaffCreate />} />
           <Route path="/dashboard/staff/edit/:id" element={<StaffEdit />} />
+
+          <Route path="/dashboard/brands" element={<BrandList />} />
+          <Route path="/dashboard/brands/create" element={<BrandCreate />} />
+          <Route path="/dashboard/brands/edit/:id" element={<BrandEdit />} />
+
 
           <Route path="/cart" element={<Cart />} />
 

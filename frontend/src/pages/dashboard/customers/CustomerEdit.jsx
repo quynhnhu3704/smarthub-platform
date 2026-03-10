@@ -13,14 +13,21 @@ function CustomerEdit() {
   const [success, setSuccess] = useState("")
   const [showPassword, setShowPassword] = useState(false)
 
-  const [form, setForm] = useState({ name: "", username: "", email: "", phone: "", password: "" })
+  const [form, setForm] = useState({ name: "", username: "", email: "", phone: "", password: "", status:"active" })
 
   useEffect(() => {
     const fetchCustomer = async () => {
       try {
         setFetching(true)
         const data = await getCustomerById(id)
-        setForm({ name: data.name || "", username: data.username || "", email: data.email || "", phone: data.phone || "", password: "" })
+        setForm({
+          name: data.name || "",
+          username: data.username || "",
+          email: data.email || "",
+          phone: data.phone || "",
+          password: "",
+          status: data.status || "active"
+        })
       } catch (err) {
         setError("Không tải được thông tin khách hàng.")
       } finally {
@@ -50,11 +57,11 @@ function CustomerEdit() {
     }
   }
 
-  if (fetching) return <div className="text-center mt-5">Đang tải...</div>
+  if (fetching) return <div className="text-center mt-5" style={{ minHeight:"60vh" }}>Đang tải...</div>
 
   return (
     <>
-      <button type="button" className="btn btn-outline-primary ms-4 my-4" onClick={() => navigate(-1)}><i class="bi bi-arrow-left"></i> Quay lại</button>
+      <button type="button" className="btn btn-outline-primary ms-4 my-4" onClick={() => navigate(-1)}><i className="bi bi-arrow-left"></i> Quay lại</button>
 
       <div className="container d-flex justify-content-center align-items-center mb-5 position-relative">
         <div className="card-na border-0" style={{ maxWidth: "32rem", width: "100%" }}>
@@ -66,9 +73,6 @@ function CustomerEdit() {
                 <div className="spinner-border text-primary" role="status"><span className="visually-hidden">Loading...</span></div>
               </div>
             )}
-
-            {error && <div className="alert alert-danger mt-3">{error}</div>}
-            {success && <div className="alert alert-success mt-3">{success}</div>}
 
             <form onSubmit={handleSubmit} spellCheck="false">
 
@@ -104,6 +108,14 @@ function CustomerEdit() {
                 </div>
               </div>
 
+              <div className="mb-4">
+                <label className="form-label fw-medium">Trạng thái</label>
+                <select name="status" className="form-select" value={form.status} onChange={handleChange} disabled={loading}>
+                  <option value="active">Hoạt động</option>
+                  <option value="inactive">Không hoạt động</option>
+                </select>
+              </div>
+
               <div className="row">
                 <div className="col-6 mb-2">
                   <button type="submit" className="btn btn-primary w-100" disabled={loading}>{loading ? "Đang lưu..." : "Lưu"}</button>
@@ -113,6 +125,9 @@ function CustomerEdit() {
                   <button type="reset" className="btn btn-outline-secondary w-100" onClick={() => setForm({ ...form, password: "" })} disabled={loading}>Đặt lại</button>
                 </div>
               </div>
+
+              {error && <div className="alert alert-danger mt-3">{error}</div>}
+              {success && <div className="alert alert-success mt-3">{success}</div>}
 
             </form>
           </div>

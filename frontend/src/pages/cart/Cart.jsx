@@ -20,17 +20,21 @@ export default function Cart() {
   const toggleSelectAll = () => { if (selected.length === cart.length) { setSelected([]); } else { setSelected(cart.map((item) => item.product._id)); } };
 
   const handleRemoveSelected = async () => {
-    for (const id of selected) {
-      await removeFromCart(id);
+    try {
+      for (const id of selected) {
+        await removeFromCart(id);
+      }
+      setSelected([]);
+      await Swal.fire({ icon: "success", title: "Đã xóa", text: "Đã xóa các sản phẩm khỏi giỏ hàng.", timer: 1500, showConfirmButton: false, customClass: { popup: "na-swal-popup" } });
+    } catch (err) {
+      Swal.fire({ icon: "error", title: "Xóa thất bại", text: "Vui lòng thử lại sau.", confirmButtonText: "Đóng", customClass: { popup: "na-swal-popup", confirmButton: "btn btn-primary" }, buttonsStyling: false });
     }
-    setSelected([]);
-    showToast("Đã xóa các sản phẩm đã chọn");
   };
 
   const handleDelete = async (id) => {
     const result = await Swal.fire({
-      title: "Xóa sản phẩm khỏi giỏ hàng?",
-      text: "Sản phẩm sẽ bị xóa khỏi giỏ hàng của bạn.",
+      title: "Xóa sản phẩm?",
+      text: "Sản phẩm sẽ bị xóa khỏi giỏ hàng.",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Xóa",
@@ -39,8 +43,12 @@ export default function Cart() {
       buttonsStyling: false
     });
     if (!result.isConfirmed) return;
-    removeFromCart(id);
-    showToast("Đã xóa sản phẩm khỏi giỏ hàng");
+    try {
+      await removeFromCart(id);
+      await Swal.fire({ icon: "success", title: "Đã xóa", text: "Sản phẩm đã được xóa khỏi giỏ hàng.", timer: 1500, showConfirmButton: false, customClass: { popup: "na-swal-popup" } });
+    } catch (err) {
+      Swal.fire({ icon: "error", title: "Xóa thất bại", text: "Vui lòng thử lại sau.", confirmButtonText: "Đóng", customClass: { popup: "na-swal-popup", confirmButton: "btn btn-primary" }, buttonsStyling: false });
+    }
   };
 
   const total = cart.filter((item) => selected.includes(item.product._id)).reduce((sum, item) => sum + item.product.price * item.quantity, 0);
@@ -101,7 +109,7 @@ export default function Cart() {
                       {cart.map((item) => (
                         <tr key={item.product._id} className="hover-bg-light">
                           <td className="ps-4 py-3"><input type="checkbox" className="form-check-input" checked={selected.includes(item.product._id)} onChange={() => toggleSelect(item.product._id)} /></td>
-                          <td className="py-3"><div className="d-flex align-items-center gap-3"><Link to={`/product/${item.product._id}`}><img src={item.product.image_url} alt={item.product.product_name} className="rounded object-fit-cover transition-all hover-scale" style={{ width: "50px", height: "50px" }} /></Link><div className="flex-grow-1"><Link to={`/product/${item.product._id}`} className="text-dark fw-medium text-decoration-none d-block hover-underline">{item.product.product_name}</Link>{item.product.color && <small className="text-muted d-block mt-1">Màu: {item.product.color}</small>}</div></div></td>
+                          <td className="py-3"><div className="d-flex align-items-center gap-3 product-title"><Link to={`/products/${item.product._id}`}><img src={item.product.image_url} alt={item.product.product_name} className="rounded object-fit-cover transition-all hover-scale" style={{ width: "50px", height: "50px" }} /></Link><div className="flex-grow-1"><Link to={`/products/${item.product._id}`} className="text-dark fw-medium text-decoration-none d-block hover-underline">{item.product.product_name}</Link>{item.product.color && <small className="text-muted d-block mt-1">Màu: {item.product.color}</small>}</div></div></td>
                           <td className="text-center py-3"><div className="d-inline-flex align-items-center bg-light rounded-pill px-2 py-1"><button className={`btn btn-sm px-3 py-0 fw-bold qty-btn ${item.quantity <= 1 ? "qty-disabled" : ""}`} onClick={() => { if (item.quantity <= 1) return; updateQuantity(item.product._id, item.quantity - 1); }}>−</button><span className="px-4 fw-bold text-secondary">{item.quantity}</span><button className={`btn btn-sm px-3 py-0 fw-bold qty-btn ${item.quantity >= item.product.stock ? "qty-disabled" : ""}`} onClick={() => { if (item.quantity >= item.product.stock) { showToast(`Chỉ còn ${item.product.stock} sản phẩm`); return; } updateQuantity(item.product._id, item.quantity + 1); }}>+</button></div></td>
                           <td className="text-end py-3 fw-medium">{item.product.price.toLocaleString("vi-VN")} ₫</td>
                           <td className="text-end py-3 fw-bold text-primary">{(item.product.price * item.quantity).toLocaleString("vi-VN")} ₫</td>
