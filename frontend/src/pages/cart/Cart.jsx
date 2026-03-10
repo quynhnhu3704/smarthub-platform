@@ -14,7 +14,11 @@ export default function Cart() {
   const totalProducts = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   useEffect(() => { const timer = setTimeout(() => setIsLoading(false), 600); return () => clearTimeout(timer); }, []);
-  useEffect(() => { if (cart.length > 0) { setSelected(cart.map((item) => item.product._id)); } }, [cart]);
+  useEffect(() => {
+    if (cart.length > 0) {
+      setSelected(cart.filter(i => i.product).map((item) => item.product._id));
+    }
+  }, [cart]);
 
   const toggleSelect = (id) => { setSelected((prev) => prev.includes(id) ? prev.filter((itemId) => itemId !== id) : [...prev, id]); };
   const toggleSelectAll = () => { if (selected.length === cart.length) { setSelected([]); } else { setSelected(cart.map((item) => item.product._id)); } };
@@ -51,8 +55,12 @@ export default function Cart() {
     }
   };
 
-  const total = cart.filter((item) => selected.includes(item.product._id)).reduce((sum, item) => sum + item.product.price * item.quantity, 0);
-  const selectedQuantity = cart.filter((item) => selected.includes(item.product._id)).reduce((sum, item) => sum + item.quantity, 0);
+  const total = cart
+    .filter((item) => item.product && selected.includes(item.product._id))
+    .reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+  const selectedQuantity = cart
+    .filter((item) => item.product && selected.includes(item.product._id))
+    .reduce((sum, item) => sum + item.quantity, 0);
 
   const showToast = (message) => {
     if (toastRef.current) {
@@ -106,7 +114,7 @@ export default function Cart() {
                       <th scope="col" className="text-center py-3">Sản phẩm</th><th scope="col" className="text-center py-3">Số lượng</th><th scope="col" className="text-center py-3">Đơn giá</th><th scope="col" className="text-center py-3">Thành tiền</th><th scope="col" className="text-center py-3"></th></tr>
                     </thead>
                     <tbody>
-                      {cart.map((item) => (
+                      {cart.filter(i => i.product).map((item) => (
                         <tr key={item.product._id} className="hover-bg-light">
                           <td className="ps-4 py-3"><input type="checkbox" className="form-check-input" checked={selected.includes(item.product._id)} onChange={() => toggleSelect(item.product._id)} /></td>
                           <td className="py-3"><div className="d-flex align-items-center gap-3 product-title"><Link to={`/products/${item.product._id}`}><img src={item.product.image_url} alt={item.product.product_name} className="rounded object-fit-cover transition-all hover-scale" style={{ width: "50px", height: "50px" }} /></Link><div className="flex-grow-1"><Link to={`/products/${item.product._id}`} className="text-dark fw-medium text-decoration-none d-block hover-underline">{item.product.product_name}</Link>{item.product.color && <small className="text-muted d-block mt-1">Màu: {item.product.color}</small>}</div></div></td>
