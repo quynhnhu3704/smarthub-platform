@@ -14,7 +14,7 @@ class SmarthubProductsSpider(scrapy.Spider):
     start_urls = [
         f"https://www.duchuymobile.com/index.php"
         f"?dispatch=categories.view&category_id=80&page={i}&is_ajax=1"
-        for i in range(1, 10)
+        for i in range(1, 200)
     ]
     
 
