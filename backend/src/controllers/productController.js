@@ -21,14 +21,11 @@ export const getProducts = async (req, res) => {
     else if (priceRange === "high") query.price = { $gt: 15000000 }
 
     let sort = { createdAt: -1 } // mặc định: sản phẩm mới nhất lên đầu
-    if (sortOrder === "asc") sort.price = 1
-    else if (sortOrder === "desc") sort.price = -1
+    if (sortOrder === "asc") sort = { price: 1 }
+    else if (sortOrder === "desc") sort = { price: -1 }
 
     const total = await Product.countDocuments(query)
     const products = await Product.find(query).populate("brand").sort(sort).skip(skip).limit(limit)
-
-    let brandQuery = {}
-    if (keyword) brandQuery.product_name = { $regex: keyword, $options: "i" }
 
     const brandDocs = await Brand.find({ status: "active" })
     const brands = brandDocs.map(b => ({ _id: b._id, name: b.name }))
