@@ -166,10 +166,10 @@ function ProductList() {
                 <tbody>
                   {products.map((p, index) => (
                     <tr key={p._id}>
-                      <td className="text-center fw-bold">{(currentPage - 1) * productsPerPage + index + 1}</td>
-                      <td className="fw-medium" title={p.product_name}>{p.product_name}</td>
+                      <td className="text-center fw-bold text-dark">{(currentPage - 1) * productsPerPage + index + 1}</td>
+                      <td className="fw-medium text-dark" title={p.product_name}>{p.product_name}</td>
                       <td className="text-center"><img src={p.image_url} alt={p.product_name} className="rounded object-fit-cover" style={{ width: "50px", height: "50px" }} /></td>
-                      <td className="text-center">{p.brand?.name || "-"}</td>
+                      <td className="text-center text-dark">{p.brand?.name || "-"}</td>
                       <td className="text-end fw-semibold text-primary">{p.price?.toLocaleString("vi-VN")} ₫</td>
                       <td className="text-end text-muted">{p.original_price ? `${p.original_price.toLocaleString("vi-VN")} ₫` : "-"}</td>
                       <td className="text-center"><span className={`badge rounded-pill px-3 py-2 fw-bold ${p.stock > 10 ? "bg-success-subtle text-success" : p.stock > 0 ? "bg-warning-subtle text-warning" : "bg-danger-subtle text-danger"}`}>{p.stock}</span></td>
@@ -181,9 +181,9 @@ function ProductList() {
                             if (rating >= i + 0.5) return <i key={i} className="bi bi-star-half"></i>
                             return <i key={i} className="bi bi-star"></i>
                           })}
-                        </span> <small className="text-muted">({p.rating_count || 0})</small>
+                        </span> <small className="text-dark">({p.rating_count || 0})</small>
                       </td>
-                      <td className="text-center text-muted">{new Date(p.createdAt).toISOString().split("T")[0]}</td>
+                      <td className="text-center text-dark">{new Date(p.createdAt).toISOString().split("T")[0]}</td>
                       <td className="text-center">
                         <div className="d-flex gap-2 justify-content-center">
                           <Link to={`/dashboard/products/edit/${p._id}`} className="btn btn-sm btn-warning d-flex align-items-center gap-1 rounded-pill" title="Sửa sản phẩm"><i className="bi bi-pencil-square"></i></Link>
@@ -199,7 +199,7 @@ function ProductList() {
         </div>
       </div>
 
-      {totalPages > 1 && !loading && (
+      {!loading && (
         <div className="d-flex justify-content-center mt-5 mb-5">
           <nav aria-label="Product pagination">
             <ul className="pagination pagination-lg mb-0 shadow-sm">

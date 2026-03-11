@@ -10,7 +10,7 @@ export const getBrands = async (req, res) => {
     const sortOrder = req.query.sortOrder || ""
 
     const query = keyword ? { name: { $regex: keyword, $options: "i" } } : {}
-    const sort = sortOrder === "az" ? { name: 1 } : sortOrder === "za" ? { name: -1 } : { name: 1 }
+    const sort = sortOrder === "az" ? { name: 1 } : sortOrder === "za" ? { name: -1 } : { createdAt: -1 }
 
     let brands
 

@@ -171,14 +171,14 @@ function BrandList() {
                 <tbody>
                   {brands.map((b, index) => (
                     <tr key={b._id}>
-                      <td className="text-center fw-bold">{(currentPage - 1) * brandsPerPage + index + 1}</td>
-                      <td className="text-center fw-medium">{b.name}</td>
+                      <td className="text-center fw-bold text-dark">{(currentPage - 1) * brandsPerPage + index + 1}</td>
+                      <td className="text-center fw-medium text-dark">{b.name}</td>
                       <td className="text-center">
                         {b.status === "active"
                           ? <span className="badge rounded-pill bg-success-subtle text-success">active</span>
                           : <span className="badge rounded-pill bg-danger-subtle text-danger">inactive</span>}
                       </td>
-                      <td className="text-center text-muted">{new Date(b.createdAt).toISOString().split("T")[0]}</td>
+                      <td className="text-center text-dark">{new Date(b.createdAt).toISOString().split("T")[0]}</td>
                       <td className="text-center">
                         <div className="d-flex gap-2 justify-content-center">
                           <Link to={`/dashboard/brands/edit/${b._id}`} className="btn btn-sm btn-warning d-flex align-items-center gap-1 rounded-pill"><i className="bi bi-pencil-square"></i></Link>
@@ -194,7 +194,7 @@ function BrandList() {
         </div>
       </div>
 
-      {totalPages > 1 && !loading && (
+      {!loading && (
         <div className="d-flex justify-content-center mt-5 mb-5">
           <nav>
             <ul className="pagination pagination-lg mb-0 shadow-sm">

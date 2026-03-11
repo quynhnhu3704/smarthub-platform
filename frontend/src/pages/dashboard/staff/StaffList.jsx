@@ -141,18 +141,18 @@ function StaffList() {
                 <tbody>
                   {staff.map((s, index) => (
                     <tr key={s._id}>
-                      <td className="text-center fw-bold">{(currentPage - 1) * staffPerPage + index + 1}</td>
-                      <td className="fw-medium">{s.name}</td>
-                      <td className="text-center">{s.username}</td>
-                      <td className="text-center">{s.email}</td>
-                      <td className="text-center">{s.phone || "-"}</td>
-                      <td className="text-center"><span className="badge rounded-pill bg-secondary-subtle text-secondary fw-bold">{s.role}</span></td>
-                      <td className="text-center">
+                      <td className="text-center fw-bold text-dark">{(currentPage - 1) * staffPerPage + index + 1}</td>
+                      <td className="fw-medium text-dark">{s.name}</td>
+                      <td className="text-center text-dark">{s.username}</td>
+                      <td className="text-center text-dark">{s.email}</td>
+                      <td className="text-center text-dark">{s.phone || "-"}</td>
+                      <td className="text-center text-dark"><span className="badge rounded-pill bg-secondary-subtle text-secondary fw-bold">{s.role}</span></td>
+                      <td className="text-center text-dark">
                         {s.status === "active"
                           ? <span className="badge rounded-pill bg-success-subtle text-success">active</span>
                           : <span className="badge rounded-pill bg-danger-subtle text-danger">inactive</span>}
                       </td>
-                      <td className="text-center text-muted">{new Date(s.createdAt).toISOString().split("T")[0]}</td>
+                      <td className="text-center text-dark">{new Date(s.createdAt).toISOString().split("T")[0]}</td>
                       <td className="text-center">
                         <div className="d-flex gap-2 justify-content-center">
                           <Link to={`/dashboard/staff/edit/${s._id}`} className="btn btn-sm btn-warning d-flex align-items-center gap-1 rounded-pill" title="Sửa nhân viên"><i className="bi bi-pencil-square"></i></Link>
@@ -168,7 +168,7 @@ function StaffList() {
         </div>
       </div>
 
-      {totalPages > 1 && !loading && (
+      {!loading && (
         <div className="d-flex justify-content-center mt-5 mb-5">
           <nav aria-label="Staff pagination">
             <ul className="pagination pagination-lg mb-0 shadow-sm">

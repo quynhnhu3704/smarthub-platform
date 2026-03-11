@@ -21,9 +21,10 @@ export const getStaff = async (req, res) => {
 
     const total = await User.countDocuments(query)
     const staff = await User.find(query)
+      .sort({ createdAt: -1 })
       .select("-password")
       .skip(skip)
-      .limit(limit)
+      .limit(limit) 
 
     res.json({
       staff,

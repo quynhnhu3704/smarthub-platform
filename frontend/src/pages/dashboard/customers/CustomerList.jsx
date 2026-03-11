@@ -141,18 +141,18 @@ function CustomerList() {
                 <tbody>
                   {customers.map((c, index) => (
                     <tr key={c._id}>
-                      <td className="text-center fw-bold">{(currentPage - 1) * customersPerPage + index + 1}</td>
-                      <td className="fw-medium">{c.name}</td>
-                      <td className="text-center">{c.username}</td>
-                      <td className="text-center">{c.email}</td>
-                      <td className="text-center">{c.phone || "-"}</td>
-                      <td className="text-center"><span className="badge rounded-pill bg-secondary-subtle text-secondary fw-bold">{c.role}</span></td>
-                      <td className="text-center">
+                      <td className="text-center fw-bold text-dark">{(currentPage - 1) * customersPerPage + index + 1}</td>
+                      <td className="fw-medium text-dark">{c.name}</td>
+                      <td className="text-center text-dark">{c.username}</td>
+                      <td className="text-center text-dark">{c.email}</td>
+                      <td className="text-center text-dark">{c.phone || "-"}</td>
+                      <td className="text-center text-dark"><span className="badge rounded-pill bg-secondary-subtle text-secondary fw-bold">{c.role}</span></td>
+                      <td className="text-center text-dark">
                         {c.status === "active"
                           ? <span className="badge rounded-pill bg-success-subtle text-success">active</span>
                           : <span className="badge rounded-pill bg-danger-subtle text-danger">inactive</span>}
                       </td>
-                      <td className="text-center text-muted">{new Date(c.createdAt).toISOString().split("T")[0]}</td>
+                      <td className="text-center text-dark">{new Date(c.createdAt).toISOString().split("T")[0]}</td>
                       <td className="text-center">
                         <div className="d-flex gap-2 justify-content-center">
                           <Link to={`/dashboard/customers/edit/${c._id}`} className="btn btn-sm btn-warning d-flex align-items-center gap-1 rounded-pill" title="Sửa khách hàng"><i className="bi bi-pencil-square"></i></Link>
@@ -168,7 +168,7 @@ function CustomerList() {
         </div>
       </div>
 
-      {totalPages > 1 && !loading && (
+      {!loading && (
         <div className="d-flex justify-content-center mt-5 mb-5">
           <nav aria-label="Customer pagination">
             <ul className="pagination pagination-lg mb-0 shadow-sm">

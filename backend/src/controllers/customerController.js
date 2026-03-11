@@ -14,7 +14,7 @@ export const getCustomers = async (req, res) => {
     if (keyword) query.$or = [{ name: { $regex: keyword, $options: "i" } }, { username: { $regex: keyword, $options: "i" } }, { email: { $regex: keyword, $options: "i" } }, { phone: { $regex: keyword, $options: "i" } }]
 
     const total = await User.countDocuments(query)
-    const customers = await User.find(query).select("-password").skip(skip).limit(limit)
+    const customers = await User.find(query).sort({ createdAt: -1 }).select("-password").skip(skip).limit(limit)
 
     res.json({ customers, currentPage: page, totalPages: Math.ceil(total / limit), totalCustomers: total })
   } catch (error) {

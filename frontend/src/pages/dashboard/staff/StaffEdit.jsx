@@ -74,9 +74,6 @@ function StaffEdit() {
               </div>
             )}
 
-            {error && <div className="alert alert-danger mt-3">{error}</div>}
-            {success && <div className="alert alert-success mt-3">{success}</div>}
-
             <form onSubmit={handleSubmit} spellCheck="false">
 
               <div className="mb-3">
@@ -128,6 +125,9 @@ function StaffEdit() {
                   <button type="reset" className="btn btn-outline-secondary w-100" onClick={() => setForm({ ...form, password: "" })} disabled={loading}>Đặt lại</button>
                 </div>
               </div>
+
+              {error && <div className="alert alert-danger mt-3">{error}</div>}
+              {success && <div className="alert alert-success mt-3">{success}</div>}
 
             </form>
           </div>
