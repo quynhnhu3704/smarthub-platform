@@ -140,9 +140,7 @@ function ProductDetail() {
               <img src={product.image_url} alt={product.product_name} className="product-detail-img w-100 rounded-4 transition-all"/>
               <span className="position-absolute top-0 start-0 fs-6 badge badge-na rounded-pill fw-bold">{product.brand?.name}</span>
               {discountPercent > 0 && (
-                <span className="position-absolute top-0 end-0 fs-6 badge bg-danger rounded-pill fw-bold">
-                  -{discountPercent}%
-                </span>
+                <span className="position-absolute top-0 end-0 fs-6 badge bg-danger rounded-pill fw-bold">-{discountPercent}%</span>
               )}
             </div>
           </div>
@@ -166,26 +164,18 @@ function ProductDetail() {
             </div>
 
             <div className="d-flex align-items-baseline gap-3 mb-4">
-              <div className="price fs-2 fw-bold text-primary">
-                {product.price?.toLocaleString("vi-VN")} ₫
-              </div>
+              <div className="price fs-2 fw-bold text-primary">{product.price?.toLocaleString("vi-VN")} ₫</div>
               {product.original_price && product.original_price > product.price && (
-                <div className="original-price text-muted text-decoration-line-through fs-5">
-                  {product.original_price.toLocaleString("vi-VN")} ₫
-                </div>
+                <div className="original-price text-muted text-decoration-line-through fs-5">{product.original_price.toLocaleString("vi-VN")} ₫</div>
               )}
             </div>
 
             <div className="mb-5">
               <span className="fw-semibold me-3">Tình trạng:</span>
               {product.stock > 0 ? (
-                <span className="badge bg-success-subtle text-success px-4 py-2 fs-6 rounded-pill">
-                  Còn hàng ({product.stock} sản phẩm)
-                </span>
+                <span className="badge bg-success-subtle text-success px-4 py-2 fs-6 rounded-pill">Còn hàng ({product.stock} sản phẩm)</span>
               ) : (
-                <span className="badge bg-danger-subtle text-danger px-4 py-2 fs-6 rounded-pill">
-                  Hết hàng
-                </span>
+                <span className="badge bg-danger-subtle text-danger px-4 py-2 fs-6 rounded-pill">Hết hàng</span>
               )}
             </div>
 
@@ -229,7 +219,12 @@ function ProductDetail() {
             </div>
 
             <div className="mt-auto">
-              <button className="btn btn-primary w-100 fw-bold d-flex align-items-center justify-content-center gap-3 rounded-pill py-3 px-5 fs-5" onClick={handleAddCart} disabled={product.stock <= 0}>
+              {/* <button className="btn btn-primary w-100 fw-bold d-flex align-items-center justify-content-center gap-3 rounded-pill py-3 px-5 fs-5" onClick={handleAddCart} disabled={product.stock <= 0}>
+                <i className="bi bi-cart-plus fs-3"></i>
+                {product.stock > 0 ? "THÊM VÀO GIỎ HÀNG" : "HẾT HÀNG"}
+              </button> */}
+
+              <button className="btn btn-primary w-100 fw-bold d-flex align-items-center justify-content-center gap-3 rounded-pill fs-5" onClick={handleAddCart} disabled={product.stock <= 0}>
                 <i className="bi bi-cart-plus fs-3"></i>
                 {product.stock > 0 ? "THÊM VÀO GIỎ HÀNG" : "HẾT HÀNG"}
               </button>
