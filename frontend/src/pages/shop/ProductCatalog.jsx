@@ -45,7 +45,7 @@ function ProductCatalog() {
         setProducts(activeProducts)
         setTotalPages(data.totalPages || 1)
         setBrands(activeBrands)
-        setTotalProducts(activeProducts.length)
+        setTotalProducts(data.totalProducts || 0)
       })
       .catch(console.error)
       .finally(() => setLoading(false))
@@ -70,9 +70,14 @@ function ProductCatalog() {
             <div className="col-12">
               <div className="d-flex flex-wrap align-items-end justify-content-between mb-4 gap-3 position-relative" style={{zIndex: 5}}>
                 <div>
-                  {keyword ? (
+
+                  {keyword || selectedBrand || priceRange || sortOrder ? (
                     <>
-                      <h2 className="section-heading mb-1">Kết quả tìm kiếm cho "<span className="text-primary">{keyword}</span>"</h2>
+                      {keyword ? (
+                        <h2 className="section-heading mb-1">Kết quả tìm kiếm cho "<span className="text-primary">{keyword}</span>"</h2>
+                      ) : (
+                        <h2 className="section-heading mb-1">Danh sách sản phẩm</h2>
+                      )}
                       <div className="text-muted fs-6">Tìm thấy <strong className="text-dark">{totalProducts.toLocaleString()}</strong> sản phẩm phù hợp</div>
                     </>
                   ) : (
