@@ -134,25 +134,23 @@ function StaffList() {
                     <th>Điện thoại</th>
                     <th>Vai trò</th>
                     <th>Trạng thái</th>
-                    <th>Ngày tạo</th>
                     <th>Thao tác</th>
                   </tr>
                 </thead>
                 <tbody>
                   {staff.map((s, index) => (
                     <tr key={s._id}>
-                      <td className="text-center fw-bold text-dark">{(currentPage - 1) * staffPerPage + index + 1}</td>
-                      <td className="fw-medium text-dark">{s.name}</td>
-                      <td className="text-center text-dark">{s.username}</td>
-                      <td className="text-center text-dark">{s.email}</td>
-                      <td className="text-center text-dark">{s.phone || "-"}</td>
+                      <td className="text-center fw-bold text-dark" style={{ fontSize: "0.95em"}}>{(currentPage - 1) * staffPerPage + index + 1}</td>
+                      <td className="fw-medium text-dark" style={{ fontSize: "0.95em"}}>{s.name}</td>
+                      <td className="text-center text-dark" style={{ fontSize: "0.95em"}}>{s.username}</td>
+                      <td className="text-center text-dark" style={{ fontSize: "0.95em"}}>{s.email}</td>
+                      <td className="text-center text-dark" style={{ fontSize: "0.95em"}}>{s.phone || "-"}</td>
                       <td className="text-center text-dark"><span className="badge rounded-pill bg-secondary-subtle text-secondary fw-bold">{s.role}</span></td>
                       <td className="text-center text-dark">
                         {s.status === "active"
                           ? <span className="badge rounded-pill bg-success-subtle text-success">active</span>
                           : <span className="badge rounded-pill bg-danger-subtle text-danger">inactive</span>}
                       </td>
-                      <td className="text-center text-dark">{new Date(s.createdAt).toISOString().split("T")[0]}</td>
                       <td className="text-center">
                         <div className="d-flex gap-2 justify-content-center">
                           <Link to={`/dashboard/staff/edit/${s._id}`} className="btn btn-sm btn-warning d-flex align-items-center gap-1 rounded-pill" title="Sửa nhân viên"><i className="bi bi-pencil-square"></i></Link>

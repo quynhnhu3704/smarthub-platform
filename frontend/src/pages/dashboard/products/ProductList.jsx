@@ -120,7 +120,7 @@ function ProductList() {
           {loading ? (
             <div className="table-responsive">
               <table className="table mb-0">
-                <thead><tr><th colSpan="10"><div className="placeholder-glow"><div className="placeholder col-12 bg-secondary rounded" style={{ height: "40px" }}></div></div></th></tr></thead>
+                <thead><tr><th colSpan="11"><div className="placeholder-glow"><div className="placeholder col-12 bg-secondary rounded" style={{ height: "40px" }}></div></div></th></tr></thead>
                 <tbody>
                   {[...Array(8)].map((_, i) => (
                     <tr key={i}>
@@ -130,6 +130,7 @@ function ProductList() {
                       <td><div className="placeholder col-6 bg-secondary rounded"></div></td>
                       <td><div className="placeholder col-6 bg-secondary rounded"></div></td>
                       <td><div className="placeholder col-6 bg-secondary rounded"></div></td>
+                      <td><div className="placeholder col-4 bg-secondary rounded"></div></td>
                       <td><div className="placeholder col-4 bg-secondary rounded"></div></td>
                       <td><div className="placeholder col-4 bg-secondary rounded"></div></td>
                       <td><div className="placeholder col-6 bg-secondary rounded"></div></td>
@@ -158,22 +159,27 @@ function ProductList() {
                     <th>Giá bán</th>
                     <th>Giá gốc</th>
                     <th>Tồn kho</th>
+                    <th>Trạng thái</th>
                     <th>Đánh giá</th>
-                    <th>Ngày tạo</th>
                     <th>Thao tác</th>
                   </tr>
                 </thead>
                 <tbody>
                   {products.map((p, index) => (
                     <tr key={p._id}>
-                      <td className="text-center fw-bold text-dark">{(currentPage - 1) * productsPerPage + index + 1}</td>
-                      <td className="fw-medium text-dark" title={p.product_name}>{p.product_name}</td>
+                      <td className="text-center fw-bold text-dark" style={{ fontSize: "0.95em"}}>{(currentPage - 1) * productsPerPage + index + 1}</td>
+                      <td className="fw-medium text-dark" style={{ fontSize: "0.95em"}} title={p.product_name}>{p.product_name}</td>
                       <td className="text-center"><img src={p.image_url} alt={p.product_name} className="rounded object-fit-cover" style={{ width: "50px", height: "50px" }} /></td>
-                      <td className="text-center text-dark">{p.brand?.name || "-"}</td>
-                      <td className="text-end fw-semibold text-primary">{p.price?.toLocaleString("vi-VN")} ₫</td>
-                      <td className="text-end text-muted">{p.original_price ? `${p.original_price.toLocaleString("vi-VN")} ₫` : "-"}</td>
-                      <td className="text-center"><span className={`badge rounded-pill px-3 py-2 fw-bold ${p.stock > 10 ? "bg-success-subtle text-success" : p.stock > 0 ? "bg-warning-subtle text-warning" : "bg-danger-subtle text-danger"}`}>{p.stock}</span></td>
+                      <td className="text-center text-dark" style={{ fontSize: "0.95em"}}>{p.brand?.name || "-"}</td>
+                      <td className="text-end fw-semibold text-primary" style={{ fontSize: "0.95em"}}>{p.price?.toLocaleString("vi-VN")} ₫</td>
+                      <td className="text-end text-muted" style={{ fontSize: "0.95em"}}>{p.original_price ? `${p.original_price.toLocaleString("vi-VN")} ₫` : "-"}</td>
+                      <td className="text-center"><span className={`badge rounded-pill fw-bold ${p.stock > 10 ? "bg-success-subtle text-success" : p.stock > 0 ? "bg-warning-subtle text-warning" : "bg-danger-subtle text-danger"}`} style={{ width: "3.25em" }}>{p.stock}</span></td>
                       <td className="text-center">
+                        {p.status === "active"
+                          ? <span className="badge rounded-pill bg-success-subtle text-success">active</span>
+                          : <span className="badge rounded-pill bg-danger-subtle text-danger">inactive</span>}
+                      </td>
+                      <td className="text-center" style={{ fontSize: "0.95em"}}>
                         <span className="text-warning" style={{ fontSize: "0.85em "}}>
                           {Array.from({ length: 5 }, (_, i) => {
                             const rating = p.rating_value || 0
@@ -181,9 +187,8 @@ function ProductList() {
                             if (rating >= i + 0.5) return <i key={i} className="bi bi-star-half"></i>
                             return <i key={i} className="bi bi-star"></i>
                           })}
-                        </span> <small className="text-dark">({p.rating_count || 0})</small>
+                        </span> <small className="text-muted">({p.rating_count || 0})</small>
                       </td>
-                      <td className="text-center text-dark">{new Date(p.createdAt).toISOString().split("T")[0]}</td>
                       <td className="text-center">
                         <div className="d-flex gap-2 justify-content-center">
                           <Link to={`/dashboard/products/edit/${p._id}`} className="btn btn-sm btn-warning d-flex align-items-center gap-1 rounded-pill" title="Sửa sản phẩm"><i className="bi bi-pencil-square"></i></Link>

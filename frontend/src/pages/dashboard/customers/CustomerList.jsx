@@ -134,25 +134,23 @@ function CustomerList() {
                     <th>Điện thoại</th>
                     <th>Vai trò</th>
                     <th>Trạng thái</th>
-                    <th>Ngày tạo</th>
                     <th>Thao tác</th>
                   </tr>
                 </thead>
                 <tbody>
                   {customers.map((c, index) => (
                     <tr key={c._id}>
-                      <td className="text-center fw-bold text-dark">{(currentPage - 1) * customersPerPage + index + 1}</td>
-                      <td className="fw-medium text-dark">{c.name}</td>
-                      <td className="text-center text-dark">{c.username}</td>
-                      <td className="text-center text-dark">{c.email}</td>
-                      <td className="text-center text-dark">{c.phone || "-"}</td>
+                      <td className="text-center fw-bold text-dark" style={{ fontSize: "0.95em"}}>{(currentPage - 1) * customersPerPage + index + 1}</td>
+                      <td className="fw-medium text-dark" style={{ fontSize: "0.95em"}}>{c.name}</td>
+                      <td className="text-center text-dark" style={{ fontSize: "0.95em"}}>{c.username}</td>
+                      <td className="text-center text-dark" style={{ fontSize: "0.95em"}}>{c.email}</td>
+                      <td className="text-center text-dark" style={{ fontSize: "0.95em"}}>{c.phone || "-"}</td>
                       <td className="text-center text-dark"><span className="badge rounded-pill bg-secondary-subtle text-secondary fw-bold">{c.role}</span></td>
                       <td className="text-center text-dark">
                         {c.status === "active"
                           ? <span className="badge rounded-pill bg-success-subtle text-success">active</span>
                           : <span className="badge rounded-pill bg-danger-subtle text-danger">inactive</span>}
                       </td>
-                      <td className="text-center text-dark">{new Date(c.createdAt).toISOString().split("T")[0]}</td>
                       <td className="text-center">
                         <div className="d-flex gap-2 justify-content-center">
                           <Link to={`/dashboard/customers/edit/${c._id}`} className="btn btn-sm btn-warning d-flex align-items-center gap-1 rounded-pill" title="Sửa khách hàng"><i className="bi bi-pencil-square"></i></Link>

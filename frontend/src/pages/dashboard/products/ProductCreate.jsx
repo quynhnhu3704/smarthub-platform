@@ -20,7 +20,7 @@ function ProductCreate() {
     fetchBrands()
   }, [])
 
-  const initialForm = { product_name:"", brand:"", price:"", original_price:"", stock:"", ram:"", storage:"", screen_size:"", resolution:"", chipset:"", os:"", rear_camera:"", front_camera:"", battery:"", dimensions:"", weight:"", image_url:"" }
+  const initialForm = { product_name:"", brand:"", price:"", original_price:"", stock:"", ram:"", storage:"", screen_size:"", resolution:"", chipset:"", os:"", rear_camera:"", front_camera:"", battery:"", dimensions:"", weight:"", image_url:"", status:"active" }
 
   const [form, setForm] = useState(initialForm)
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value })
@@ -162,6 +162,14 @@ function ProductCreate() {
               <div className="mb-4">
                 <label className="form-label fw-medium">URL Hình ảnh <span className="text-danger">*</span></label>
                 <input type="text" name="image_url" className="form-control" value={form.image_url} onChange={handleChange} required disabled={loading} />
+              </div>
+
+              <div className="mb-4">
+                <label className="form-label fw-medium">Trạng thái</label>
+                <select name="status" className="form-select" value={form.status} onChange={handleChange} disabled={loading}>
+                  <option value="active">Hoạt động</option>
+                  <option value="inactive">Không hoạt động</option>
+                </select>
               </div>
 
               <div className="row">
