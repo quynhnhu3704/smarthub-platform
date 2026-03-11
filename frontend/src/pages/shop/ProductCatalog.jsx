@@ -42,6 +42,10 @@ function ProductCatalog() {
           p => p.brand && p.brand.status !== "inactive"
         )
 
+        // const activeProducts = (data.products || []).filter(
+        //   p => p.status === "active" && p.brand && p.brand.status !== "inactive"
+        // )
+
         setProducts(activeProducts)
         setTotalPages(data.totalPages || 1)
         setBrands(activeBrands)
