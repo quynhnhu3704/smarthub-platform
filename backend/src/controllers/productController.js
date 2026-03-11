@@ -27,7 +27,10 @@ export const getProducts = async (req, res) => {
     const total = await Product.countDocuments(query)
     const products = await Product.find(query).populate("brand").sort(sort).skip(skip).limit(limit)
 
-    const brandDocs = await Product.find({ brand: { $in: activeBrandIds } }).distinct("brand")
+    const brandQuery = { brand: { $in: activeBrandIds } }
+    if (keyword) brandQuery.product_name = { $regex: keyword, $options: "i" }
+    const brandDocs = await Product.find(brandQuery).distinct("brand")
+
     const brands = await Brand.find({ _id: { $in: brandDocs }, status: "active" }).select("_id name")
 
     res.json({ products, currentPage: page, totalPages: Math.ceil(total / limit), totalProducts: total, brands })
