@@ -16,11 +16,30 @@ export const getBrands = async (req, res) => {
 
     if (!page || !limit) {
       brands = await Brand.find(query).collation({ locale: "en", strength: 2 }).sort(sort)
+
+      // thêm đoạn này
+      const Product = (await import("../models/Product.js")).default
+      brands = await Promise.all(
+        brands.map(async (b) => {
+          const count = await Product.countDocuments({ brand: b._id })
+          return { ...b.toObject(), productCount: count }
+        })
+      )
+
       return res.json({ brands })
     }
 
     const totalBrands = await Brand.countDocuments(query)
     brands = await Brand.find(query).collation({ locale: "en", strength: 2 }).sort(sort).skip((page - 1) * limit).limit(limit)
+
+    // thêm đoạn này
+    const Product = (await import("../models/Product.js")).default
+    brands = await Promise.all(
+      brands.map(async (b) => {
+        const count = await Product.countDocuments({ brand: b._id })
+        return { ...b.toObject(), productCount: count }
+      })
+    )
 
     res.json({ brands, totalPages: Math.ceil(totalBrands / limit), totalBrands })
   } catch {

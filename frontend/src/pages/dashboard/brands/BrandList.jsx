@@ -163,6 +163,7 @@ function BrandList() {
                   <tr className="text-center">
                     <th>STT</th>
                     <th>Tên thương hiệu</th>
+                    <th>Số sản phẩm</th>
                     <th>Trạng thái</th>
                     <th>Ngày tạo</th>
                     <th>Thao tác</th>
@@ -173,6 +174,14 @@ function BrandList() {
                     <tr key={b._id}>
                       <td className="text-center fw-bold text-dark">{(currentPage - 1) * brandsPerPage + index + 1}</td>
                       <td className="text-center fw-medium text-dark">{b.name}</td>
+
+<td className="text-center">
+  <span className="badge bg-primary-subtle text-primary">
+    {b.productCount}
+  </span>
+</td>
+
+
                       <td className="text-center">
                         {b.status === "active"
                           ? <span className="badge rounded-pill bg-success-subtle text-success">active</span>
