@@ -174,14 +174,7 @@ function BrandList() {
                     <tr key={b._id}>
                       <td className="text-center fw-bold text-dark">{(currentPage - 1) * brandsPerPage + index + 1}</td>
                       <td className="text-center fw-medium text-dark">{b.name}</td>
-
-<td className="text-center">
-  <span className="badge bg-primary-subtle text-primary">
-    {b.productCount}
-  </span>
-</td>
-
-
+                      <td className="text-center"><span className="badge bg-secondary-subtle text-secondary rounded-pill" style={{ width: "3.25em" }}>{b.productCount}</span></td>
                       <td className="text-center">
                         {b.status === "active"
                           ? <span className="badge rounded-pill bg-success-subtle text-success">active</span>

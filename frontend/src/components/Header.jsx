@@ -1,4 +1,6 @@
 // src/components/Header.jsx
+import { Link } from "react-router-dom"
+
 export default function Header() {
   return (
     <header className="hero py-5 py-lg-6" style={{ height: "40vh" }}>
@@ -9,14 +11,11 @@ export default function Header() {
 
             <h1 className="display-5 fw-extrabold">Công nghệ đỉnh cao – Giá tốt mỗi ngày</h1>
 
-            <p className="lead opacity-75">
-              SmartHub cung cấp điện thoại chính hãng, bảo hành uy tín,
-              hỗ trợ trả góp và giao hàng toàn quốc nhanh chóng.
-            </p>
+            <p className="lead opacity-75">SmartHub cung cấp điện thoại chính hãng, bảo hành uy tín, hỗ trợ trả góp và giao hàng toàn quốc nhanh chóng.</p>
 
             <div className="d-flex gap-3 flex-wrap">
               <a href="#products" className="btn btn-light fw-semibold"><i className="bi bi-phone me-2"></i>Xem sản phẩm</a>
-              <a href="#cart" className="btn btn-outline-light fw-semibold"><i className="bi bi-cart-check me-2"></i>Xem giỏ hàng</a>
+              <Link to="/cart" className="btn btn-outline-light fw-semibold"><i className="bi bi-cart-check me-2"></i>Xem giỏ hàng</Link>
             </div>
           </div>
         </div>
