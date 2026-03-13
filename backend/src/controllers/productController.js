@@ -65,7 +65,7 @@ export const createProduct = async (req, res) => {
 // PUT /api/products/:id
 export const updateProduct = async (req, res) => {
   try {
-    const product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true }).populate("brand")
+    const product = await Product.findByIdAndUpdate(req.params.id, req.body, { returnDocument: "after" }).populate("brand")
     if (!product) return res.status(404).json({ message: "Product not found" })
     res.json(product)
   } catch (error) {

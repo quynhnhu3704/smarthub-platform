@@ -28,9 +28,9 @@ import BrandList from "./pages/dashboard/brands/BrandList"
 import BrandCreate from "./pages/dashboard/brands/BrandCreate"
 import BrandEdit from "./pages/dashboard/brands/BrandEdit"
 
-
-
 import Cart from "./pages/cart/Cart"
+
+// import Chatbot from "./components/chatbot/Chatbot"
 
 function App() {
   return (
@@ -68,6 +68,9 @@ function App() {
           <Route path="/cart" element={<Cart />} />
 
         </Routes>
+
+        {/* <Chatbot /> */}
+
       </Layout>
     </BrowserRouter>
   )
