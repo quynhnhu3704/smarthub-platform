@@ -9,6 +9,7 @@ import customerRoutes from "./routes/customerRoutes.js"
 import staffRoutes from "./routes/staffRoutes.js"
 import cartRoutes from "./routes/cartRoutes.js"
 import brandRoutes from "./routes/brandRoutes.js"
+import searchRoutes from "./routes/searchRoutes.js"
 
 class App {
   constructor() {
@@ -41,6 +42,7 @@ class App {
     this.app.use("/api/staff", staffRoutes)
     this.app.use("/api/cart", cartRoutes)
     this.app.use("/api/brands", brandRoutes)
+    this.app.use("/api", searchRoutes)
   }
 
   start() {
