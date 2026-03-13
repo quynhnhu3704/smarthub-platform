@@ -66,7 +66,7 @@ export const getMySearchHistory = async (req, res) => {
     const history = await SearchHistory
       .find({ user: userId })
       .sort({ updatedAt: -1 })
-      .limit(10)
+      .limit(5) // Giới hạn lịch sử tìm kiếm = 5
       .select("keyword")
 
     res.json({ history })
@@ -111,7 +111,7 @@ export const getTrendingKeywords = async (req, res) => {
     const trending = await SearchKeywordStats // CHANGED: lấy từ collection thống kê thay vì SearchHistory
       .find()
       .sort({ count: -1 })
-      .limit(6)
+      .limit(10) // Giới hạn trending = 10 keyword có count cao nhất
 
     res.json({
       trending: trending.map(i => i.keyword) // CHANGED: trả keyword thay vì _id

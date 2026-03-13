@@ -27,7 +27,7 @@ export default function Navbar({ toggleSidebar }) {
       try {
         const res = await fetch("/api/search-history", { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } })
         const data = await res.json()
-        setSearchHistory(data.history || [])
+        setSearchHistory((data.history || []).slice(0, 5))
       } catch (err) { console.error("Lỗi lấy lịch sử", err) }
     }
 
@@ -35,7 +35,7 @@ export default function Navbar({ toggleSidebar }) {
       try {
         const res = await fetch("/api/trending-keywords")
         const data = await res.json()
-        setTrendingKeywords(data.trending || [])
+        setTrendingKeywords((data.trending || []).slice(0, 10))
       } catch (err) { console.error("Lỗi trending", err) }
     }
 
@@ -80,7 +80,7 @@ export default function Navbar({ toggleSidebar }) {
 
       setSearchHistory(prev => {
         const filtered = prev.filter(i => i.keyword !== normalized)
-        return [{ keyword: normalized }, ...filtered].slice(0, 10)
+        return [{ keyword: normalized }, ...filtered].slice(0, 5)
       })
 
       // ===== cập nhật trending ngay lập tức =====
@@ -92,7 +92,7 @@ export default function Navbar({ toggleSidebar }) {
       // gọi lại trending từ server (đã sort theo count)
       const resTrending = await fetch("/api/trending-keywords")
       const dataTrending = await resTrending.json()
-      setTrendingKeywords(dataTrending.trending || [])
+      setTrendingKeywords((dataTrending.trending || []).slice(0, 10))
     } catch (err) { console.error("Lỗi lưu search", err) }
 
     navigate(`/products?keyword=${encodeURIComponent(normalized)}`)
@@ -143,7 +143,7 @@ export default function Navbar({ toggleSidebar }) {
     // cập nhật lịch sử ngay lập tức
     setSearchHistory(prev => {
       const filtered = prev.filter(i => i.keyword !== normalized)
-      return [{ keyword: normalized }, ...filtered].slice(0, 10)
+      return [{ keyword: normalized }, ...filtered].slice(0, 5)
     })
 
     // cập nhật trending ngay lập tức
@@ -154,7 +154,7 @@ export default function Navbar({ toggleSidebar }) {
 
     const resTrending = await fetch("/api/trending-keywords")
     const dataTrending = await resTrending.json()
-    setTrendingKeywords(dataTrending.trending || [])
+    setTrendingKeywords((dataTrending.trending || []).slice(0, 10))
 
     setKeyword(normalized)
     navigate(`/products?keyword=${encodeURIComponent(normalized)}`)
@@ -193,7 +193,7 @@ export default function Navbar({ toggleSidebar }) {
 
                 {/* Dropdown lịch sử + xu hướng */}
                 {showDropdown && (
-                  <div className="position-absolute top-100 start-0 w-100 bg-white shadow rounded mt-1" style={{ zIndex: 1000, maxHeight: "400px", overflowY: "auto" }} ref={dropdownRef}>
+                  <div className="position-absolute top-100 start-0 w-100 bg-white shadow rounded mt-1" style={{ zIndex: 1000 }} ref={dropdownRef}>
 
                     {/* Lịch sử tìm kiếm */}
                     {searchHistory.length > 0 && (
