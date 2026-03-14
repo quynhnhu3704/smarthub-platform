@@ -10,6 +10,7 @@ export default function Header() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [hasSurvey, setHasSurvey] = useState(false);
+  const [token, setToken] = useState(localStorage.getItem("token"));
 
   useEffect(() => {
     const fetchBrands = async () => {
@@ -24,7 +25,10 @@ export default function Header() {
     const checkSurvey = async () => {
       try {
         const token = localStorage.getItem("token")
-        if (!token) return
+        if (!token) {
+          setHasSurvey(false)
+          return
+        }
 
         const res = await axios.get("/api/surveys/me", {
           headers: { Authorization: `Bearer ${token}` }
@@ -40,6 +44,28 @@ export default function Header() {
 
     fetchBrands()
     checkSurvey()
+  }, [token])
+
+  useEffect(() => {
+    const handleStorage = () => {
+      setToken(localStorage.getItem("token"))
+    }
+
+    window.addEventListener("storage", handleStorage)
+
+    return () => window.removeEventListener("storage", handleStorage)
+  }, [])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const token = localStorage.getItem("token")
+
+      if (!token) {
+        setHasSurvey(false)
+      }
+    }, 500)
+
+    return () => clearInterval(interval)
   }, [])
 
   const handleSubmitSurvey = async (e) => {
@@ -74,6 +100,8 @@ export default function Header() {
         { headers: { Authorization: `Bearer ${token}` } }
       )
       setSuccess("Gửi khảo sát thành công. Cảm ơn bạn!")
+      setHasSurvey(true)
+
       setTimeout(() => {
         setShowSurvey(false)
         setSuccess("")
@@ -98,7 +126,7 @@ export default function Header() {
                 <a href="#products" className="btn btn-light fw-semibold"><i className="bi bi-phone me-2"></i>Xem sản phẩm</a>
                 <Link to="/cart" className="btn btn-outline-light fw-semibold"><i className="bi bi-cart-check me-2"></i>Xem giỏ hàng</Link>
                 {!hasSurvey && (
-                  <button className="btn btn-warning fw-semibold" onClick={() => setShowSurvey(true)}><i className="bi bi-clipboard-data me-2"></i>Khảo sát nhu cầu</button>
+                  <button className="btn btn-warning fw-semibold" onClick={() => setShowSurvey(true)}><i className="bi bi-clipboard-data me-2"></i>Khảo sát ngay</button>
                 )}
               </div>
             </div>
@@ -252,8 +280,8 @@ export default function Header() {
                       <button className="btn btn-outline-secondary w-100" onClick={() => setShowSurvey(false)}>Đóng</button>
                     </div>
                     <div className="col-6 pe-0">
-                      <button type="submit" form="surveyForm" className="btn btn-primary fw-semibold w-100" disabled={loading}>
-                        {loading ? "Đang gửi..." : "Gửi phản hồi ngay"}
+                      <button type="submit" form="surveyForm" className="btn btn-primary w-100" disabled={loading}>
+                        {loading ? "Đang gửi..." : "Gửi phản hồi"}
                       </button>
                     </div>
                   </div>
