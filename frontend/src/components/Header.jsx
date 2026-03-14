@@ -9,6 +9,7 @@ export default function Header() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [hasSurvey, setHasSurvey] = useState(false);
 
   useEffect(() => {
     const fetchBrands = async () => {
@@ -19,7 +20,26 @@ export default function Header() {
         console.error(err)
       }
     }
+
+    const checkSurvey = async () => {
+      try {
+        const token = localStorage.getItem("token")
+        if (!token) return
+
+        const res = await axios.get("/api/surveys/me", {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+
+        if (res.data.survey) {
+          setHasSurvey(true)
+        }
+      } catch (err) {
+        console.error(err)
+      }
+    }
+
     fetchBrands()
+    checkSurvey()
   }, [])
 
   const handleSubmitSurvey = async (e) => {
@@ -77,7 +97,9 @@ export default function Header() {
               <div className="d-flex gap-3 flex-wrap">
                 <a href="#products" className="btn btn-light fw-semibold"><i className="bi bi-phone me-2"></i>Xem sản phẩm</a>
                 <Link to="/cart" className="btn btn-outline-light fw-semibold"><i className="bi bi-cart-check me-2"></i>Xem giỏ hàng</Link>
-                <button className="btn btn-warning fw-semibold" onClick={() => setShowSurvey(true)}><i className="bi bi-bar-chart me-2"></i>Khảo sát nhu cầu</button>
+                {!hasSurvey && (
+                  <button className="btn btn-warning fw-semibold" onClick={() => setShowSurvey(true)}><i className="bi bi-clipboard-data me-2"></i>Khảo sát nhu cầu</button>
+                )}
               </div>
             </div>
           </div>
