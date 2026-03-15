@@ -1,6 +1,7 @@
 // controllers/cartController.js
 import Cart from "../models/Cart.js";
 import Product from "../models/Product.js";
+import CartEvent from "../models/CartEvent.js"; // ADDED
 
 // Lấy giỏ hàng của người dùng hiện tại
 export const getCart = async (req, res) => {
@@ -53,6 +54,13 @@ export const addToCart = async (req, res) => {
   }
 
   await cart.save();
+
+  // ADDED: log cart event
+  await CartEvent.create({
+    user: req.user._id,
+    items: [{ product: productId, quantity }]
+  });
+  
   res.json(cart);
 };
 
