@@ -172,13 +172,24 @@ export default function Navbar({ toggleSidebar }) {
       customClass: { popup: "na-swal-popup", confirmButton: "btn btn-danger", cancelButton: "btn btn-outline-secondary", actions: "d-flex justify-content-center gap-2 mt-4" },
       buttonsStyling: false
     })
+
     if (!result.isConfirmed) return
+
     logout()
     navigate("/")
+
+    await Swal.fire({
+      icon: "success",
+      title: "Đã đăng xuất",
+      text: "Bạn đã đăng xuất khỏi hệ thống.",
+      timer: 1000,
+      showConfirmButton: false,
+      customClass: { popup: "na-swal-popup" }
+    })
   }
 
   return (
-    <nav className="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+    <nav className="navbar navbar-expand-lg bg-white shadow-sm sticky-top position-relative">
       <div className="container-fluid px-5">
         <button className="btn btn-outline-primary me-3" onClick={toggleSidebar}>&#9776;</button>
         <a className="navbar-brand fw-bold ms-3 text-primary" href="/"><i className="bi bi-skype me-2 fs-4"></i>SmartHub</a>

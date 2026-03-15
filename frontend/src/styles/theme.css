@@ -18,7 +18,8 @@
 body {
   font-family: 'Quicksand', Arial, sans-serif;
   color:var(--na-ink); 
-  background:var(--na-bg)
+  background:var(--na-bg);
+  overflow-y: scroll;
 }
 
 .btn-primary {
