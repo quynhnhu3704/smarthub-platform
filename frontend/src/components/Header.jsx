@@ -277,10 +277,10 @@ export default function Header() {
                   {success && <div className="alert alert-success w-100 mb-3">{success}</div>}
                   <div className="row w-100">
                     <div className="col-6 ps-0">
-                      <button className="btn btn-outline-secondary w-100" onClick={() => setShowSurvey(false)}>Đóng</button>
+                      <button type="reset" form="surveyForm" className="btn btn-outline-secondary w-100">Đặt lại</button>
                     </div>
                     <div className="col-6 pe-0">
-                      <button type="submit" form="surveyForm" className="btn btn-primary w-100" disabled={loading}>
+                      <button type="submit" form="surveyForm" className="btn btn-primary w-100" disabled={loading}><i className="bi bi-send me-2"></i>
                         {loading ? "Đang gửi..." : "Gửi phản hồi"}
                       </button>
                     </div>
