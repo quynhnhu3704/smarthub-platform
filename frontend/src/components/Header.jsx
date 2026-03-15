@@ -156,7 +156,7 @@ export default function Header() {
                 <form id="surveyForm" className="modal-body pt-4 px-4 px-md-5" onSubmit={handleSubmitSurvey}>
                   <div className="mb-5">
                     <label className="form-label fw-semibold fs-5 mb-2 d-block"><i className="bi bi-tags me-3 text-primary"></i>Bạn đang quan tâm đến thương hiệu điện thoại nào?</label>
-                    <small className="d-block text-muted mb-3">Bạn có thể chọn nhiều thương hiệu</small>
+                    <small className="d-block text-primary mb-3">Bạn có thể chọn nhiều thương hiệu</small>
                     <div className="row g-3">
                       {brands.map((brand) => (
                         <div className="col-12 col-md-3" key={brand._id}>
@@ -170,7 +170,7 @@ export default function Header() {
                   </div>
                   <div className="mb-5">
                     <label className="form-label fw-semibold fs-5 mb-2 d-block"><i className="bi bi-cash-stack me-3 text-primary"></i>Khoảng giá bạn mong muốn là bao nhiêu?</label>
-                    <small className="d-block text-muted mb-3">Chọn mức giá phù hợp với ngân sách của bạn</small>
+                    <small className="d-block text-primary mb-3">Chọn mức giá phù hợp với ngân sách của bạn</small>
                     <div className="d-flex flex-column gap-3">
                       <div className="form-check">
                         <input className="form-check-input" type="radio" name="price" value="0-5000000" />
@@ -188,89 +188,89 @@ export default function Header() {
                   </div>
                   <div className="mb-5">
                     <label className="form-label fw-semibold fs-5 mb-2 d-block"><i className="bi bi-memory me-3 text-primary"></i>Bạn mong muốn điện thoại có dung lượng RAM bao nhiêu?</label>
-                    <small className="d-block text-muted mb-3">Chọn mức RAM phù hợp với nhu cầu sử dụng của bạn</small>
+                    <small className="d-block text-primary mb-3">Chọn mức RAM phù hợp với nhu cầu sử dụng của bạn</small>
                     <div className="d-flex flex-column gap-3">
                       <div className="form-check">
                         <input className="form-check-input" type="radio" name="ram" value="0-4" />
-                        <label className="form-check-label">Dưới 4 GB</label>
+                        <label className="form-check-label">Dưới 4 GB<small className="text-muted ms-3">phù hợp nhu cầu cơ bản</small></label>
                       </div>
                       <div className="form-check">
                         <input className="form-check-input" type="radio" name="ram" value="4-8" />
-                        <label className="form-check-label">Từ 6 đến 8 GB (phổ biến)</label>
+                        <label className="form-check-label">Từ 6 đến 8 GB<small className="text-muted ms-3">đáp ứng hầu hết nhu cầu sử dụng</small></label>
                       </div>
                       <div className="form-check">
                         <input className="form-check-input" type="radio" name="ram" value="8-12" />
-                        <label className="form-check-label">Từ 8 đến 12 GB (đa nhiệm tốt)</label>
+                        <label className="form-check-label">Từ 8 đến 12 GB<small className="text-muted ms-3">chạy đa nhiệm và game mượt hơn</small></label>
                       </div>
                       <div className="form-check">
                         <input className="form-check-input" type="radio" name="ram" value="12-24" />
-                        <label className="form-check-label">Trên 12 GB</label>
+                        <label className="form-check-label">Trên 12 GB<small className="text-muted ms-3">hiệu năng cao cho nhu cầu nặng</small></label>
                       </div>
                     </div>
                   </div>
                   <div className="mb-5">
                     <label className="form-label fw-semibold fs-5 mb-2 d-block"><i className="bi bi-hdd-stack me-3 text-primary"></i>Bạn cần dung lượng bộ nhớ trong (lưu trữ) bao nhiêu?</label>
-                    <small className="d-block text-muted mb-3">Chọn dung lượng lưu trữ phù hợp với nhu cầu của bạn</small>
+                    <small className="d-block text-primary mb-3">Chọn dung lượng lưu trữ phù hợp với nhu cầu của bạn</small>
                     <div className="d-flex flex-column gap-3">
                       <div className="form-check">
                         <input className="form-check-input" type="radio" name="storage" value="0-64" />
-                        <label className="form-check-label">Dưới 64 GB</label>
+                        <label className="form-check-label">Dưới 64 GB<small className="text-muted ms-3">phù hợp nhu cầu cơ bản</small></label>
                       </div>
                       <div className="form-check">
                         <input className="form-check-input" type="radio" name="storage" value="64-128" />
-                        <label className="form-check-label">Từ 64 đến 128 GB</label>
+                        <label className="form-check-label">Từ 64 đến 128 GB<small className="text-muted ms-3">đủ dùng cho đa số người dùng</small></label>
                       </div>
                       <div className="form-check">
                         <input className="form-check-input" type="radio" name="storage" value="128-256" />
-                        <label className="form-check-label">Từ 128 đến 256 GB</label>
+                        <label className="form-check-label">Từ 128 đến 256 GB<small className="text-muted ms-3">lưu được nhiều ứng dụng và hình ảnh</small></label>
                       </div>
                       <div className="form-check">
                         <input className="form-check-input" type="radio" name="storage" value="256-512" />
-                        <label className="form-check-label">Từ 256 đến 512 GB</label>
+                        <label className="form-check-label">Từ 256 đến 512 GB<small className="text-muted ms-3">phù hợp người lưu nhiều dữ liệu</small></label>
                       </div>
                       <div className="form-check">
                         <input className="form-check-input" type="radio" name="storage" value="512-2048" />
-                        <label className="form-check-label">Trên 1 TB</label>
+                        <label className="form-check-label">Trên 1 TB<small className="text-muted ms-3">dung lượng rất lớn cho nhu cầu cao</small></label>
                       </div>
                     </div>
                   </div>
                   <div className="mb-5">
                     <label className="form-label fw-semibold fs-5 mb-2 d-block"><i className="bi bi-battery-charging me-3 text-primary"></i>Bạn mong muốn điện thoại có dung lượng pin như thế nào?</label>
-                    <small className="d-block text-muted mb-3">Chọn mức dung lượng pin bạn cảm thấy phù hợp</small>
+                    <small className="d-block text-primary mb-3">Chọn mức dung lượng pin bạn cảm thấy phù hợp</small>
                     <div className="d-flex flex-column gap-3">
                       <div className="form-check">
                         <input className="form-check-input" type="radio" name="battery" value="0-4000" />
-                        <label className="form-check-label">Dưới 4000 mAh (dùng nhẹ khoảng nửa ngày đến 1 ngày)</label>
+                        <label className="form-check-label">Dưới 4000 mAh<small className="text-muted ms-3">dùng nhẹ khoảng nửa ngày đến 1 ngày</small></label>
                       </div>
                       <div className="form-check">
                         <input className="form-check-input" type="radio" name="battery" value="4000-5000" />
-                        <label className="form-check-label">Từ 4000 đến 5000 mAh (dùng khoảng 1 ngày)</label>
+                        <label className="form-check-label">Từ 4000 đến 5000 mAh<small className="text-muted ms-3">dùng khoảng 1 ngày</small></label>
                       </div>
                       <div className="form-check">
                         <input className="form-check-input" type="radio" name="battery" value="5000-10000" />
-                        <label className="form-check-label">Trên 5000 mAh (có thể dùng 1.5 – 2 ngày)</label>
+                        <label className="form-check-label">Trên 5000 mAh<small className="text-muted ms-3">có thể dùng 1.5 – 2 ngày</small></label>
                       </div>
                     </div>
                   </div>
                   <div className="mb-5">
                     <label className="form-label fw-semibold fs-5 mb-2 d-block"><i className="bi bi-aspect-ratio-fill me-3 text-primary"></i>Bạn thích kích thước màn hình điện thoại ra sao?</label>
-                    <small className="d-block text-muted mb-3">Chọn kích thước màn hình phù hợp với thói quen sử dụng của bạn</small>
+                    <small className="d-block text-primary mb-3">Chọn kích thước màn hình phù hợp với thói quen sử dụng của bạn</small>
                     <div className="d-flex flex-column gap-3">
                       <div className="form-check">
                         <input className="form-check-input" type="radio" name="screen" value="0-6.4" />
-                        <label className="form-check-label">Nhỏ gọn (dưới 6.4 inch)</label>
+                        <label className="form-check-label">Dưới 6.4 inch<small className="text-muted ms-3">nhỏ gọn</small></label>
                       </div>
                       <div className="form-check">
                         <input className="form-check-input" type="radio" name="screen" value="6.4-6.7" />
-                        <label className="form-check-label">Tiêu chuẩn (từ 6.4 đến 6.7 inch)</label>
+                        <label className="form-check-label">Từ 6.4 đến 6.7 inch<small className="text-muted ms-3">tiêu chuẩn</small></label>
                       </div>
                       <div className="form-check">
                         <input className="form-check-input" type="radio" name="screen" value="6.7-10" />
-                        <label className="form-check-label">Màn hình lớn (trên 6.7 inch)</label>
+                        <label className="form-check-label">Trên 6.7 inch<small className="text-muted ms-3">màn hình lớn</small></label>
                       </div>
                     </div>
                   </div>
-                  <p className="text-muted text-center">Cảm ơn bạn đã dành thời gian phản hồi!</p>
+                  <p className="text-primary text-center">Cảm ơn bạn đã dành thời gian phản hồi!</p>
                 </form>
                 <div className="modal-footer border-0 px-4 px-md-5 pb-4 pt-2 flex-column">
                   {error && <div className="alert alert-danger w-100 mb-3">{error}</div>}
