@@ -189,7 +189,7 @@ export default function Navbar({ toggleSidebar }) {
   }
 
   return (
-    <nav className="navbar navbar-expand-lg bg-white shadow-sm sticky-top position-relative">
+    <nav className="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
       <div className="container-fluid px-5">
         <button className="btn btn-outline-primary me-3" onClick={toggleSidebar}>&#9776;</button>
         <a className="navbar-brand fw-bold ms-3 text-primary" href="/"><i className="bi bi-skype me-2 fs-4"></i>SmartHub</a>
