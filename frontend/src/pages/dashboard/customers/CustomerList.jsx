@@ -11,7 +11,7 @@ function CustomerList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalCustomers, setTotalCustomers] = useState(0);
-  const customersPerPage = 10;
+  const customersPerPage = 20;
 
   const fetchCustomers = async (page = currentPage, key = keyword) => {
     setLoading(true);
