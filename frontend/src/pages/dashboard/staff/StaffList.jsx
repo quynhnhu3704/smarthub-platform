@@ -99,7 +99,7 @@ function StaffList() {
               <table className="table mb-0">
                 <thead><tr><th colSpan="9"><div className="placeholder-glow"><div className="placeholder col-12 bg-secondary rounded" style={{ height: "40px" }}></div></div></th></tr></thead>
                 <tbody>
-                  {[...Array(8)].map((_, i) => (
+                  {[...Array(staffPerPage)].map((_, i) => (
                     <tr key={i}>
                       <td><div className="placeholder col-4 bg-secondary rounded"></div></td>
                       <td><div className="placeholder col-8 bg-secondary rounded"></div></td>

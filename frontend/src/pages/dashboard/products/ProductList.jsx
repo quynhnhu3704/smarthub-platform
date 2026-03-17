@@ -15,7 +15,7 @@ function ProductList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalProducts, setTotalProducts] = useState(0);
-  const productsPerPage = 10;
+  const productsPerPage = 20;
 
   const fetchProducts = async (page = currentPage, key = keyword, brand = selectedBrand, price = priceRange, sort = sortOrder) => {
     setLoading(true);
@@ -122,7 +122,7 @@ function ProductList() {
               <table className="table mb-0">
                 <thead><tr><th colSpan="11"><div className="placeholder-glow"><div className="placeholder col-12 bg-secondary rounded" style={{ height: "40px" }}></div></div></th></tr></thead>
                 <tbody>
-                  {[...Array(8)].map((_, i) => (
+                  {[...Array(productsPerPage)].map((_, i) => (
                     <tr key={i}>
                       <td><div className="placeholder col-4 bg-secondary rounded"></div></td>
                       <td><div className="placeholder col-8 bg-secondary rounded"></div></td>

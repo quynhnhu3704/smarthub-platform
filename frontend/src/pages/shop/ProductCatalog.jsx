@@ -14,7 +14,7 @@ function ProductCatalog() {
   const [totalPages, setTotalPages] = useState(1)
   const [totalProducts, setTotalProducts] = useState(0)
   const [loading, setLoading] = useState(true)
-  const productsPerPage = 10
+  const productsPerPage = 20 // số sản phẩm / pagination
   const navigate = useNavigate()
 
   const location = useLocation()
@@ -119,7 +119,7 @@ function ProductCatalog() {
               <div className="position-relative">
                 {loading ? (
                   <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
-                    {[...Array(10)].map((_, i) => (
+                    {[...Array(productsPerPage)].map((_, i) => (
                       <div key={i} className="col">
                         <div className="card-na h-100 shadow-sm border-0 p-3 placeholder-glow">
                           <div className="placeholder w-100 rounded mb-3" style={{ height: "220px" }}></div>

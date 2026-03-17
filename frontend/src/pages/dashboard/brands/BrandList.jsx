@@ -137,7 +137,7 @@ function BrandList() {
                   </tr>
                 </thead>
                 <tbody>
-                  {[...Array(8)].map((_, i) => (
+                  {[...Array(brandsPerPage)].map((_, i) => (
                     <tr key={i}>
                       <td><div className="placeholder col-4 bg-secondary rounded"></div></td>
                       <td><div className="placeholder col-6 bg-secondary rounded"></div></td>
