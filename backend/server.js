@@ -8,6 +8,7 @@
 // app.start()
 
 
+// server.js
 // .env được load trước khi code dùng process.env
 import dotenv from "dotenv"
 dotenv.config()

@@ -1,19 +1,17 @@
-// // src/services/chatbotService.js
-// export const sendMessageToBot = async (message) => {
+// src/services/chatbotService.js
+import axios from "axios"
 
-//   const res = await fetch("/api/chatbot/chat", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json"
-//     },
-//     body: JSON.stringify({ message })
-//   })
-
-//   if (!res.ok) {
-//     throw new Error("Failed to send message to chatbot")
-//   }
-
-//   const data = await res.json()
-
-//   return data.reply
-// }
+/**
+ * Gửi message tới backend chatbot
+ * @param {string} message
+ * @returns {Promise<string>}
+ */
+export const sendMessageToBot = async (message) => {
+  try {
+    const res = await axios.post("/api/chatbot", { message })
+    return res.data.reply
+  } catch (err) {
+    console.error(err)
+    return "Xin lỗi, SmartHub Assistant đang tạm thời không hoạt động. Vui lòng thử lại sau."
+  }
+}

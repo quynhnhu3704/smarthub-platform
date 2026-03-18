@@ -30,7 +30,7 @@ import BrandEdit from "./pages/dashboard/brands/BrandEdit"
 
 import Cart from "./pages/cart/Cart"
 
-// import Chatbot from "./components/chatbot/Chatbot"
+import Chatbot from "./components/chatbot/Chatbot"
 
 function App() {
   return (
@@ -69,7 +69,7 @@ function App() {
 
         </Routes>
 
-        {/* <Chatbot /> */}
+        <Chatbot />
 
       </Layout>
     </BrowserRouter>
