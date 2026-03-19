@@ -11,7 +11,12 @@ import cartRoutes from "./routes/cartRoutes.js"
 import brandRoutes from "./routes/brandRoutes.js"
 import searchRoutes from "./routes/searchRoutes.js"
 import surveyRoutes from "./routes/surveyRoutes.js"
-import chatbotRoutes from "./routes/chatbotRoutes.js"
+// <<<<<<< HEAD
+// import chatbotRoutes from "./routes/chatbotRoutes.js"
+// =======
+import recommendationRoutes from "./routes/recommendationRoutes.js"; // router AI recommend
+// import chatbotRoutes from "./routes/chatbotRoutes.js"
+
 
 class App {
   constructor() {
@@ -37,6 +42,7 @@ class App {
   }
 
   setupRoutes() {
+    this.app.use("/api/recommendations", recommendationRoutes); // router AI recommend
     this.app.use("/api/products", productRoutes)
     this.app.use("/api/auth", authRoutes)
     this.app.use("/api/users", userRoutes)
@@ -46,7 +52,13 @@ class App {
     this.app.use("/api/brands", brandRoutes)
     this.app.use("/api", searchRoutes)
     this.app.use("/api/surveys", surveyRoutes)
+<<<<<<< HEAD
     this.app.use("/api/chatbot", chatbotRoutes)
+=======
+    
+    // this.app.use("/api/chatbot", chatbotRoutes)
+    
+>>>>>>> main
   }
 
   start() {

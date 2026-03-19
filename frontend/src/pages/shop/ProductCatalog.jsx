@@ -2,7 +2,10 @@
 import { useEffect, useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { getProducts } from "../../services/productService"
-import Header from "../../components/Header"
+import Header from "../../components/Header" 
+import { useContext } from "react"; // them moi
+import { AuthContext } from "../../context/AuthContext"; // them moi
+import RecommendationList from "../../components/RecommendationList"; // them moi
 
 function ProductCatalog() {
   const [products, setProducts] = useState([])
@@ -16,6 +19,8 @@ function ProductCatalog() {
   const [loading, setLoading] = useState(true)
   const productsPerPage = 20 // số sản phẩm / pagination
   const navigate = useNavigate()
+
+  const { user } = useContext(AuthContext); // them moi
 
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
@@ -68,6 +73,11 @@ function ProductCatalog() {
   return (
     <>
       <Header />
+      {user && (
+        <div className="container-fluid px-4 mt-4">
+          <RecommendationList userId={user.id} /> 
+        </div>
+      )}
       <section id="products" className="py-5">
         <div className="container-fluid px-4">
           <div className="row">
