@@ -42,7 +42,7 @@ function Chatbot() {
                 <img src="https://api.dicebear.com/9.x/bottts/svg?seed=SmartHub" alt="Bot avatar" />
               </div>
               <div className="header-info">
-                <h5 className="fw-semibold mb-0">SmartHub Assistant</h5>
+                <h5 className="fw-semibold mb-0">Trợ lý ảo SmartHub</h5>
                 <span className="status">Online</span>
               </div>
             </div>
