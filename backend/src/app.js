@@ -12,6 +12,7 @@ import brandRoutes from "./routes/brandRoutes.js"
 import searchRoutes from "./routes/searchRoutes.js"
 import surveyRoutes from "./routes/surveyRoutes.js"
 import chatbotRoutes from "./routes/chatbotRoutes.js"
+import recommendationRoutes from "./routes/recommendationRoutes.js"; // Phần của Oanh
 
 class App {
   constructor() {
@@ -47,6 +48,7 @@ class App {
     this.app.use("/api", searchRoutes)
     this.app.use("/api/surveys", surveyRoutes)
     this.app.use("/api/chatbot", chatbotRoutes)
+    this.app.use("/api/recommendations", recommendationRoutes); // Phần của Oanh
   }
 
   start() {
