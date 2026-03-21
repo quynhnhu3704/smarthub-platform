@@ -69,9 +69,9 @@ const RecommendationSection = ({ userId }) => {
   }, [userId]);
 
   if (loading) return (
-    <div className="d-flex align-items-center gap-2 text-primary">
+    <div className="d-flex align-items-center justify-content-center gap-2 text-primary">
       <div className="spinner-border spinner-border-sm"></div>
-      <span>Đang tìm kiếm sản phẩm phù hợp với bạn...</span>
+      <span>Đang tải gợi ý sản phẩm...</span>
     </div>
   );
 
@@ -79,7 +79,7 @@ const RecommendationSection = ({ userId }) => {
 
   return (
     <div className="recommendation-section mb-5">
-      <h4 className="fw-bold mb-4 text-primary"><i className="bi bi-magic me-2"></i>Gợi ý dành riêng cho {userId ? "bạn" : "khách"}</h4>
+      <h4 className="fw-bold mb-4 text-primary"><i className="bi bi-magic me-2"></i>Gợi ý dành cho {userId ? "bạn" : "khách"}</h4>
       <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
         {products.map(product => (
           <div className="col" key={product._id}>

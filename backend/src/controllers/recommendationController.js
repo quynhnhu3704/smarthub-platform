@@ -34,7 +34,7 @@ export const getPersonalizedRecommendations = async (req, res) => {
       data: sortedProducts
     })
   } catch (error) {
-    console.error("AI Service Error:", error.message)
-    res.json({ status: "error", data: [], message: "AI service is offline" })
+    console.error("Recommendation service error:", error.message)
+    res.json({ status: "error", data: [], message: "Recommendation service is currently unavailable" })
   }
 }
