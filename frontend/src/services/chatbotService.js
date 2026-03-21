@@ -12,6 +12,6 @@ export const sendMessageToBot = async (message) => {
     return res.data.reply
   } catch (err) {
     console.error(err)
-    return "Xin lỗi, SmartHub Assistant đang tạm thời không hoạt động. Vui lòng thử lại sau."
+    return "Xin lỗi, Trợ lý ảo SmartHub đang tạm thời không hoạt động. Vui lòng thử lại sau."
   }
 }
