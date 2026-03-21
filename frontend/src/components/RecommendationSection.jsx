@@ -22,23 +22,15 @@ const ProductCard = ({ product }) => {
           <span className="position-absolute top-0 end-0 m-3 badge bg-danger rounded-pill">-{discountPercent}%</span>
         )}
       </div>
-
       <div className="p-3 p-lg-4 d-flex flex-column">
         <h6 className="fw-bold mb-2 product-title">
-          <Link to={`/products/${product._id}`} className="text-decoration-none text-dark">
-            {product.product_name}
-          </Link>
+          <Link to={`/products/${product._id}`} className="text-decoration-none text-dark">{product.product_name}</Link>
         </h6>
-
         <div className="d-flex gap-2 mb-2">
           <span className="badge badge-light-gray px-2 py-2">{product.ram}GB RAM</span>
           <span className="badge badge-light-gray px-2 py-2">{product.storage}GB</span>
         </div>
-
-        <div className="price text-danger fw-bold fs-5">
-          {product.price?.toLocaleString()} ₫
-        </div>
-
+        <div className="price text-danger fw-bold fs-5">{product.price?.toLocaleString()} ₫</div>
         {product.original_price && product.original_price > product.price && (
           <div className="original-price text-muted">{product.original_price.toLocaleString()} ₫</div>
         )}
@@ -56,7 +48,6 @@ const RecommendationSection = ({ userId }) => {
   useEffect(() => {
     const fetchRecommendations = async () => {
       try {
-        // Gọi qua Node.js (cổng 5000)
         const res = await axios.get(`/api/recommendations/${userId}`);
         if (res.data.status === "success") setProducts(res.data.data);
       } catch (error) {
@@ -65,7 +56,6 @@ const RecommendationSection = ({ userId }) => {
         setLoading(false);
       }
     };
-
     if (userId) fetchRecommendations();
     else setLoading(false);
   }, [userId]);
@@ -80,28 +70,20 @@ const RecommendationSection = ({ userId }) => {
   if (products.length === 0) return null;
 
   return (
-  <div className="recommendation-section">
-    <div className="mb-4">
-      <h2 className="section-heading mb-1"><i class="bi bi-magic me-2"></i>
-  Gợi ý dành cho{" "}
-  <span className="text-primary">
-    { user?.username || user?.name || "bạn"}
-  </span>
-      </h2>
-      <div className="text-muted fs-6">
-        Những sản phẩm được đề xuất dựa trên nhu cầu của bạn tại <strong className="text-primary">SmartHub</strong>
+    <div className="recommendation-section">
+      <div className="mb-4">
+        <h2 className="section-heading mb-1"><i className="bi bi-magic me-2"></i>Gợi ý dành cho <span className="text-primary">{user?.username || user?.name || "bạn"}</span></h2>
+        <div className="text-muted fs-6">Những sản phẩm được đề xuất dựa trên nhu cầu của bạn tại <strong className="text-primary">SmartHub</strong></div>
+      </div>
+      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
+        {products.map(product => (
+          <div className="col" key={product._id}>
+            <ProductCard product={product} />
+          </div>
+        ))}
       </div>
     </div>
-
-    <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
-      {products.map(product => (
-        <div className="col" key={product._id}>
-          <ProductCard product={product} />
-        </div>
-      ))}
-    </div>
-  </div>
-);
+  );
 };
 
 export default RecommendationSection;
