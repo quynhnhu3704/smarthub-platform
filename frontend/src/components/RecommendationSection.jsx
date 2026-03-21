@@ -58,7 +58,7 @@ const RecommendationSection = ({ userId }) => {
         const res = await axios.get(`/api/recommendations/${userId}`);
         if (res.data.status === "success") setProducts(res.data.data);
       } catch (error) {
-        console.error("Lỗi khi lấy gợi ý AI:", error);
+        console.error("Lỗi khi gọi API gợi ý sản phẩm:", error);
       } finally {
         setLoading(false);
       }
