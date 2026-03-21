@@ -39,9 +39,7 @@ const ProductCard = ({ product }) => {
         </div>
 
         {product.original_price && product.original_price > product.price && (
-          <div className="original-price text-muted">
-            {product.original_price.toLocaleString()} ₫
-          </div>
+          <div className="original-price text-muted">{product.original_price.toLocaleString()} ₫</div>
         )}
       </div>
     </div>
@@ -80,9 +78,9 @@ const RecommendationSection = ({ userId }) => {
   if (products.length === 0) return null;
 
   return (
-    <div className="recommendation-section bg-light p-4 rounded-4 shadow-sm mb-5">
+    <div className="recommendation-section mb-5">
       <h4 className="fw-bold mb-4 text-primary"><i className="bi bi-magic me-2"></i>Gợi ý dành riêng cho {userId ? "bạn" : "khách"}</h4>
-      <div className="row row-cols-2 row-cols-md-4 row-cols-lg-5 g-3">
+      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
         {products.map(product => (
           <div className="col" key={product._id}>
             <ProductCard product={product} />
