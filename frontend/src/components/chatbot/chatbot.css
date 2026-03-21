@@ -1,12 +1,8 @@
 /* Sử dụng font và biến màu từ theme.css đã import sẵn */
-.chatbot-wrapper {
+.chatbot-fab {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  z-index: 1000;
-}
-
-.chatbot-fab {
   width: 64px;
   height: 64px;
   border-radius: 50%;
@@ -20,6 +16,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1002; /* Cao nhất để luôn nổi */
 }
 
 .chatbot-fab:hover {
@@ -27,7 +24,22 @@
   box-shadow: 0 16px 40px rgba(111, 66, 193, 0.38);
 }
 
+.chatbot-fab .fab-icon {
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+
+.chatbot-fab.open .fab-icon {
+  transform: rotate(180deg);
+  font-size: 36px; /* dấu × to hơn một chút */
+}
+
 .chatbot-window {
+  position: fixed;
+  bottom: 100px;          /* 64px (FAB) + 36px khoảng cách đẹp */
+  right: 24px;
   width: 380px;
   height: 560px;
   background: var(--na-card);
@@ -39,7 +51,10 @@
   border: 1px solid rgba(111, 66, 193, 0.12);
   backdrop-filter: blur(10px);
   animation: popup 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 1001; /* Thấp hơn FAB một chút */
 }
+
+/* Giữ nguyên các phần còn lại như header, messages, input... */
 
 @keyframes popup {
   from { opacity: 0; transform: scale(0.84) translateY(40px); }

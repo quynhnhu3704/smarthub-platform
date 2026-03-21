@@ -7,72 +7,46 @@ function Chatbot() {
   const [messages, setMessages] = useState([]);
   const [open, setOpen] = useState(false);
   const [isSending, setIsSending] = useState(false);
-
   const messagesEndRef = useRef(null);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+  const scrollToBottom = () => { messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }); };
+  useEffect(() => { scrollToBottom(); }, [messages]);
 
   const send = async () => {
     if (!message.trim() || isSending) return;
-
     const userMsg = { role: "user", text: message.trim() };
     setMessages((prev) => [...prev, userMsg]);
     setMessage("");
     setIsSending(true);
-
     try {
       const reply = await sendMessageToBot(userMsg.text);
       setMessages((prev) => [...prev, { role: "bot", text: reply }]);
     } catch (err) {
-      setMessages((prev) => [
-        ...prev,
-        { role: "bot", text: "Có lỗi xảy ra, bạn thử lại nhé nhé..." },
-      ]);
-    } finally {
-      setIsSending(false);
-    }
+      setMessages((prev) => [...prev, { role: "bot", text: "Có lỗi xảy ra, bạn thử lại nhé nhé..." }]);
+    } finally { setIsSending(false); }
   };
 
+  const toggleChat = () => { setOpen((prev) => !prev); };
+
   return (
-    <div className="chatbot-wrapper">
-      {!open && (
-        <button
-          className="chatbot-fab"
-          onClick={() => setOpen(true)}
-          aria-label="Mở chatbot"
-        >
-          <span className="fab-icon">💬</span>
-        </button>
-      )}
+    <>
+      <button className={`chatbot-fab ${open ? "open" : ""}`} onClick={toggleChat} aria-label={open ? "Đóng chatbot" : "Mở chatbot"}>
+        {open ? <span className="fab-icon"><i className="bi bi-x"></i></span> : <span className="fab-icon"><i className="bi bi-robot"></i></span>}
+      </button>
 
       {open && (
         <div className="chatbot-window">
           <div className="chatbot-header">
             <div className="header-left">
               <div className="avatar-online">
-                <img
-                  src="https://api.dicebear.com/9.x/bottts/svg?seed=SmartHub"
-                  alt="Bot avatar"
-                />
+                <img src="https://api.dicebear.com/9.x/bottts/svg?seed=SmartHub" alt="Bot avatar" />
               </div>
               <div className="header-info">
                 <h3>SmartHub Assistant</h3>
                 <span className="status">Online</span>
               </div>
             </div>
-            <button
-              className="close-btn"
-              onClick={() => setOpen(false)}
-              aria-label="Đóng chatbot"
-            >
-              ×
-            </button>
+            <button className="close-btn" onClick={() => setOpen(false)} aria-label="Đóng chatbot">×</button>
           </div>
 
           <div className="chatbot-messages">
@@ -84,41 +58,26 @@ function Chatbot() {
             )}
 
             {messages.map((msg, index) => (
-              <div
-                key={index}
-                className={`message-row ${msg.role === "user" ? "user" : "bot"}`}
-              >
+              <div key={index} className={`message-row ${msg.role === "user" ? "user" : "bot"}`}>
                 {msg.role === "bot" && (
                   <div className="bot-avatar">
-                    <img
-                      src="https://api.dicebear.com/9.x/bottts/svg?seed=SmartHub"
-                      alt="Bot"
-                    />
+                    <img src="https://api.dicebear.com/9.x/bottts/svg?seed=SmartHub" alt="Bot" />
                   </div>
                 )}
-
-                <div className={`bubble ${msg.role}`}>
-                  <div className="bubble-content">{msg.text}</div>
-                </div>
+                <div className={`bubble ${msg.role}`}><div className="bubble-content">{msg.text}</div></div>
               </div>
             ))}
 
             {isSending && (
               <div className="message-row bot">
                 <div className="bot-avatar">
-                  <img
-                    src="https://api.dicebear.com/9.x/bottts/svg?seed=SmartHub"
-                    alt="Bot"
-                  />
+                  <img src="https://api.dicebear.com/9.x/bottts/svg?seed=SmartHub" alt="Bot" />
                 </div>
                 <div className="bubble bot typing">
-                  <span className="dot"></span>
-                  <span className="dot"></span>
-                  <span className="dot"></span>
+                  <span className="dot"></span><span className="dot"></span><span className="dot"></span>
                 </div>
               </div>
             )}
-
             <div ref={messagesEndRef} />
           </div>
 
@@ -130,20 +89,13 @@ function Chatbot() {
               onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && (e.preventDefault(), send())}
               disabled={isSending}
             />
-            <button
-              className={`send-btn ${!message.trim() || isSending ? "disabled" : ""}`}
-              onClick={send}
-              disabled={!message.trim() || isSending}
-              aria-label="Gửi tin nhắn"
-            >
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-              </svg>
+            <button className={`send-btn ${!message.trim() || isSending ? "disabled" : ""}`} onClick={send} disabled={!message.trim() || isSending} aria-label="Gửi tin nhắn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" /></svg>
             </button>
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
 
