@@ -19,6 +19,6 @@ export const getAIReply = async (message) => {
     return result.text || "Xin lỗi, mình chưa tìm thấy thông tin phù hợp. Bạn có thể hỏi về điện thoại tại SmartHub."
   } catch (error) {
     console.error("AI error:", error)
-    return "Rất tiếc, SmartHub Assistant hiện đang gặp sự cố. Bạn vui lòng thử lại sau."
+    return "Rất tiếc, Trợ lý SmartHub hiện đang gặp sự cố. Bạn vui lòng thử lại sau."
   }
 }
