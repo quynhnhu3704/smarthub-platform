@@ -107,8 +107,7 @@
 }
 
 .close-btn:hover {
-  opacity: 1;
-  transform: rotate(90deg) scale(1.15);
+  opacity: 0.75;
 }
 
 .chatbot-messages {

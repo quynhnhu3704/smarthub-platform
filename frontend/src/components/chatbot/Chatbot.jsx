@@ -46,7 +46,7 @@ function Chatbot() {
                 <span className="status">Online</span>
               </div>
             </div>
-            <button className="close-btn" onClick={() => setOpen(false)} aria-label="Đóng chatbot"><i class="bi bi-x"></i></button>
+            <button className="close-btn" onClick={() => setOpen(false)} aria-label="Đóng chatbot"><i className="bi bi-x"></i></button>
           </div>
 
           <div className="chatbot-messages">
