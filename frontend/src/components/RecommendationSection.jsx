@@ -1,8 +1,9 @@
 // frontend/src/components/RecommendationSection.jsx
 // Phần của Oanh
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 // Component thẻ sản phẩm
 const ProductCard = ({ product }) => {
@@ -48,6 +49,7 @@ const ProductCard = ({ product }) => {
 
 // Component danh sách gợi ý
 const RecommendationSection = ({ userId }) => {
+  const { user } = useContext(AuthContext);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -78,17 +80,28 @@ const RecommendationSection = ({ userId }) => {
   if (products.length === 0) return null;
 
   return (
-    <div className="recommendation-section mb-5">
-      <h4 className="fw-bold mb-4 text-primary"><i className="bi bi-magic me-2"></i>Gợi ý dành cho {userId ? "bạn" : "khách"}</h4>
-      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
-        {products.map(product => (
-          <div className="col" key={product._id}>
-            <ProductCard product={product} />
-          </div>
-        ))}
+  <div className="recommendation-section mb-5">
+    <div className="mb-4">
+      <h2 className="section-heading mb-1">
+  Gợi ý dành cho{" "}
+  <span className="text-primary">
+    { user?.username || user?.name || "bạn"}
+  </span>
+      </h2>
+      <div className="text-muted fs-6">
+        Những sản phẩm được đề xuất dựa trên nhu cầu của bạn tại <strong className="text-primary">SmartHub</strong>
       </div>
     </div>
-  );
+
+    <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
+      {products.map(product => (
+        <div className="col" key={product._id}>
+          <ProductCard product={product} />
+        </div>
+      ))}
+    </div>
+  </div>
+);
 };
 
 export default RecommendationSection;
