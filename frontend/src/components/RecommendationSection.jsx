@@ -80,7 +80,7 @@ const RecommendationSection = ({ userId }) => {
   if (products.length === 0) return null;
 
   return (
-  <div className="recommendation-section mb-5">
+  <div className="recommendation-section">
     <div className="mb-4">
       <h2 className="section-heading mb-1"><i class="bi bi-magic me-2"></i>
   Gợi ý dành cho{" "}
