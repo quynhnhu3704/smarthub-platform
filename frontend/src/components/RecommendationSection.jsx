@@ -61,9 +61,11 @@ const RecommendationSection = ({ userId }) => {
   }, [userId]);
 
   if (loading) return (
-    <div className="d-flex align-items-center justify-content-center gap-2 text-primary">
-      <div className="spinner-border spinner-border-sm"></div>
-      <span>Đang tải gợi ý sản phẩm...</span>
+    <div className="container-fluid px-4 py-5">
+      <div className="d-flex align-items-center justify-content-center gap-2 text-primary">
+        <div className="spinner-border spinner-border-sm"></div>
+        <span>Đang tải gợi ý sản phẩm...</span>
+      </div>
     </div>
   );
 

@@ -23,6 +23,7 @@ export const getProductData = async (filter = {}) => {
 // Hàm lấy brand list
 export const getBrandData = async () => {
   return Brand.find({}).toArray()
+  
 }
 
 // Có thể tạo các hàm tương tự để đọc carts, search histories, users, surveys...
