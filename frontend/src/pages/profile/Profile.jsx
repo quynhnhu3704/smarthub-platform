@@ -82,7 +82,14 @@ export default function Profile() {
                 </div>
                 <div className="mb-3">
                   <label className="form-label fw-medium">Số điện thoại</label>
-                  <input type="tel" className="form-control" value={user.phone} disabled />
+                  <input type="tel" className="form-control"
+                    value={
+                      user.phone
+                        ? user.phone.replace(/\D/g, "").replace(/(\d{3})(\d{3})(\d{4})/, "$1 $2 $3")
+                        : ""
+                    }
+                    disabled
+                  />
                 </div>
                 <div className="mb-3">
                   <label className="form-label fw-medium">Email</label>

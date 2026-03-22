@@ -144,7 +144,11 @@ function CustomerList() {
                       <td className="fw-medium text-dark" style={{ fontSize: "0.95em"}}>{c.name}</td>
                       <td className="text-center text-dark" style={{ fontSize: "0.95em"}}>{c.username}</td>
                       <td className="text-center text-dark" style={{ fontSize: "0.95em"}}>{c.email}</td>
-                      <td className="text-center text-dark" style={{ fontSize: "0.95em"}}>{c.phone || "-"}</td>
+                      <td className="text-center text-dark" style={{ fontSize: "0.95em" }}>
+                        {c.phone
+                          ? c.phone.replace(/\D/g, "").replace(/(\d{3})(\d{3})(\d{4})/, "$1 $2 $3")
+                          : "-"}
+                      </td>
                       <td className="text-center text-dark"><span className="badge rounded-pill bg-secondary-subtle text-secondary fw-bold">{c.role}</span></td>
                       <td className="text-center text-dark">
                         {c.status === "active"

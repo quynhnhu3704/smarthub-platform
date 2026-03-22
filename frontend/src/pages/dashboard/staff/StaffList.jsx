@@ -144,7 +144,11 @@ function StaffList() {
                       <td className="fw-medium text-dark" style={{ fontSize: "0.95em"}}>{s.name}</td>
                       <td className="text-center text-dark" style={{ fontSize: "0.95em"}}>{s.username}</td>
                       <td className="text-center text-dark" style={{ fontSize: "0.95em"}}>{s.email}</td>
-                      <td className="text-center text-dark" style={{ fontSize: "0.95em"}}>{s.phone || "-"}</td>
+                      <td className="text-center text-dark" style={{ fontSize: "0.95em" }}>
+                        {s.phone
+                          ? s.phone.replace(/\D/g, "").replace(/(\d{3})(\d{3})(\d{4})/, "$1 $2 $3")
+                          : "-"}
+                      </td>
                       <td className="text-center text-dark"><span className="badge rounded-pill bg-secondary-subtle text-secondary fw-bold">{s.role}</span></td>
                       <td className="text-center text-dark">
                         {s.status === "active"
