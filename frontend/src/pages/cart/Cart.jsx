@@ -81,7 +81,7 @@ export default function Cart() {
   return (
     <div className="container py-4 mb-5" style={{ width: "97.5%" }}>
       <button type="button" className="btn btn-outline-primary mb-4 d-flex align-items-center gap-2 shadow-sm" onClick={() => navigate(-1)}><i className="bi bi-arrow-left"></i> Quay lại</button>
-      <div className="d-flex justify-content-between align-items-center mb-4"><div><h2 className="fw-bold mb-1">Giỏ hàng của bạn</h2><div className="text-muted fs-6">Tổng cộng: <strong>{totalProducts.toLocaleString()}</strong> sản phẩm</div></div>{selected.length > 0 && <button className="btn btn-outline-danger btn-sm" onClick={handleRemoveSelected}>Xóa {selected.length} mục đã chọn</button>}</div>
+      <div className="d-flex justify-content-between align-items-center mb-4"><div><h2 className="fw-bold mb-1">Giỏ hàng của bạn</h2><div className="text-muted fs-6">Tổng cộng: <strong>{totalProducts.toLocaleString("vi-VN")}</strong> sản phẩm</div></div>{selected.length > 0 && <button className="btn btn-outline-danger btn-sm" onClick={handleRemoveSelected}>Xóa {selected.length} mục đã chọn</button>}</div>
       <div className="row g-4 position-relative">
         <div className="col-lg-8">
           <div className="card border-0 shadow-sm overflow-hidden rounded-4">

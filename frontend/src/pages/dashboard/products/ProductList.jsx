@@ -72,7 +72,7 @@ function ProductList() {
   return (
     <div className="container-fluid py-4" style={{ width: "97.5%", minHeight:"67.5vh" }}>
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <div><h2 className="fw-bold mb-1">Danh sách sản phẩm</h2><div className="text-muted fs-6">Tổng cộng: <strong>{totalProducts.toLocaleString()}</strong> sản phẩm</div></div>
+        <div><h2 className="fw-bold mb-1">Danh sách sản phẩm</h2><div className="text-muted fs-6">Tổng cộng: <strong>{totalProducts.toLocaleString("vi-VN")}</strong> sản phẩm</div></div>
         <Link to="/dashboard/products/create" className="btn btn-primary d-flex align-items-center gap-2 shadow-sm"><i className="bi bi-folder-plus"></i> Thêm mới</Link>
       </div>
 

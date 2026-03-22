@@ -91,7 +91,7 @@ function ProductCatalog() {
                       ) : (
                         <h2 className="section-heading mb-1">Danh sách sản phẩm</h2>
                       )}
-                      <div className="text-muted fs-6">Tìm thấy <strong className="text-dark">{totalProducts.toLocaleString()}</strong> sản phẩm phù hợp</div>
+                      <div className="text-muted fs-6">Tìm thấy <strong className="text-dark">{totalProducts.toLocaleString("vi-VN")}</strong> sản phẩm phù hợp</div>
                     </>
                   ) : (
                     <>

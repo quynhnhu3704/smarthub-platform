@@ -30,9 +30,9 @@ const ProductCard = ({ product }) => {
           <span className="badge badge-light-gray px-2 py-2">{product.ram}GB RAM</span>
           <span className="badge badge-light-gray px-2 py-2">{product.storage}GB</span>
         </div>
-        <div className="price text-danger fw-bold fs-5">{product.price?.toLocaleString()} ₫</div>
+        <div className="price text-danger fw-bold fs-5">{product.price?.toLocaleString("vi-VN")} ₫</div>
         {product.original_price && product.original_price > product.price && (
-          <div className="original-price text-muted">{product.original_price.toLocaleString()} ₫</div>
+          <div className="original-price text-muted">{product.original_price.toLocaleString("vi-VN")} ₫</div>
         )}
       </div>
     </div>

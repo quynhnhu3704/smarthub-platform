@@ -90,7 +90,7 @@ function BrandList() {
       <div className="d-flex justify-content-between align-items-center mb-4">
         <div>
           <h2 className="fw-bold mb-1">Danh sách thương hiệu</h2>
-          <div className="text-muted fs-6">Tổng cộng: <strong>{totalBrands.toLocaleString()}</strong> thương hiệu</div>
+          <div className="text-muted fs-6">Tổng cộng: <strong>{totalBrands.toLocaleString("vi-VN")}</strong> thương hiệu</div>
         </div>
         <Link to="/dashboard/brands/create" className="btn btn-primary d-flex align-items-center gap-2 shadow-sm"><i className="bi bi-folder-plus"></i> Thêm mới</Link>
       </div>
