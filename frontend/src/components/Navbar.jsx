@@ -192,7 +192,7 @@ export default function Navbar({ toggleSidebar }) {
     <nav className="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
       <div className="container-fluid px-5">
         <button className="btn btn-outline-primary me-3" onClick={toggleSidebar}>&#9776;</button>
-        <a className="navbar-brand fw-bold ms-3 text-primary" href="/"><i className="bi bi-skype me-2 fs-4"></i>SmartHub</a>
+        <Link className="navbar-brand fw-bold ms-3 text-primary" to="/"><i className="bi bi-skype me-2 fs-4"></i>SmartHub</Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"><span className="navbar-toggler-icon"></span></button>
         <div id="nav" className="collapse navbar-collapse">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-2">
@@ -246,7 +246,7 @@ export default function Navbar({ toggleSidebar }) {
               </form>
             </li>
 
-            <li className="nav-item mx-1"><a className="nav-link" href="/">Trang chủ</a></li>
+            <li className="nav-item mx-1"><Link className="nav-link" to="/">Trang chủ</Link></li>
             <li className="nav-item mx-1"><a className="nav-link" href="#products">Sản phẩm</a></li>
 
             <li className="nav-item position-relative mx-1">
