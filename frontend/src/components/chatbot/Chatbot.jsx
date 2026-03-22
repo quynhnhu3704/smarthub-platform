@@ -64,7 +64,14 @@ function Chatbot() {
                     <img src="https://api.dicebear.com/9.x/bottts/svg?seed=SmartHub" alt="Bot" />
                   </div>
                 )}
-                <div className={`bubble ${msg.role}`}><div className="bubble-content">{msg.text}</div></div>
+                {/* <div className={`bubble ${msg.role}`}><div className="bubble-content">{msg.text}</div></div> */}
+                <div className={`bubble ${msg.role}`}>
+                  {msg.role === "bot" ? (
+                    <div className="bubble-content" dangerouslySetInnerHTML={{ __html: msg.text }} />
+                  ) : (
+                    <div className="bubble-content">{msg.text}</div>
+                  )}
+                </div>
               </div>
             ))}
 

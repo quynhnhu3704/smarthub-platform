@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { useParams, useNavigate } from "react-router-dom";
 import { getProductById } from "../../services/productService";
 import { CartContext } from "../../context/CartContext";
+// import RecommendationSection from "../../components/RecommendationSection"; // ✅ THÊM
 
 function ProductDetail() {
   const { id } = useParams();
@@ -231,6 +232,15 @@ function ProductDetail() {
             </div>
           </div>
         </div>
+
+        {/* 🔥 AI RECOMMENDATION (THÊM MỚI) */}
+        {/* {product && (
+          <div className="mt-5">
+            <h4 className="fw-bold mb-3">🔥 Sản phẩm tương tự</h4>
+            <RecommendationSection productId={product._id} />
+          </div>
+        )} */}
+
       </div>
     </div>
   );
