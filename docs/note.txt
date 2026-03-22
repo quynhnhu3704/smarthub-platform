@@ -93,23 +93,3 @@ db.users.updateMany({}, { $set: { status: "active" } })
 
 ============================================================================================================================
 
-
-https://console.cloud.google.com/apis/credentials
-
-
-Đăng nhập với Google:
-
-Client ID:
-815992651519-ga9uip1o5qgl4484ecp98n91demj2dmq.apps.googleusercontent.com
-
-Client secret:
-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
-
-
-
-MONGO_URI=mongodb+srv://admin:admin%40123@cluster0.10lyasj.mongodb.net/smarthub
-MONGO_URI=mongodb://127.0.0.1:27017/smarthub
-
-JWT_SECRET=supersecretkey
-
-GEMINI_API_KEY=AIzaSyAc_FbcSMVyQkX5isW1G-_7NSOR6UgcTdo
