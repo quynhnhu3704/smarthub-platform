@@ -74,9 +74,7 @@ function ProductCatalog() {
       <Header />
       {/* Phần của Oanh */}
       {user && user.role === "customer" && (
-        <div className="container-fluid px-4 py-5">
           <RecommendationSection userId={user._id || user.id} />
-        </div>
       )}
       
       <section id="products" className="py-5">

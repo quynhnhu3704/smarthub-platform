@@ -28,3 +28,19 @@ export const registerUser = async (data) => {
 
   return res.json()
 }
+
+// Thêm hàm gọi API /google
+export const googleLogin = async (data) => {
+  const res = await fetch("/api/auth/google", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  })
+
+  if (!res.ok) {
+    const error = await res.json()
+    throw new Error(error.message)
+  }
+
+  return res.json()
+}

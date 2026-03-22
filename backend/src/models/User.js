@@ -6,16 +6,14 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
-  phone: { type: String, required: true },
-  password: { type: String, required: true },
+  phone: { type: String },
+  password: { type: String }, // không bắt buộc nếu đăng ký bằng google
   role: { type: String, enum: ["owner", "staff", "customer"], default: "customer" },
 
-  status: {
-    type: String,
-    enum: ["active", "inactive"],
-    default: "active"
-  }
+  googleId: { type: String, default: null }, // Mới thêm
+  provider: { type: String, enum: ["local", "google"], default: "local" }, // Mới thêm
   
+  status: { type: String, enum: ["active", "inactive"], default: "active" }
 }, { timestamps: true })
 
 // pre-save hook để hash mật khẩu trước khi lưu vào database

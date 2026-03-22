@@ -70,7 +70,7 @@ const RecommendationSection = ({ userId }) => {
   if (products.length === 0) return null;
 
   return (
-    <div className="recommendation-section">
+    <div className="recommendation-section container-fluid px-4 py-5">
       <div className="mb-4">
         <h2 className="section-heading mb-1"><i className="bi bi-magic me-2"></i>Gợi ý dành cho <span className="text-primary">{user?.username || user?.name || "bạn"}</span></h2>
         <div className="text-muted fs-6">Những sản phẩm được đề xuất dựa trên nhu cầu của bạn tại <strong className="text-primary">SmartHub</strong></div>

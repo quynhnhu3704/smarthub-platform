@@ -1,8 +1,9 @@
 // src/pages/Login.jsx
-import { useState, useContext } from "react"
-import { loginUser } from "../../services/authService"
+import { useState, useContext, useEffect } from "react"
+import { loginUser, googleLogin } from "../../services/authService"
 import { AuthContext } from "../../context/AuthContext"
 import { useNavigate } from "react-router-dom"
+import { jwtDecode } from "jwt-decode";
 
 export default function Login() {
   const [form, setForm] = useState({ username: "", password: "" })
@@ -11,6 +12,48 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false)
   const { login } = useContext(AuthContext)
   const navigate = useNavigate()
+
+  // 1. Callback Google
+  const handleGoogleResponse = async (credentialResponse) => {
+    try {
+      const tokenGoogle = credentialResponse.credential
+      const decoded = jwtDecode(tokenGoogle)
+      const res = await googleLogin({
+        googleId: decoded.sub,
+        email: decoded.email,
+        name: decoded.name,
+        username: decoded.email.split("@")[0] // username tạm
+      })
+      login(res)
+      navigate("/")
+    } catch (err) {
+      console.error(err)
+      setError("Đăng nhập Google thất bại")
+    }
+  }
+
+  // 2. Init GSI
+  useEffect(() => {
+    if (window.google) {
+      window.google.accounts.id.initialize({
+        client_id: "815992651519-ga9uip1o5qgl4484ecp98n91demj2dmq.apps.googleusercontent.com",
+        callback: handleGoogleResponse, // callback khi login thành công
+      })
+      // Tạo nút Google Sign-In (ẩn form, dùng riêng cho popup)
+      window.google.accounts.id.renderButton(
+        document.getElementById("google-signin-button"), // div target
+        { 
+          theme: "outline", // "outline" | "filled_blue" | "filled_black"
+          size: "large", // "small" | "medium" | "large"
+          width: "100%",
+          // width: "400",  // <--- Đặt là "400" (đây là chiều rộng tối đa Google cho phép)
+          type: "icon",       // "icon" | "standard"
+          text: "signup_with",    // "signin_with" | "signup_with" | "continue_with" | "signin"
+          shape: "pill",          // "rectangular" | "pill" | "circle" | "square"
+        }
+      )
+    }
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -38,8 +81,15 @@ export default function Login() {
         <div className="card-body p-4">
           <h3 className="text-center mb-4 fw-bold text-primary">Đăng nhập</h3>
 
-          {error && <div className="alert alert-danger">{error}</div>}
-          {success && <div className="alert alert-success">{success}</div>}
+          {/* Google button + divider - decor đẹp */}
+          <div className="mb-4">
+            <div id="google-signin-button" className="mx-auto" style={{ width: "100%", display: "flex", justifyContent: "center" }}></div>
+            <div className="d-flex align-items-center my-4">
+              <hr className="flex-grow-1 border-secondary" />
+              <span className="px-3 text-muted small fw-medium">Hoặc đăng nhập bằng</span>
+              <hr className="flex-grow-1 border-secondary" />
+            </div>
+          </div>
 
           <form onSubmit={handleSubmit} spellCheck="false">
             <div className="mb-3">
@@ -47,7 +97,7 @@ export default function Login() {
               <input type="text" className="form-control" required value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} />
             </div>
             
-            <div className="mb-5">
+            <div className="mb-4">
               <label className="form-label fw-medium">Mật khẩu <span className="text-danger">*</span></label>
               <div className="input-group">
                 <input type={showPassword ? "text" : "password"} className="form-control" required value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
@@ -56,6 +106,9 @@ export default function Login() {
                 </span>
               </div>
             </div>
+
+            {error && <div className="alert alert-danger">{error}</div>}
+            {success && <div className="alert alert-success">{success}</div>}
 
             <div className="row">
               <div className="col-6">
@@ -70,6 +123,7 @@ export default function Login() {
               Bạn chưa có tài khoản?{" "}
               <span className="text-primary fw-semibold" style={{ cursor: "pointer" }} onClick={() => navigate("/register")}>Đăng ký ngay</span>
             </div>
+
           </form>
         </div>
       </div>
