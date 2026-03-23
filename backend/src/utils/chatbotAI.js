@@ -13,7 +13,7 @@ const ai = new GoogleGenAI({
 const extractProductName = (message) => {
   // loại bỏ từ thừa, giữ chữ cái và số
   return message
-    .replace(/(có|bán|ko|không|giá|mua|điện|thoại|các|của|hãng|những|sản|phẩm|nào)/gi, '')
+    .replace(/(có|bán|ko|không|giá|mua|điện|thoại|các|của|hãng|những|sản|phẩm|nào|tôi|tìm|cho)/gi, '')
     .trim()
 }
 
