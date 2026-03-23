@@ -22,7 +22,7 @@ function Chatbot() {
       const reply = await sendMessageToBot(userMsg.text);
       setMessages((prev) => [...prev, { role: "bot", text: reply }]);
     } catch (err) {
-      setMessages((prev) => [...prev, { role: "bot", text: "Có lỗi xảy ra, bạn thử lại nhé nhé..." }]);
+      setMessages((prev) => [...prev, { role: "bot", text: "Có lỗi xảy ra, bạn thử lại nhé..." }]);
     } finally { setIsSending(false); }
   };
 
