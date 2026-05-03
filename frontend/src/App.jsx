@@ -30,6 +30,7 @@ import BrandEdit from "./pages/dashboard/brands/BrandEdit"
 
 import Cart from "./pages/cart/Cart"
 import Checkout from "./pages/checkout/Checkout";
+import Payment from "./pages/payment/Payment";
 
 import Chatbot from "./components/chatbot/Chatbot"
 
@@ -68,6 +69,7 @@ function App() {
 
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/payment" element={<Payment />} />
 
         </Routes>
 

@@ -1,5 +1,14 @@
 # smarthub-platform
 
+cd frontend
+npm run dev
+
+cd backend
+node server.js
+
+cd ai/recommender
+python api.py
+
 --------------------------------------------------------------------------------
 📂 CẤU TRÚC THƯ MỤC
 --------------------------------------------------------------------------------

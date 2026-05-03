@@ -148,7 +148,7 @@ export default function Cart() {
                 <>
                   <h5 className="fw-bold mb-4">Tổng đơn hàng</h5>
                   <div className="d-flex justify-content-between mb-2"><span className="text-muted">Tạm tính ({selectedQuantity} sản phẩm)</span><span className="fw-medium">{total.toLocaleString("vi-VN")} ₫</span></div>
-                  <div className="d-flex justify-content-between mb-3"><span className="text-muted">Phí vận chuyển</span><span className="text-success fw-medium">Miễn phí</span></div>
+                  <div className="d-flex justify-content-between mb-3"><span className="text-muted">Phí vận chuyển</span><span className="text-success fw-semibold">Miễn phí</span></div>
                   <hr className="my-3" />
                   <div className="d-flex justify-content-between align-items-center mb-4"><h5 className="fw-bold mb-0">Tổng cộng</h5><h4 className="fw-bold text-primary mb-0">{total.toLocaleString("vi-VN")} ₫</h4></div>
                   <button className="btn btn-primary w-100 fw-bold py-2 rounded-pill" disabled={selected.length === 0} onClick={() => navigate("/checkout", { state: { selected } })}>THANH TOÁN NGAY</button>
