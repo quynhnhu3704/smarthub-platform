@@ -55,7 +55,7 @@ export default function ChangePassword() {
             <form onSubmit={handleSubmit} spellCheck="false">
 
               <div className="mb-3">
-                <label className="form-label fw-semibold">Mật khẩu hiện tại</label>
+                <label className="form-label fw-semibold">Mật khẩu hiện tại <span className="text-danger">*</span></label>
                 <div className="input-group">
                   <input type={showCurrentPassword ? "text" : "password"} name="currentPassword" value={form.currentPassword} onChange={handleChange} className="form-control" required disabled={loading} />
                   <span className="input-group-text" style={{ cursor:"pointer" }} onClick={() => setShowCurrentPassword(!showCurrentPassword)}>
@@ -65,7 +65,7 @@ export default function ChangePassword() {
               </div>
 
               <div className="mb-3">
-                <label className="form-label fw-semibold">Mật khẩu mới</label>
+                <label className="form-label fw-semibold">Mật khẩu mới <span className="text-danger">*</span></label>
                 <div className="input-group">
                   <input type={showNewPassword ? "text" : "password"} name="newPassword" value={form.newPassword} onChange={handleChange} className="form-control" required disabled={loading} />
                   <span className="input-group-text" style={{ cursor:"pointer" }} onClick={() => setShowNewPassword(!showNewPassword)}>
@@ -75,7 +75,7 @@ export default function ChangePassword() {
               </div>
 
               <div className="mb-4">
-                <label className="form-label fw-semibold">Xác nhận mật khẩu mới</label>
+                <label className="form-label fw-semibold">Xác nhận mật khẩu mới <span className="text-danger">*</span></label>
                 <div className="input-group">
                   <input type={showConfirmPassword ? "text" : "password"} name="confirmPassword" value={form.confirmPassword} onChange={handleChange} className="form-control" required disabled={loading} />
                   <span className="input-group-text" style={{ cursor:"pointer" }} onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
