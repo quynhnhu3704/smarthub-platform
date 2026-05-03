@@ -24,7 +24,7 @@ function ProductDetail() {
           title: "Không đủ hàng",
           text: `Chỉ còn ${product.stock} sản phẩm trong kho.`,
           confirmButtonText: "Đóng",
-          customClass: { popup: "na-swal-popup", confirmButton: "btn btn-primary" },
+          customClass: { popup: "na-swal-popup", confirmButton: "btn btn-primary fw-semibold" },
           buttonsStyling: false
         });
         return;
@@ -46,7 +46,7 @@ function ProductDetail() {
         title: "Thêm thất bại",
         text: "Vui lòng thử lại sau.",
         confirmButtonText: "Đóng",
-        customClass: { popup: "na-swal-popup", confirmButton: "btn btn-primary" },
+        customClass: { popup: "na-swal-popup", confirmButton: "btn btn-primary fw-semibold" },
         buttonsStyling: false
       });
       console.error(err);
@@ -111,7 +111,7 @@ function ProductDetail() {
       <div className="container py-5 text-center">
         <i className="bi bi-exclamation-circle display-1 text-muted mb-4 d-block"></i>
         <h4 className="text-muted mb-3">Không tìm thấy sản phẩm</h4>
-        <button className="btn btn-primary px-5 py-3" onClick={() => navigate("/products")}>
+        <button className="btn btn-primary fw-semibold px-5 py-3" onClick={() => navigate("/products")}>
           Quay về cửa hàng
         </button>
       </div>
@@ -130,7 +130,7 @@ function ProductDetail() {
 
   return (
     <div className="container mb-5 py-4" style={{ width: "97.5%" }}>
-      <button type="button" className="btn btn-outline-primary mb-4 d-flex align-items-center gap-2 shadow-sm" onClick={() => navigate(-1)}>
+      <button type="button" className="btn btn-outline-primary fw-semibold mb-4 d-flex align-items-center gap-2 shadow-sm" onClick={() => navigate(-1)}>
         <i className="bi bi-arrow-left"></i> Quay lại
       </button>
 
@@ -220,11 +220,6 @@ function ProductDetail() {
             </div>
 
             <div className="mt-auto">
-              {/* <button className="btn btn-primary w-100 fw-bold d-flex align-items-center justify-content-center gap-3 rounded-pill py-3 px-5 fs-5" onClick={handleAddCart} disabled={product.stock <= 0}>
-                <i className="bi bi-cart-plus fs-3"></i>
-                {product.stock > 0 ? "THÊM VÀO GIỎ HÀNG" : "HẾT HÀNG"}
-              </button> */}
-
               <button className="btn btn-primary w-100 fw-bold d-flex align-items-center justify-content-center gap-3 rounded-pill fs-5" onClick={handleAddCart} disabled={product.stock <= 0}>
                 <i className="bi bi-cart-plus fs-3"></i>
                 {product.stock > 0 ? "THÊM VÀO GIỎ HÀNG" : "HẾT HÀNG"}

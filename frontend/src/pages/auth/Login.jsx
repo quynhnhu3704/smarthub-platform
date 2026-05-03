@@ -93,12 +93,12 @@ export default function Login() {
 
           <form onSubmit={handleSubmit} spellCheck="false">
             <div className="mb-3">
-              <label className="form-label fw-medium">Tên đăng nhập <span className="text-danger">*</span></label>
+              <label className="form-label fw-semibold">Tên đăng nhập <span className="text-danger">*</span></label>
               <input type="text" className="form-control" required value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} />
             </div>
             
             <div className="mb-4">
-              <label className="form-label fw-medium">Mật khẩu <span className="text-danger">*</span></label>
+              <label className="form-label fw-semibold">Mật khẩu <span className="text-danger">*</span></label>
               <div className="input-group">
                 <input type={showPassword ? "text" : "password"} className="form-control" required value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
                 <span className="input-group-text" style={{ cursor: "pointer" }} onClick={() => setShowPassword(!showPassword)}>
@@ -112,10 +112,10 @@ export default function Login() {
 
             <div className="row">
               <div className="col-6">
-                <button type="submit" className="btn btn-primary w-100">Đăng nhập</button>
+                <button type="submit" className="btn btn-primary fw-semibold w-100">Đăng nhập</button>
               </div>
               <div className="col-6">
-                <button type="button" className="btn btn-outline-secondary w-100" onClick={handleReset}>Đặt lại</button>
+                <button type="button" className="btn btn-outline-secondary fw-semibold w-100" onClick={handleReset}>Đặt lại</button>
               </div>
             </div>
 

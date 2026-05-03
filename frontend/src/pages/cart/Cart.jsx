@@ -31,7 +31,7 @@ export default function Cart() {
       setSelected([]);
       await Swal.fire({ icon: "success", title: "Đã xóa", text: "Đã xóa các sản phẩm khỏi giỏ hàng.", timer: 1500, showConfirmButton: false, customClass: { popup: "na-swal-popup" } });
     } catch (err) {
-      Swal.fire({ icon: "error", title: "Xóa thất bại", text: "Vui lòng thử lại sau.", confirmButtonText: "Đóng", customClass: { popup: "na-swal-popup", confirmButton: "btn btn-primary" }, buttonsStyling: false });
+      Swal.fire({ icon: "error", title: "Xóa thất bại", text: "Vui lòng thử lại sau.", confirmButtonText: "Đóng", customClass: { popup: "na-swal-popup", confirmButton: "btn btn-primary fw-semibold" }, buttonsStyling: false });
     }
   };
 
@@ -43,7 +43,7 @@ export default function Cart() {
       showCancelButton: true,
       confirmButtonText: "Xóa",
       cancelButtonText: "Hủy",
-      customClass: { popup: "na-swal-popup", confirmButton: "btn btn-danger", cancelButton: "btn btn-outline-secondary", actions: "d-flex justify-content-center gap-3 mt-4" },
+      customClass: { popup: "na-swal-popup", confirmButton: "btn btn-danger fw-semibold", cancelButton: "btn btn-outline-secondary fw-semibold", actions: "d-flex justify-content-center gap-3 mt-4" },
       buttonsStyling: false
     });
     if (!result.isConfirmed) return;
@@ -51,7 +51,7 @@ export default function Cart() {
       await removeFromCart(id);
       await Swal.fire({ icon: "success", title: "Đã xóa", text: "Sản phẩm đã được xóa khỏi giỏ hàng.", timer: 1500, showConfirmButton: false, customClass: { popup: "na-swal-popup" } });
     } catch (err) {
-      Swal.fire({ icon: "error", title: "Xóa thất bại", text: "Vui lòng thử lại sau.", confirmButtonText: "Đóng", customClass: { popup: "na-swal-popup", confirmButton: "btn btn-primary" }, buttonsStyling: false });
+      Swal.fire({ icon: "error", title: "Xóa thất bại", text: "Vui lòng thử lại sau.", confirmButtonText: "Đóng", customClass: { popup: "na-swal-popup", confirmButton: "btn btn-primary fw-semibold" }, buttonsStyling: false });
     }
   };
 
@@ -73,15 +73,15 @@ export default function Cart() {
   if (cart.length === 0 && !isLoading) {
     return (
       <div className="container py-5 text-center">
-        <div className="text-center py-5 my-5"><i className="bi bi-cart-x display-1 text-muted mb-4 d-block"></i><h4 className="text-muted mb-3">Giỏ hàng của bạn đang trống</h4><p className="text-muted mb-4">Thêm vài món đồ yêu thích để bắt đầu mua sắm nào!</p><Link to="/products" className="btn btn-primary">Khám phá sản phẩm</Link></div>
+        <div className="text-center py-5 my-5"><i className="bi bi-cart-x display-1 text-muted mb-4 d-block"></i><h4 className="text-muted mb-3">Giỏ hàng của bạn đang trống</h4><p className="text-muted mb-4">Thêm vài món đồ yêu thích để bắt đầu mua sắm nào!</p><Link to="/products" className="btn btn-primary fw-semibold">Khám phá sản phẩm</Link></div>
       </div>
     );
   }
 
   return (
     <div className="container py-4 mb-5" style={{ width: "97.5%" }}>
-      <button type="button" className="btn btn-outline-primary mb-4 d-flex align-items-center gap-2 shadow-sm" onClick={() => navigate(-1)}><i className="bi bi-arrow-left"></i> Quay lại</button>
-      <div className="d-flex justify-content-between align-items-center mb-4"><div><h2 className="fw-bold mb-1">Giỏ hàng của bạn</h2><div className="text-muted fs-6">Tổng cộng: <strong>{totalProducts.toLocaleString("vi-VN")}</strong> sản phẩm</div></div>{selected.length > 0 && <button className="btn btn-outline-danger btn-sm" onClick={handleRemoveSelected}>Xóa {selected.length} mục đã chọn</button>}</div>
+      <button type="button" className="btn btn-outline-primary fw-semibold mb-4 d-flex align-items-center gap-2 shadow-sm" onClick={() => navigate(-1)}><i className="bi bi-arrow-left"></i> Quay lại</button>
+      <div className="d-flex justify-content-between align-items-center mb-4"><div><h2 className="fw-bold mb-1">Giỏ hàng của bạn</h2><div className="text-muted fs-6">Tổng cộng: <strong>{totalProducts.toLocaleString("vi-VN")}</strong> sản phẩm</div></div>{selected.length > 0 && <button className="btn btn-outline-danger fw-semibold btn-sm" onClick={handleRemoveSelected}>Xóa {selected.length} mục đã chọn</button>}</div>
       <div className="row g-4 position-relative">
         <div className="col-lg-8">
           <div className="card border-0 shadow-sm overflow-hidden rounded-4">
@@ -118,10 +118,10 @@ export default function Cart() {
                         <tr key={item.product._id} className="hover-bg-light">
                           <td className="ps-4 py-3"><input type="checkbox" className="form-check-input" checked={selected.includes(item.product._id)} onChange={() => toggleSelect(item.product._id)} /></td>
                           <td className="py-3"><div className="d-flex align-items-center gap-3 product-title"><Link to={`/products/${item.product._id}`}><img src={item.product.image_url} alt={item.product.product_name} className="rounded object-fit-cover transition-all hover-scale" style={{ width: "50px", height: "50px" }} /></Link><div className="flex-grow-1"><Link to={`/products/${item.product._id}`} className="text-dark fw-medium text-decoration-none d-block hover-underline">{item.product.product_name}</Link>{item.product.color && <small className="text-muted d-block mt-1">Màu: {item.product.color}</small>}</div></div></td>
-                          <td className="text-center py-3"><div className="d-inline-flex align-items-center bg-light rounded-pill px-2 py-1"><button className={`btn btn-sm px-3 py-0 fw-bold qty-btn ${item.quantity <= 1 ? "qty-disabled" : ""}`} onClick={() => { if (item.quantity <= 1) return; updateQuantity(item.product._id, item.quantity - 1); }}>−</button><span className="px-4 fw-bold text-secondary">{item.quantity}</span><button className={`btn btn-sm px-3 py-0 fw-bold qty-btn ${item.quantity >= item.product.stock ? "qty-disabled" : ""}`} onClick={() => { if (item.quantity >= item.product.stock) { showToast(`Chỉ còn ${item.product.stock} sản phẩm`); return; } updateQuantity(item.product._id, item.quantity + 1); }}>+</button></div></td>
+                          <td className="text-center py-3"><div className="d-inline-flex align-items-center bg-light rounded-pill px-2 py-1"><button className={`btn btn-sm px-3 py-0 fw-semibold qty-btn ${item.quantity <= 1 ? "qty-disabled" : ""}`} onClick={() => { if (item.quantity <= 1) return; updateQuantity(item.product._id, item.quantity - 1); }}>−</button><span className="px-4 fw-bold text-secondary">{item.quantity}</span><button className={`btn btn-sm px-3 py-0 fw-semibold qty-btn ${item.quantity >= item.product.stock ? "qty-disabled" : ""}`} onClick={() => { if (item.quantity >= item.product.stock) { showToast(`Chỉ còn ${item.product.stock} sản phẩm`); return; } updateQuantity(item.product._id, item.quantity + 1); }}>+</button></div></td>
                           <td className="text-end py-3 fw-medium">{item.product.price.toLocaleString("vi-VN")} ₫</td>
                           <td className="text-end py-3 fw-bold text-primary">{(item.product.price * item.quantity).toLocaleString("vi-VN")} ₫</td>
-                          <td className="text-end ps-4 py-3"><button className="btn btn-sm btn-danger d-flex align-items-center gap-1 rounded-pill" title="Xóa sản phẩm" onClick={() => handleDelete(item.product._id)}><i className="bi bi-trash"></i></button></td>
+                          <td className="text-end ps-4 py-3"><button className="btn btn-sm btn-danger fw-semibold d-flex align-items-center gap-1 rounded-pill" title="Xóa sản phẩm" onClick={() => handleDelete(item.product._id)}><i className="bi bi-trash"></i></button></td>
                         </tr>
                       ))}
                     </tbody>
@@ -151,7 +151,7 @@ export default function Cart() {
                   <div className="d-flex justify-content-between mb-3"><span className="text-muted">Phí vận chuyển</span><span className="text-success fw-medium">Miễn phí</span></div>
                   <hr className="my-3" />
                   <div className="d-flex justify-content-between align-items-center mb-4"><h5 className="fw-bold mb-0">Tổng cộng</h5><h4 className="fw-bold text-primary mb-0">{total.toLocaleString("vi-VN")} ₫</h4></div>
-                  <button className="btn btn-primary w-100 fw-bold py-2 rounded-pill" disabled={selected.length === 0} onClick={() => navigate("/checkout")}>THANH TOÁN NGAY</button>
+                  <button className="btn btn-primary w-100 fw-bold py-2 rounded-pill" disabled={selected.length === 0} onClick={() => navigate("/checkout", { state: { selected } })}>THANH TOÁN NGAY</button>
                   <small className="d-block text-center text-muted mt-3"><i className="bi bi-lock me-1"></i>Thanh toán an toàn 100% - Được bảo vệ</small>
                 </>
               )}

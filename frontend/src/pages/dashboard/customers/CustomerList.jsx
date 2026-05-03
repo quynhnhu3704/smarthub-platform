@@ -37,7 +37,7 @@ function CustomerList() {
       showCancelButton: true,
       confirmButtonText: "Xoá ngay",
       cancelButtonText: "Huỷ",
-      customClass: { popup: "na-swal-popup", confirmButton: "btn btn-danger", cancelButton: "btn btn-outline-secondary", actions: "d-flex justify-content-center gap-3 mt-4" },
+      customClass: { popup: "na-swal-popup", confirmButton: "btn btn-danger fw-semibold", cancelButton: "btn btn-outline-secondary fw-semibold", actions: "d-flex justify-content-center gap-3 mt-4" },
       buttonsStyling: false
     });
     if (!result.isConfirmed) return;
@@ -47,7 +47,7 @@ function CustomerList() {
       fetchCustomers(currentPage);
       await Swal.fire({ icon: "success", title: "Đã xoá", text: "khách hàng đã được xoá.", timer: 1300, showConfirmButton: false, customClass: { popup: "na-swal-popup" } });
     } catch {
-      Swal.fire({ icon: "error", title: "Xoá thất bại", text: "Vui lòng thử lại.", confirmButtonText: "Đóng", customClass: { popup: "na-swal-popup", confirmButton: "btn btn-primary" }, buttonsStyling: false });
+      Swal.fire({ icon: "error", title: "Xoá thất bại", text: "Vui lòng thử lại.", confirmButtonText: "Đóng", customClass: { popup: "na-swal-popup", confirmButton: "btn btn-primary fw-semibold" }, buttonsStyling: false });
     }
   };
 
@@ -71,7 +71,7 @@ function CustomerList() {
     <div className="container-fluid py-4" style={{ width: "97.5%", minHeight:"67.5vh" }}>
       <div className="d-flex justify-content-between align-items-center mb-4">
         <div><h2 className="fw-bold mb-1">Danh sách khách hàng</h2><div className="text-muted fs-6">Tổng cộng: <strong>{totalCustomers.toLocaleString("vi-VN")}</strong> khách hàng</div></div>
-        <Link to="/dashboard/customers/create" className="btn btn-primary d-flex align-items-center gap-2 shadow-sm"><i className="bi bi-folder-plus"></i> Thêm mới</Link>
+        <Link to="/dashboard/customers/create" className="btn btn-primary fw-semibold d-flex align-items-center gap-2 shadow-sm"><i className="bi bi-folder-plus"></i> Thêm mới</Link>
       </div>
 
       <div className="card border-0 shadow-sm mb-4 rounded-3">
@@ -84,7 +84,7 @@ function CustomerList() {
               </form>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 d-flex align-items-center ms-auto">
-              <button className="btn btn-outline-secondary w-100" onClick={() => { setKeyword(""); setCurrentPage(1); }}>
+              <button className="btn btn-outline-secondary fw-semibold w-100" onClick={() => { setKeyword(""); setCurrentPage(1); }}>
                 <i className="bi bi-arrow-repeat me-1"></i>Xóa bộ lọc
               </button>
             </div>
@@ -120,7 +120,7 @@ function CustomerList() {
               <i className="bi bi-people display-1 text-muted mb-3 d-block"></i>
               <h5 className="text-muted">Chưa có khách hàng nào</h5>
               <p className="text-muted">Hãy thêm khách hàng mới để bắt đầu.</p>
-              <Link to="/dashboard/customers/create" className="btn btn-primary mt-3">Thêm khách hàng ngay</Link>
+              <Link to="/dashboard/customers/create" className="btn btn-primary fw-semibold mt-3">Thêm khách hàng ngay</Link>
             </div>
           ) : (
             <div className="table-responsive">

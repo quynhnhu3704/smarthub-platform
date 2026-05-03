@@ -37,7 +37,7 @@ function StaffList() {
       showCancelButton: true,
       confirmButtonText: "Xóa ngay",
       cancelButtonText: "Hủy",
-      customClass: { popup: "na-swal-popup", confirmButton: "btn btn-danger", cancelButton: "btn btn-outline-secondary", actions: "d-flex justify-content-center gap-3 mt-4" },
+      customClass: { popup: "na-swal-popup", confirmButton: "btn btn-danger fw-semibold", cancelButton: "btn btn-outline-secondary fw-semibold", actions: "d-flex justify-content-center gap-3 mt-4" },
       buttonsStyling: false
     });
     if (!result.isConfirmed) return;
@@ -47,7 +47,7 @@ function StaffList() {
       fetchStaff(currentPage);
       await Swal.fire({ icon: "success", title: "Đã xóa", text: "Nhân viên đã được xóa thành công.", timer: 1500, showConfirmButton: false, customClass: { popup: "na-swal-popup" } });
     } catch {
-      Swal.fire({ icon: "error", title: "Xóa thất bại", text: "Vui lòng thử lại sau.", confirmButtonText: "Đóng", customClass: { popup: "na-swal-popup", confirmButton: "btn btn-primary" }, buttonsStyling: false });
+      Swal.fire({ icon: "error", title: "Xóa thất bại", text: "Vui lòng thử lại sau.", confirmButtonText: "Đóng", customClass: { popup: "na-swal-popup", confirmButton: "btn btn-primary fw-semibold" }, buttonsStyling: false });
     }
   };
 
@@ -71,7 +71,7 @@ function StaffList() {
     <div className="container-fluid py-4" style={{ width: "97.5%", minHeight:"67.5vh" }}>
       <div className="d-flex justify-content-between align-items-center mb-4">
         <div><h2 className="fw-bold mb-1">Danh sách nhân viên</h2><div className="text-muted fs-6">Tổng cộng: <strong>{totalStaff.toLocaleString("vi-VN")}</strong> nhân viên</div></div>
-        <Link to="/dashboard/staff/create" className="btn btn-primary d-flex align-items-center gap-2 shadow-sm"><i className="bi bi-folder-plus"></i> Thêm mới</Link>
+        <Link to="/dashboard/staff/create" className="btn btn-primary fw-semibold d-flex align-items-center gap-2 shadow-sm"><i className="bi bi-folder-plus"></i> Thêm mới</Link>
       </div>
 
       <div className="card border-0 shadow-sm mb-4 rounded-3">
@@ -84,7 +84,7 @@ function StaffList() {
               </form>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 d-flex align-items-center ms-auto">
-              <button className="btn btn-outline-secondary w-100" onClick={() => { setKeyword(""); setCurrentPage(1); }}>
+              <button className="btn btn-outline-secondary fw-semibold w-100" onClick={() => { setKeyword(""); setCurrentPage(1); }}>
                 <i className="bi bi-arrow-repeat me-1"></i>Xóa bộ lọc
               </button>
             </div>
@@ -120,7 +120,7 @@ function StaffList() {
               <i className="bi bi-people display-1 text-muted mb-3 d-block"></i>
               <h5 className="text-muted">Chưa có nhân viên nào</h5>
               <p className="text-muted">Hãy thêm nhân viên mới để bắt đầu.</p>
-              <Link to="/dashboard/staff/create" className="btn btn-primary mt-3">Thêm nhân viên ngay</Link>
+              <Link to="/dashboard/staff/create" className="btn btn-primary fw-semibold mt-3">Thêm nhân viên ngay</Link>
             </div>
           ) : (
             <div className="table-responsive">

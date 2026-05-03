@@ -48,7 +48,7 @@ export default function Profile() {
 
   return (
     <>
-      <button type="button" className="btn btn-outline-primary ms-4 my-4" onClick={() => editing ? setEditing(false) : window.history.back()}>
+      <button type="button" className="btn btn-outline-primary fw-semibold ms-4 my-4" onClick={() => editing ? setEditing(false) : window.history.back()}>
         <i className="bi bi-arrow-left"></i> Quay lại
       </button>
 
@@ -69,19 +69,19 @@ export default function Profile() {
             {!editing ? (
               <>
                 <div className="mb-3">
-                  <label className="form-label fw-medium">Tên đăng nhập</label>
+                  <label className="form-label fw-semibold">Tên đăng nhập</label>
                   <input type="text" className="form-control" value={user.username} disabled />
                 </div>
                 <div className="mb-3">
-                  <label className="form-label fw-medium">Họ tên</label>
+                  <label className="form-label fw-semibold">Họ tên</label>
                   <input type="text" className="form-control" value={user.name} disabled />
                 </div>
                 <div className="mb-3">
-                  <label className="form-label fw-medium">Vai trò</label>
+                  <label className="form-label fw-semibold">Vai trò</label>
                   <input type="text" className="form-control" value={getRoleLabel(user.role)} disabled />
                 </div>
                 <div className="mb-3">
-                  <label className="form-label fw-medium">Số điện thoại</label>
+                  <label className="form-label fw-semibold">Số điện thoại</label>
                   <input type="tel" className="form-control"
                     value={
                       user.phone
@@ -92,7 +92,7 @@ export default function Profile() {
                   />
                 </div>
                 <div className="mb-3">
-                  <label className="form-label fw-medium">Email</label>
+                  <label className="form-label fw-semibold">Email</label>
                   <input type="email" className="form-control" value={user.email} disabled />
                 </div>
 
@@ -105,32 +105,32 @@ export default function Profile() {
             ) : (
               <form onSubmit={handleSubmit} spellCheck="false">
                 <div className="mb-3">
-                  <label className="form-label fw-medium">Tên đăng nhập <span className="text-danger">*</span></label>
+                  <label className="form-label fw-semibold">Tên đăng nhập <span className="text-danger">*</span></label>
                   <input type="text" name="username" value={form.username} onChange={handleChange} className="form-control" required disabled={loading} />
                 </div>
                 <div className="mb-3">
-                  <label className="form-label fw-medium">Họ tên <span className="text-danger">*</span></label>
+                  <label className="form-label fw-semibold">Họ tên <span className="text-danger">*</span></label>
                   <input type="text" name="name" value={form.name} onChange={handleChange} className="form-control" required disabled={loading} />
                 </div>
                 <div className="mb-3">
-                  <label className="form-label fw-medium">Vai trò</label>
+                  <label className="form-label fw-semibold">Vai trò</label>
                   <input type="text" className="form-control" value={getRoleLabel(user.role)} disabled />
                 </div>
                 <div className="mb-3">
-                  <label className="form-label fw-medium">Số điện thoại <span className="text-danger">*</span></label>
+                  <label className="form-label fw-semibold">Số điện thoại <span className="text-danger">*</span></label>
                   <input type="tel" name="phone" value={form.phone} onChange={handleChange} className="form-control" required disabled={loading} />
                 </div>
                 <div className="mb-3">
-                  <label className="form-label fw-medium">Email <span className="text-danger">*</span></label>
+                  <label className="form-label fw-semibold">Email <span className="text-danger">*</span></label>
                   <input type="email" name="email" value={form.email} onChange={handleChange} className="form-control" required disabled={loading} />
                 </div>
 
                 <div className="row">
                   <div className="col-6 mb-2">
-                    <button type="submit" className="btn btn-primary w-100" disabled={loading}>{loading ? "Đang lưu..." : "Lưu"}</button>
+                    <button type="submit" className="btn btn-primary fw-semibold w-100" disabled={loading}>{loading ? "Đang lưu..." : "Lưu"}</button>
                   </div>
                   <div className="col-6 mb-2">
-                    <button type="button" onClick={handleReset} className="btn btn-outline-secondary w-100" disabled={loading}>Đặt lại</button>
+                    <button type="button" onClick={handleReset} className="btn btn-outline-secondary fw-semibold w-100" disabled={loading}>Đặt lại</button>
                   </div>
                 </div>
               </form>

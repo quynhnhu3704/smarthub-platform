@@ -55,7 +55,7 @@ function BrandEdit() {
 
   return (
     <>
-      <button type="button" className="btn btn-outline-primary ms-4 my-4" onClick={() => navigate(-1)}>
+      <button type="button" className="btn btn-outline-primary fw-semibold ms-4 my-4" onClick={() => navigate(-1)}>
         <i className="bi bi-arrow-left"></i> Quay lại
       </button>
 
@@ -74,12 +74,12 @@ function BrandEdit() {
             <form onSubmit={handleSubmit} spellCheck="false">
 
               <div className="mb-4">
-                <label className="form-label fw-medium">Tên thương hiệu <span className="text-danger">*</span></label>
+                <label className="form-label fw-semibold">Tên thương hiệu <span className="text-danger">*</span></label>
                 <input type="text" name="name" className="form-control" value={form.name} onChange={handleChange} required disabled={loading}/>
               </div>
 
               <div className="mb-4">
-                <label className="form-label fw-medium">Trạng thái</label>
+                <label className="form-label fw-semibold">Trạng thái</label>
                 <select name="status" className="form-select" value={form.status} onChange={handleChange} disabled={loading}>
                   <option value="active">Hoạt động</option>
                   <option value="inactive">Không hoạt động</option>
@@ -88,11 +88,11 @@ function BrandEdit() {
 
               <div className="row">
                 <div className="col-6 mb-2">
-                  <button type="submit" className="btn btn-primary w-100" disabled={loading}>{loading ? "Đang lưu..." : "Lưu"}</button>
+                  <button type="submit" className="btn btn-primary fw-semibold w-100" disabled={loading}>{loading ? "Đang lưu..." : "Lưu"}</button>
                 </div>
 
                 <div className="col-6 mb-2">
-                  <button type="button" className="btn btn-outline-secondary w-100" onClick={() => originalData && setForm({ ...originalData })} disabled={loading}>
+                  <button type="button" className="btn btn-outline-secondary fw-semibold w-100" onClick={() => originalData && setForm({ ...originalData })} disabled={loading}>
                     Đặt lại
                   </button>
                 </div>

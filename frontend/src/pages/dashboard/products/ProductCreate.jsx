@@ -48,7 +48,7 @@ function ProductCreate() {
 
   return (
     <>
-      <button type="button" className="btn btn-outline-primary ms-4 my-4" onClick={() => navigate(-1)}><i className="bi bi-arrow-left"></i> Quay lại</button>
+      <button type="button" className="btn btn-outline-primary fw-semibold ms-4 my-4" onClick={() => navigate(-1)}><i className="bi bi-arrow-left"></i> Quay lại</button>
 
       <div className="container d-flex justify-content-center align-items-center mb-5 position-relative">
         <div className="card-na border-0" style={{ maxWidth:"38rem", width:"100%" }}>
@@ -64,90 +64,90 @@ function ProductCreate() {
             <form onSubmit={handleSubmit} spellCheck="false">
 
               <div className="mb-3">
-                <label className="form-label fw-medium">Tên sản phẩm <span className="text-danger">*</span></label>
+                <label className="form-label fw-semibold">Tên sản phẩm <span className="text-danger">*</span></label>
                 <input type="text" name="product_name" className="form-control" value={form.product_name} onChange={handleChange} required disabled={loading} />
               </div>
 
               <div className="row">
                 <div className="col-6 mb-3">
-                  <label className="form-label fw-medium">Thương hiệu <span className="text-danger">*</span></label>
+                  <label className="form-label fw-semibold">Thương hiệu <span className="text-danger">*</span></label>
                   <select name="brand" className="form-select" value={form.brand} onChange={handleChange} required disabled={loading}>
                     <option value="">-- Chọn thương hiệu --</option>
                     {brands.map(b=>(<option key={b._id} value={b._id}>{b.name}</option>))}
                   </select>
                 </div>
                 <div className="col-6 mb-3">
-                  <label className="form-label fw-medium">Tồn kho <span className="text-danger">*</span></label>
+                  <label className="form-label fw-semibold">Tồn kho <span className="text-danger">*</span></label>
                   <input type="number" name="stock" className="form-control" value={form.stock} onChange={handleChange} required disabled={loading} />
                 </div>
               </div>
 
               <div className="row">
                 <div className="col-6 mb-3">
-                  <label className="form-label fw-medium">Giá <span className="text-danger">*</span></label>
+                  <label className="form-label fw-semibold">Giá <span className="text-danger">*</span></label>
                   <input type="number" name="price" className="form-control" value={form.price} onChange={handleChange} required disabled={loading} />
                 </div>
                 <div className="col-6 mb-3">
-                  <label className="form-label fw-medium">Giá gốc <span className="text-danger">*</span></label>
+                  <label className="form-label fw-semibold">Giá gốc <span className="text-danger">*</span></label>
                   <input type="number" name="original_price" className="form-control" value={form.original_price} onChange={handleChange} required disabled={loading} />
                 </div>
               </div>
 
               <div className="row">
                 <div className="col-4 mb-3">
-                  <label className="form-label fw-medium">RAM (GB) <span className="text-danger">*</span></label>
+                  <label className="form-label fw-semibold">RAM (GB) <span className="text-danger">*</span></label>
                   <input type="number" name="ram" className="form-control" value={form.ram} onChange={handleChange} required disabled={loading} />
                 </div>
                 <div className="col-4 mb-3">
-                  <label className="form-label fw-medium">Bộ nhớ (GB) <span className="text-danger">*</span></label>
+                  <label className="form-label fw-semibold">Bộ nhớ (GB) <span className="text-danger">*</span></label>
                   <input type="number" name="storage" className="form-control" value={form.storage} onChange={handleChange} required disabled={loading} />
                 </div>
                 <div className="col-4 mb-3">
-                  <label className="form-label fw-medium">Pin (mAh) <span className="text-danger">*</span></label>
+                  <label className="form-label fw-semibold">Pin (mAh) <span className="text-danger">*</span></label>
                   <input type="number" name="battery" className="form-control" value={form.battery} onChange={handleChange} required disabled={loading} />
                 </div>
               </div>
 
               <div className="row">
                 <div className="col-6 mb-3">
-                  <label className="form-label fw-medium">Kích thước màn hình (inch) <span className="text-danger">*</span></label>
+                  <label className="form-label fw-semibold">Kích thước màn hình (inch) <span className="text-danger">*</span></label>
                   <input type="number" step="0.1" name="screen_size" className="form-control" value={form.screen_size} onChange={handleChange} required disabled={loading} />
                 </div>
                 <div className="col-6 mb-3">
-                  <label className="form-label fw-medium">Độ phân giải <span className="text-danger">*</span></label>
+                  <label className="form-label fw-semibold">Độ phân giải <span className="text-danger">*</span></label>
                   <input type="text" name="resolution" className="form-control" value={form.resolution} onChange={handleChange} required disabled={loading} />
                 </div>
               </div>
 
               <div className="row">
                 <div className="col-6 mb-3">
-                  <label className="form-label fw-medium">Camera sau <span className="text-danger">*</span></label>
+                  <label className="form-label fw-semibold">Camera sau <span className="text-danger">*</span></label>
                   <input type="text" name="rear_camera" className="form-control" value={form.rear_camera} onChange={handleChange} required disabled={loading} />
                 </div>
                 <div className="col-6 mb-3">
-                  <label className="form-label fw-medium">Camera trước <span className="text-danger">*</span></label>
+                  <label className="form-label fw-semibold">Camera trước <span className="text-danger">*</span></label>
                   <input type="text" name="front_camera" className="form-control" value={form.front_camera} onChange={handleChange} required disabled={loading} />
                 </div>
               </div>
 
               <div className="row">
                 <div className="col-6 mb-3">
-                  <label className="form-label fw-medium">Chipset <span className="text-danger">*</span></label>
+                  <label className="form-label fw-semibold">Chipset <span className="text-danger">*</span></label>
                   <input type="text" name="chipset" className="form-control" value={form.chipset} onChange={handleChange} required disabled={loading} />
                 </div>
                 <div className="col-6 mb-3">
-                  <label className="form-label fw-medium">Hệ điều hành <span className="text-danger">*</span></label>
+                  <label className="form-label fw-semibold">Hệ điều hành <span className="text-danger">*</span></label>
                   <input type="text" name="os" className="form-control" value={form.os} onChange={handleChange} required disabled={loading} />
                 </div>
               </div>
 
               <div className="row">
                 <div className="col-6 mb-3">
-                  <label className="form-label fw-medium">Kích thước máy <span className="text-danger">*</span></label>
+                  <label className="form-label fw-semibold">Kích thước máy <span className="text-danger">*</span></label>
                   <input type="text" name="dimensions" className="form-control" value={form.dimensions} onChange={handleChange} required disabled={loading} />
                 </div>
                 <div className="col-6 mb-3">
-                  <label className="form-label fw-medium">Trọng lượng (g) <span className="text-danger">*</span></label>
+                  <label className="form-label fw-semibold">Trọng lượng (g) <span className="text-danger">*</span></label>
                   <input type="number" name="weight" className="form-control" value={form.weight} onChange={handleChange} required disabled={loading} />
                 </div>
               </div>
@@ -160,12 +160,12 @@ function ProductCreate() {
               )}
 
               <div className="mb-4">
-                <label className="form-label fw-medium">URL Hình ảnh <span className="text-danger">*</span></label>
+                <label className="form-label fw-semibold">URL Hình ảnh <span className="text-danger">*</span></label>
                 <input type="text" name="image_url" className="form-control" value={form.image_url} onChange={handleChange} required disabled={loading} />
               </div>
 
               <div className="mb-4">
-                <label className="form-label fw-medium">Trạng thái</label>
+                <label className="form-label fw-semibold">Trạng thái</label>
                 <select name="status" className="form-select" value={form.status} onChange={handleChange} disabled={loading}>
                   <option value="active">Hoạt động</option>
                   <option value="inactive">Không hoạt động</option>
@@ -174,10 +174,10 @@ function ProductCreate() {
 
               <div className="row">
                 <div className="col-6 mb-2">
-                  <button type="submit" className="btn btn-primary w-100" disabled={loading}>{loading ? "Đang lưu..." : "Lưu"}</button>
+                  <button type="submit" className="btn btn-primary fw-semibold w-100" disabled={loading}>{loading ? "Đang lưu..." : "Lưu"}</button>
                 </div>
                 <div className="col-6 mb-2">
-                  <button type="reset" className="btn btn-outline-secondary w-100" onClick={() => setForm(initialForm)} disabled={loading}>Đặt lại</button>
+                  <button type="reset" className="btn btn-outline-secondary fw-semibold w-100" onClick={() => setForm(initialForm)} disabled={loading}>Đặt lại</button>
                 </div>
               </div>
 

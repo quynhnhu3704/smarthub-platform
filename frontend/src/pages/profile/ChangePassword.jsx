@@ -38,7 +38,7 @@ export default function ChangePassword() {
 
   return (
     <>
-      <button type="button" className="btn btn-outline-primary ms-4 my-4" onClick={() => navigate(-1)}><i className="bi bi-arrow-left"></i> Quay lại</button>
+      <button type="button" className="btn btn-outline-primary fw-semibold ms-4 my-4" onClick={() => navigate(-1)}><i className="bi bi-arrow-left"></i> Quay lại</button>
       <div className="container d-flex justify-content-center align-items-center mb-5 position-relative">
         <div className="card-na border-0" style={{ maxWidth:"32rem", width:"100%" }}>
           <div className="card-body p-4 position-relative">
@@ -55,7 +55,7 @@ export default function ChangePassword() {
             <form onSubmit={handleSubmit} spellCheck="false">
 
               <div className="mb-3">
-                <label className="form-label fw-medium">Mật khẩu hiện tại</label>
+                <label className="form-label fw-semibold">Mật khẩu hiện tại</label>
                 <div className="input-group">
                   <input type={showCurrentPassword ? "text" : "password"} name="currentPassword" value={form.currentPassword} onChange={handleChange} className="form-control" required disabled={loading} />
                   <span className="input-group-text" style={{ cursor:"pointer" }} onClick={() => setShowCurrentPassword(!showCurrentPassword)}>
@@ -65,7 +65,7 @@ export default function ChangePassword() {
               </div>
 
               <div className="mb-3">
-                <label className="form-label fw-medium">Mật khẩu mới</label>
+                <label className="form-label fw-semibold">Mật khẩu mới</label>
                 <div className="input-group">
                   <input type={showNewPassword ? "text" : "password"} name="newPassword" value={form.newPassword} onChange={handleChange} className="form-control" required disabled={loading} />
                   <span className="input-group-text" style={{ cursor:"pointer" }} onClick={() => setShowNewPassword(!showNewPassword)}>
@@ -75,7 +75,7 @@ export default function ChangePassword() {
               </div>
 
               <div className="mb-4">
-                <label className="form-label fw-medium">Xác nhận mật khẩu mới</label>
+                <label className="form-label fw-semibold">Xác nhận mật khẩu mới</label>
                 <div className="input-group">
                   <input type={showConfirmPassword ? "text" : "password"} name="confirmPassword" value={form.confirmPassword} onChange={handleChange} className="form-control" required disabled={loading} />
                   <span className="input-group-text" style={{ cursor:"pointer" }} onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
@@ -86,10 +86,10 @@ export default function ChangePassword() {
 
               <div className="row">
                 <div className="col-6">
-                  <button type="submit" className="btn btn-primary w-100" disabled={loading}>{loading ? "Đang xử lý..." : "Lưu"}</button>
+                  <button type="submit" className="btn btn-primary fw-semibold w-100" disabled={loading}>{loading ? "Đang xử lý..." : "Lưu"}</button>
                 </div>
                 <div className="col-6">
-                  <button type="reset" className="btn btn-outline-secondary w-100" disabled={loading}>Đặt lại</button>
+                  <button type="reset" className="btn btn-outline-secondary fw-semibold w-100" disabled={loading}>Đặt lại</button>
                 </div>
               </div>
 

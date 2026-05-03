@@ -118,7 +118,7 @@ function ProductCatalog() {
                     <option value="desc">Giá: Cao → Thấp</option>
                   </select>
                   <div className="col-md-3 col-sm-6 d-flex align-items-center">
-                    <button className="btn btn-outline-secondary w-100" onClick={() => { setSelectedBrand(""); setPriceRange(""); setSortOrder(""); setCurrentPage(1); navigate("/products") }}>
+                    <button className="btn btn-outline-secondary fw-semibold w-100" onClick={() => { setSelectedBrand(""); setPriceRange(""); setSortOrder(""); setCurrentPage(1); navigate("/products") }}>
                       <i className="bi bi-arrow-repeat me-1"></i>Xóa bộ lọc
                     </button>
                   </div>
@@ -148,7 +148,7 @@ function ProductCatalog() {
                     <i className="bi bi-search display-1 text-muted mb-4 d-block"></i>
                     <h4 className="text-muted mb-3">Không tìm thấy sản phẩm nào</h4>
                     <p className="text-muted mb-4">Thử thay đổi bộ lọc hoặc từ khóa tìm kiếm nhé!</p>
-                    <Link to="/products" className="btn btn-primary">Xem tất cả sản phẩm</Link>
+                    <Link to="/products" className="btn btn-primary fw-semibold">Xem tất cả sản phẩm</Link>
                   </div>
                 ) : (
                   <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">

@@ -92,27 +92,27 @@ export default function Register() {
 
           <form onSubmit={handleSubmit} spellCheck="false">
             <div className="mb-3">
-              <label className="form-label fw-medium">Họ tên <span className="text-danger">*</span></label>
+              <label className="form-label fw-semibold">Họ tên <span className="text-danger">*</span></label>
               <input type="text" className="form-control" required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
             </div>
 
             <div className="mb-3">
-              <label className="form-label fw-medium">Tên đăng nhập <span className="text-danger">*</span></label>
+              <label className="form-label fw-semibold">Tên đăng nhập <span className="text-danger">*</span></label>
               <input type="text" className="form-control" required value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} />
             </div>
 
             <div className="mb-3">
-              <label className="form-label fw-medium">Email <span className="text-danger">*</span></label>
+              <label className="form-label fw-semibold">Email <span className="text-danger">*</span></label>
               <input type="email" className="form-control" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
             </div>
 
             <div className="mb-3">
-              <label className="form-label fw-medium">Số điện thoại <span className="text-danger">*</span></label>
+              <label className="form-label fw-semibold">Số điện thoại <span className="text-danger">*</span></label>
               <input type="tel" className="form-control" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
             </div>
 
             <div className="mb-4">
-              <label className="form-label fw-medium">Mật khẩu <span className="text-danger">*</span></label>
+              <label className="form-label fw-semibold">Mật khẩu <span className="text-danger">*</span></label>
               <div className="input-group">
                 <input type={showPassword ? "text" : "password"} className="form-control" required value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
                 <span className="input-group-text" style={{ cursor: "pointer" }} onClick={() => setShowPassword(!showPassword)}>
@@ -126,10 +126,10 @@ export default function Register() {
 
             <div className="row">
               <div className="col-6">
-                <button type="submit" className="btn btn-primary w-100">Đăng ký</button>
+                <button type="submit" className="btn btn-primary fw-semibold w-100">Đăng ký</button>
               </div>
               <div className="col-6">
-                <button type="button" className="btn btn-outline-secondary w-100" onClick={handleReset}>Đặt lại</button>
+                <button type="button" className="btn btn-outline-secondary fw-semibold w-100" onClick={handleReset}>Đặt lại</button>
               </div>
             </div>
 

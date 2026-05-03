@@ -169,7 +169,7 @@ export default function Navbar({ toggleSidebar }) {
       showCancelButton: true,
       confirmButtonText: "Đăng xuất",
       cancelButtonText: "Huỷ",
-      customClass: { popup: "na-swal-popup", confirmButton: "btn btn-danger", cancelButton: "btn btn-outline-secondary", actions: "d-flex justify-content-center gap-2 mt-4" },
+      customClass: { popup: "na-swal-popup", confirmButton: "btn btn-danger fw-semibold", cancelButton: "btn btn-outline-secondary fw-semibold", actions: "d-flex justify-content-center gap-2 mt-4" },
       buttonsStyling: false
     })
 
@@ -273,8 +273,8 @@ export default function Navbar({ toggleSidebar }) {
               </li>
             ) : (
               <li className="nav-item ms-lg-2 d-flex gap-2">
-                <a className="btn btn-outline-primary" href="/register"><i className="bi bi-person-plus me-2"></i>Đăng ký</a>
-                <a className="btn btn-primary" href="/login"><i className="bi bi-box-arrow-in-right me-2"></i>Đăng nhập</a>
+                <a className="btn btn-outline-primary fw-semibold" href="/register"><i className="bi bi-person-plus me-2"></i>Đăng ký</a>
+                <a className="btn btn-primary fw-semibold" href="/login"><i className="bi bi-box-arrow-in-right me-2"></i>Đăng nhập</a>
               </li>
             )}
 

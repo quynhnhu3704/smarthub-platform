@@ -39,7 +39,7 @@ function BrandList() {
       showCancelButton: true,
       confirmButtonText: "Xóa ngay",
       cancelButtonText: "Hủy",
-      customClass: { popup: "na-swal-popup", confirmButton: "btn btn-danger", cancelButton: "btn btn-outline-secondary", actions: "d-flex justify-content-center gap-3 mt-4" },
+      customClass: { popup: "na-swal-popup", confirmButton: "btn btn-danger fw-semibold", cancelButton: "btn btn-outline-secondary fw-semibold", actions: "d-flex justify-content-center gap-3 mt-4" },
       buttonsStyling: false
     });
     if (!result.isConfirmed) return;
@@ -49,7 +49,7 @@ function BrandList() {
       fetchBrands(currentPage);
       await Swal.fire({ icon: "success", title: "Đã xóa", text: "Thương hiệu đã được xóa.", timer: 1500, showConfirmButton: false, customClass: { popup: "na-swal-popup" } });
     } catch (err) {
-      Swal.fire({ icon: "error", title: "Thất bại", text: "Vui lòng thử lại sau.", confirmButtonText: "Đóng", customClass: { popup: "na-swal-popup", confirmButton: "btn btn-primary" }, buttonsStyling: false });
+      Swal.fire({ icon: "error", title: "Thất bại", text: "Vui lòng thử lại sau.", confirmButtonText: "Đóng", customClass: { popup: "na-swal-popup", confirmButton: "btn btn-primary fw-semibold" }, buttonsStyling: false });
     }
   };
 
@@ -61,7 +61,7 @@ function BrandList() {
       showCancelButton: true,
       confirmButtonText: "Khôi phục",
       cancelButtonText: "Hủy",
-      customClass: { popup: "na-swal-popup", confirmButton: "btn btn-success", cancelButton: "btn btn-outline-secondary", actions: "d-flex justify-content-center gap-3 mt-4" },
+      customClass: { popup: "na-swal-popup", confirmButton: "btn btn-success fw-semibold", cancelButton: "btn btn-outline-secondary fw-semibold", actions: "d-flex justify-content-center gap-3 mt-4" },
       buttonsStyling: false
     });
     if (!result.isConfirmed) return;
@@ -71,7 +71,7 @@ function BrandList() {
       fetchBrands(currentPage);
       await Swal.fire({ icon: "success", title: "Đã khôi phục", text: "Thương hiệu đã hoạt động.", timer: 1500, showConfirmButton: false, customClass: { popup: "na-swal-popup" } });
     } catch (err) {
-      Swal.fire({ icon: "error", title: "Thất bại", text: "Vui lòng thử lại sau.", confirmButtonText: "Đóng", customClass: { popup: "na-swal-popup", confirmButton: "btn btn-primary" }, buttonsStyling: false });
+      Swal.fire({ icon: "error", title: "Thất bại", text: "Vui lòng thử lại sau.", confirmButtonText: "Đóng", customClass: { popup: "na-swal-popup", confirmButton: "btn btn-primary fw-semibold" }, buttonsStyling: false });
     }
   };
 
@@ -92,7 +92,7 @@ function BrandList() {
           <h2 className="fw-bold mb-1">Danh sách thương hiệu</h2>
           <div className="text-muted fs-6">Tổng cộng: <strong>{totalBrands.toLocaleString("vi-VN")}</strong> thương hiệu</div>
         </div>
-        <Link to="/dashboard/brands/create" className="btn btn-primary d-flex align-items-center gap-2 shadow-sm"><i className="bi bi-folder-plus"></i> Thêm mới</Link>
+        <Link to="/dashboard/brands/create" className="btn btn-primary fw-semibold d-flex align-items-center gap-2 shadow-sm"><i className="bi bi-folder-plus"></i> Thêm mới</Link>
       </div>
 
       <div className="card border-0 shadow-sm mb-4 rounded-3">
@@ -114,7 +114,7 @@ function BrandList() {
             </div>
 
             <div className="col-lg-2 col-md-3 col-sm-6 d-flex align-items-center ms-auto">
-              <button className="btn btn-outline-secondary w-100" onClick={() => { setKeyword(""); setSortOrder(""); setCurrentPage(1); }}>
+              <button className="btn btn-outline-secondary fw-semibold w-100" onClick={() => { setKeyword(""); setSortOrder(""); setCurrentPage(1); }}>
                 <i className="bi bi-arrow-repeat me-1"></i>Xóa bộ lọc
               </button>
             </div>
@@ -154,7 +154,7 @@ function BrandList() {
               <i className="bi bi-box-seam display-1 text-muted mb-3 d-block"></i>
               <h5 className="text-muted">Chưa có thương hiệu nào</h5>
               <p className="text-muted">Hãy thêm thương hiệu mới để bắt đầu.</p>
-              <Link to="/dashboard/brands/create" className="btn btn-primary mt-3">Thêm thương hiệu ngay</Link>
+              <Link to="/dashboard/brands/create" className="btn btn-primary fw-semibold mt-3">Thêm thương hiệu ngay</Link>
             </div>
           ) : (
             <div className="table-responsive">
