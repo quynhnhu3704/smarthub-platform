@@ -364,7 +364,7 @@ export default function Checkout() {
             <>
             <h5 className="fw-bold mb-4 d-flex align-items-center gap-2">Đơn hàng của bạn</h5>
 
-            <div className="order-items mb-4" style={{ maxHeight: "380px" }}>
+            <div className="order-items mb-4">
               {selectedItems.map((item) => (
                 <div key={item.product._id} className="d-flex gap-3 mb-4 pb-4 border-bottom">
                   <div className="position-relative flex-shrink-0">
