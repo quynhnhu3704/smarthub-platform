@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useNavigate, Link } from "react-router-dom";
 
 function OrderList() {
   const [orders, setOrders] = useState([]);
@@ -14,7 +15,7 @@ function OrderList() {
   const [totalPages, setTotalPages] = useState(1);
   const [totalOrders, setTotalOrders] = useState(0);
 
-  const ordersPerPage = 15;
+  const ordersPerPage = 20;
 
   const fetchOrders = async (page = currentPage, key = keyword, st = status) => {
     setLoading(true);
@@ -333,8 +334,10 @@ function OrderList() {
             </div>
           ) : orders.length === 0 ? (
             <div className="text-center py-5">
-              <i className="bi bi-box-seam display-1 text-muted mb-3 d-block"></i>
+              <i className="bi bi-receipt display-1 text-muted mb-3 d-block"></i>
               <h5 className="text-muted">Chưa có đơn hàng nào</h5>
+              <p className="text-muted">Hiện chưa có đơn hàng nào trong hệ thống.</p>
+              <Link to="#" className="btn btn-primary fw-semibold">Thêm đơn hàng ngay</Link>
             </div>
           ) : (
             <div className="table-responsive">
@@ -419,7 +422,6 @@ function OrderList() {
           </nav>
         </div>
       )}
-
     </div>
   );
 }

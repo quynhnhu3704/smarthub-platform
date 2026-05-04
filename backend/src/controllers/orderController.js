@@ -233,7 +233,6 @@ export const updateOrder = async (req, res) => {
 };
 
 // GET /api/my-orders (USER)
-// GET /api/orders/my (USER)
 export const getMyOrders = async (req, res) => {
   try {
     const page = Number(req.query.page) || 1;
@@ -279,10 +278,7 @@ export const getMyOrders = async (req, res) => {
 
     // ===== SEARCH =====
     if (keyword) {
-      query.$or = [
-        { _id: { $regex: keyword, $options: "i" } }, // 🔥 tìm theo mã đơn
-        { "items.name": { $regex: keyword, $options: "i" } } // 🔥 tìm theo tên sản phẩm
-      ];
+      query["items.name"] = { $regex: keyword, $options: "i" };
     }
 
     const total = await Order.countDocuments(query);

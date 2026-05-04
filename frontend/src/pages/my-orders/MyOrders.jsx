@@ -3,9 +3,11 @@ import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function MyOrders() {
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate(); // 👈 thêm dòng này
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [keyword, setKeyword] = useState("");
@@ -15,7 +17,7 @@ export default function MyOrders() {
   const [totalPages, setTotalPages] = useState(1);
   const [totalOrders, setTotalOrders] = useState(0);
 
-  const ordersPerPage = 8;
+  const ordersPerPage = 6;
 
   const fetchMyOrders = async (page = 1) => {
     setLoading(true);
@@ -210,6 +212,11 @@ export default function MyOrders() {
 
   return (
     <div className="container py-4 mb-5" style={{ width: "97.5%" }}>
+
+        <button type="button" className="btn btn-outline-primary fw-semibold mb-4 d-flex align-items-center gap-2 shadow-sm" onClick={() => navigate(-1)}>
+            <i className="bi bi-arrow-left"></i> Quay lại
+        </button>
+
       <div className="d-flex justify-content-between align-items-center mb-4">
         <div>
           <h2 className="fw-bold mb-1">Đơn hàng của tôi</h2>
@@ -221,13 +228,10 @@ export default function MyOrders() {
       <div className="card-na p-4 mb-4 rounded-4 shadow-sm">
         <div className="row g-3">
           <div className="col-lg-5">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Tìm theo mã đơn hoặc tên sản phẩm..."
-              value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
-            />
+            <form className="input-group" onSubmit={(e) => { e.preventDefault(); setCurrentPage(1); fetchMyOrders(1, keyword, status); }}>
+                <input type="text" className="form-control" placeholder="Tìm theo tên sản phẩm..." value={keyword} onChange={(e) => setKeyword(e.target.value)} />
+                <button className="btn btn-outline-primary" type="submit"><i className="bi bi-search"></i></button>
+            </form>
           </div>
           <div className="col-lg-3">
             <select className="form-select" value={status} onChange={(e) => setStatus(e.target.value)}>
@@ -269,10 +273,11 @@ export default function MyOrders() {
           ))}
         </div>
       ) : orders.length === 0 ? (
-        <div className="text-center py-5 my-5">
-          <i className="bi bi-receipt display-1 text-muted mb-4"></i>
-          <h4 className="text-muted">Bạn chưa có đơn hàng nào</h4>
-          <p className="text-muted">Hãy bắt đầu mua sắm để theo dõi đơn hàng tại đây!</p>
+        <div className="text-center py-5">
+            <i className="bi bi-receipt display-1 text-muted mb-3 d-block"></i>
+            <h5 className="text-muted">Bạn chưa có đơn hàng nào</h5>
+            <p className="text-muted">Hãy bắt đầu mua sắm để theo dõi đơn hàng tại đây!</p>
+            <Link to="/products" className="btn btn-primary fw-semibold">Khám phá sản phẩm</Link>
         </div>
       ) : (
         <div className="row g-4">
@@ -316,20 +321,20 @@ export default function MyOrders() {
       )}
 
       {/* PAGINATION */}
-      {!loading && totalPages > 1 && (
-        <div className="d-flex justify-content-center mt-5">
-          <nav>
-            <ul className="pagination pagination-lg shadow-sm">
+      {!loading && (
+        <div className="d-flex justify-content-center mt-5 mb-5">
+          <nav aria-label="Product pagination">
+            <ul className="pagination pagination-lg mb-0 shadow-sm">
               <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
-                <button className="page-link" onClick={() => setCurrentPage(p => Math.max(p - 1, 1))}><i className="bi bi-caret-left-fill"></i></button>
+                <button className="page-link" onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}><i className="bi bi-caret-left-fill"></i></button>
               </li>
-              {getPageNumbers().map((num, i) => (
-                <li key={i} className={`page-item ${num === currentPage ? "active" : ""} ${num === "..." ? "disabled" : ""}`}>
-                  {num === "..." ? <span className="page-link">...</span> : <button className="page-link fw-semibold" onClick={() => setCurrentPage(num)}>{num}</button>}
+              {getPageNumbers().map((pageNum, idx) => (
+                <li key={idx} className={`page-item ${pageNum === currentPage ? "active" : ""} ${pageNum === "..." ? "disabled" : ""}`}>
+                  {pageNum === "..." ? <span className="page-link">...</span> : <button className="page-link fw-semibold" onClick={() => setCurrentPage(pageNum)}>{pageNum}</button>}
                 </li>
               ))}
               <li className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}>
-                <button className="page-link" onClick={() => setCurrentPage(p => Math.min(p + 1, totalPages))}><i className="bi bi-caret-right-fill"></i></button>
+                <button className="page-link" onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}><i className="bi bi-caret-right-fill"></i></button>
               </li>
             </ul>
           </nav>
