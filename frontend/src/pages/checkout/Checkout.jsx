@@ -93,7 +93,7 @@ export default function Checkout() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.fullName || !formData.phone || !formData.address) {
+    if (!formData.fullName || !formData.phone || !formData.address || !formData.email) {
       await Swal.fire({
         icon: "warning",
         title: "Thiếu thông tin",
@@ -111,6 +111,7 @@ export default function Checkout() {
         shippingAddress: {
           name: formData.fullName,
           phone: formData.phone,
+          email: formData.email, // <-- THÊM DÒNG NÀY
           province: formData.province,
           district: formData.district,
           ward: formData.ward,
@@ -160,12 +161,11 @@ export default function Checkout() {
         icon: "error",
         title: "Đặt hàng thất bại",
         text: "Vui lòng thử lại sau.",
-        confirmButtonText: "Đóng",
+        timer: 1500, // thêm
+        showConfirmButton: false, // thêm
         customClass: {
-          popup: "na-swal-popup",
-          confirmButton: "btn btn-primary fw-semibold"
-        },
-        buttonsStyling: false
+          popup: "na-swal-popup"
+        }
       });
     } finally {
       setIsProcessing(false);

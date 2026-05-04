@@ -28,9 +28,12 @@ import BrandList from "./pages/dashboard/brands/BrandList"
 import BrandCreate from "./pages/dashboard/brands/BrandCreate"
 import BrandEdit from "./pages/dashboard/brands/BrandEdit"
 
+import OrderList from "./pages/dashboard/orders/OrderList"
+
 import Cart from "./pages/cart/Cart"
 import Checkout from "./pages/checkout/Checkout";
 import Payment from "./pages/payment/Payment";
+import MyOrders from "./pages/my-orders/MyOrders";
 
 import Chatbot from "./components/chatbot/Chatbot"
 
@@ -66,10 +69,12 @@ function App() {
           <Route path="/dashboard/brands/create" element={<BrandCreate />} />
           <Route path="/dashboard/brands/edit/:id" element={<BrandEdit />} />
 
+          <Route path="/dashboard/orders" element={<OrderList />} />
 
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/payment" element={<Payment />} />
+          <Route path="/my-orders" element={<MyOrders />} />
 
         </Routes>
 

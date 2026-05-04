@@ -17,6 +17,7 @@ const orderSchema = new mongoose.Schema({
   shippingAddress: {
     name: { type: String, required: true },
     phone: { type: String, required: true },
+    email: { type: String, required: true },
     province: { type: String, required: true },
     district: { type: String, required: true },
     ward: { type: String, required: true },
@@ -40,7 +41,7 @@ const orderSchema = new mongoose.Schema({
 
   status: {
     type: String,
-    enum: ["pending", "paid", "shipped", "completed", "cancelled"],
+    enum: ["pending", "confirmed", "shipping", "done", "cancel"],
     default: "pending"
   }
 }, { timestamps: true });

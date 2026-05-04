@@ -1,4 +1,5 @@
 // controllers/orderController.js
+import mongoose from "mongoose";
 import Order from "../models/Order.js";
 import Cart from "../models/Cart.js";
 import Product from "../models/Product.js";
@@ -7,6 +8,11 @@ import Product from "../models/Product.js";
 export const createOrder = async (req, res) => {
   try {
     const { selectedItems, shippingAddress, paymentMethod } = req.body;
+
+    // ✅ thêm đoạn này ngay dưới
+    if (!shippingAddress.email) {
+      return res.status(400).json({ message: "Email is required" });
+    }
 
     const cart = await Cart.findOne({ user: req.user._id })
       .populate("items.product");
@@ -50,7 +56,10 @@ export const createOrder = async (req, res) => {
     const order = await Order.create({
       user: req.user._id,
       items: orderItems,
-      shippingAddress,
+      shippingAddress: {
+        ...shippingAddress,
+        email: shippingAddress.email.toLowerCase().trim() // ✅ chuẩn hóa
+      },
       paymentMethod,
       totalPrice
     });
@@ -108,5 +117,129 @@ export const sepayWebhook = async (req, res) => {
   } catch (error) {
     console.error("SePay webhook error:", error);
     res.sendStatus(500);
+  }
+};
+
+// GET /api/orders (ADMIN LIST)
+export const getOrders = async (req, res) => {
+  try {
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.ordersPerPage) || 10;
+    const skip = (page - 1) * limit;
+
+    const { keyword, status, timeRange } = req.query;
+
+    let query = {};
+
+    const now = new Date();
+
+    if (timeRange === "today") {
+      const start = new Date();
+      start.setHours(0, 0, 0, 0);
+
+      const end = new Date();
+      end.setHours(23, 59, 59, 999);
+
+      query.createdAt = { $gte: start, $lte: end };
+    }
+
+    if (timeRange === "7d") {
+      const start = new Date();
+      start.setDate(start.getDate() - 7);
+
+      query.createdAt = { $gte: start };
+    }
+
+    if (timeRange === "month") {
+      const start = new Date(now.getFullYear(), now.getMonth(), 1);
+
+      query.createdAt = { $gte: start };
+    }
+
+    // filter status
+    if (status) query.status = status;
+
+    // search theo tên khách hàng hoặc phone
+    if (keyword) {
+      query.$or = [
+        { "shippingAddress.name": { $regex: keyword, $options: "i" } },
+        { "shippingAddress.phone": { $regex: keyword, $options: "i" } },
+        { "shippingAddress.email": { $regex: keyword, $options: "i" } } // ✅ thêm
+      ];
+    }
+
+    const total = await Order.countDocuments(query);
+
+    const orders = await Order.find(query)
+      .populate("user", "name email")
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    res.json({
+      orders,
+      totalOrders: total,
+      totalPages: Math.ceil(total / limit),
+      currentPage: page
+    });
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// GET /api/orders/:id
+export const getOrderById = async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id).populate("user", "name email");
+
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    res.json(order);
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// PUT /api/orders/:id (UPDATE STATUS)
+export const updateOrder = async (req, res) => {
+  try {
+    const { status } = req.body;
+
+    const order = await Order.findById(req.params.id);
+
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    // nếu chuyển sang cancel và trước đó KHÔNG phải cancel → hoàn kho
+    if (status === "cancel" && order.status !== "cancel") {
+      for (const item of order.items) {
+        await Product.findByIdAndUpdate(item.product, {
+          $inc: { stock: item.quantity }
+        });
+      }
+    }
+
+    order.status = status;
+    await order.save();
+
+    res.json(order);
+
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// GET /api/my-orders (USER)
+export const getMyOrders = async (req, res) => {
+  try {
+    const orders = await Order.find({ user: req.user._id })
+      .sort({ createdAt: -1 });
+
+    res.json(orders);
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
   }
 };
