@@ -233,13 +233,74 @@ export const updateOrder = async (req, res) => {
 };
 
 // GET /api/my-orders (USER)
+// GET /api/orders/my (USER)
 export const getMyOrders = async (req, res) => {
   try {
-    const orders = await Order.find({ user: req.user._id })
-      .sort({ createdAt: -1 });
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 8;
+    const skip = (page - 1) * limit;
 
-    res.json(orders);
+    const { keyword, status, timeRange } = req.query;
+
+    let query = {
+      user: req.user._id // 🔥 luôn giới hạn theo user
+    };
+
+    const now = new Date();
+
+    // ===== FILTER TIME =====
+    if (timeRange === "today") {
+      const start = new Date();
+      start.setHours(0, 0, 0, 0);
+
+      const end = new Date();
+      end.setHours(23, 59, 59, 999);
+
+      query.createdAt = { $gte: start, $lte: end };
+    }
+
+    if (timeRange === "7d") {
+      const start = new Date();
+      start.setDate(start.getDate() - 7);
+
+      query.createdAt = { $gte: start };
+    }
+
+    if (timeRange === "month") {
+      const start = new Date(now.getFullYear(), now.getMonth(), 1);
+
+      query.createdAt = { $gte: start };
+    }
+
+    // ===== FILTER STATUS =====
+    if (status) {
+      query.status = status;
+    }
+
+    // ===== SEARCH =====
+    if (keyword) {
+      query.$or = [
+        { _id: { $regex: keyword, $options: "i" } }, // 🔥 tìm theo mã đơn
+        { "items.name": { $regex: keyword, $options: "i" } } // 🔥 tìm theo tên sản phẩm
+      ];
+    }
+
+    const total = await Order.countDocuments(query);
+
+    const orders = await Order.find(query)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    res.json({
+      orders,
+      totalOrders: total,
+      totalPages: Math.ceil(total / limit),
+      currentPage: page
+    });
+
   } catch (err) {
+    console.error(err);
     res.status(500).json({ message: "Server error" });
   }
 };

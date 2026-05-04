@@ -141,14 +141,20 @@ function OrderList() {
     const itemsHtml = order.items.map(item => `
       <tr>
         <td style="padding:12px 0; border-bottom:1px solid #eee; width:50px; text-align:center;">
-          <img 
+        <a href="/products/${item.product}">
+            <img 
             src="${item.image || '/no-image.png'}" 
             style="width:45px; height:45px; object-fit:cover; border-radius:8px;"
-          />
+            />
+        </a>
         </td>
+
         <td style="padding:12px 0; border-bottom:1px solid #eee;">
-          <div style="font-weight:600;">${item.name}</div>
+        <a href="/products/${item.product}" style="text-decoration:none; color:#212529;">
+            <div style="font-weight:500;">${item.name}</div>
+        </a>
         </td>
+        
         <td style="text-align:center; padding:12px 0; border-bottom:1px solid #eee; font-weight:500;">
           x${item.quantity}
         </td>
