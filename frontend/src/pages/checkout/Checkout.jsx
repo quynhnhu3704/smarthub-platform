@@ -149,7 +149,7 @@ export default function Checkout() {
         customClass: { popup: "na-swal-popup" }
       });
 
-      navigate("/order-success", {
+      navigate("/my-orders", {
         state: {
           orderId: data._id,
           total: data.totalPrice
