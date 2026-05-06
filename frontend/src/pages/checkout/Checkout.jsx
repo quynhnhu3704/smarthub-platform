@@ -9,7 +9,7 @@ import { createOrder } from "../../services/orderService";
 export default function Checkout() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { cart, clearCart } = useContext(CartContext);
+  const { cart, removeFromCart } = useContext(CartContext);
   const { user } = useContext(AuthContext); // ADDED
   const totalProducts = cart.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -126,7 +126,13 @@ export default function Checkout() {
       const data = await createOrder(orderData, token);
 
       // 👉 nếu SEPAY thì đi trang QR, không show swal success
+
       if (paymentMethod.toUpperCase() === "SEPAY") {
+        // ✅ xóa trước
+        // for (const item of selectedItems) {
+        //   await removeFromCart(item.product._id);
+        // }
+
         navigate("/payment", {
           state: {
             orderId: data._id,
@@ -134,11 +140,16 @@ export default function Checkout() {
             transferNote: data.transferNote
           }
         });
+
+        // xóa sau khi rời trang (giống COD)
+        setTimeout(async () => {
+          for (const item of selectedItems) {
+            await removeFromCart(item.product._id);
+          }
+        }, 0);
+
         return;
       }
-
-      // 👉 COD
-      clearCart();
 
       await Swal.fire({
         icon: "success",
@@ -156,6 +167,13 @@ export default function Checkout() {
         }
       });
 
+      // ✅ xóa SAU khi đã navigate
+      setTimeout(async () => {
+        for (const item of selectedItems) {
+          await removeFromCart(item.product._id);
+        }
+      }, 0);
+
     } catch (err) {
       Swal.fire({
         icon: "error",
@@ -172,7 +190,7 @@ export default function Checkout() {
     }
   };
 
-  if (selectedItems.length === 0) {
+  if (selectedItems.length === 0 && !isProcessing) {
     return (
       <div className="container py-5 text-center">
         <i className="bi bi-cart-x display-1 text-muted mb-4"></i>

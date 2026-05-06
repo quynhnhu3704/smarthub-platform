@@ -15,7 +15,7 @@ export default function Cart() {
 
   useEffect(() => { const timer = setTimeout(() => setIsLoading(false), 600); return () => clearTimeout(timer); }, []);
   useEffect(() => {
-    if (cart.length > 0) {
+    if (cart.length > 0 && selected.length === 0) {
       setSelected(cart.filter(i => i.product).map((item) => item.product._id));
     }
   }, [cart]);
