@@ -29,6 +29,7 @@ import BrandCreate from "./pages/dashboard/brands/BrandCreate"
 import BrandEdit from "./pages/dashboard/brands/BrandEdit"
 
 import OrderList from "./pages/dashboard/orders/OrderList"
+import Dashboard from "./pages/dashboard/Dashboard"
 
 import Cart from "./pages/cart/Cart"
 import Checkout from "./pages/checkout/Checkout";
@@ -70,6 +71,7 @@ function App() {
           <Route path="/dashboard/brands/edit/:id" element={<BrandEdit />} />
 
           <Route path="/dashboard/orders" element={<OrderList />} />
+          <Route path="/dashboard" element={<Dashboard />} />
 
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />

@@ -5,6 +5,11 @@ export default function Sidebar({ open }) {
   return (
     <div className={`sidebar bg-white shadow-sm ${open ? "active" : ""}`}>
       <ul className="list-unstyled mt-3 px-2">
+        <li className="mb-1">
+          <Link to="/dashboard" className="d-flex align-items-center gap-3 py-3 px-4 text-dark text-decoration-none rounded-pill hover-bg-light transition-all">
+            <i className="bi bi-clipboard-data fs-5 text-primary"></i>Dashboard
+          </Link>
+        </li>
 
         <li className="mb-1">
           <Link to="/dashboard/products" className="d-flex align-items-center gap-3 py-3 px-4 text-dark text-decoration-none rounded-pill hover-bg-light transition-all">
@@ -31,12 +36,6 @@ export default function Sidebar({ open }) {
             <i className="bi bi-person-badge fs-5 text-primary"></i>Quản lý nhân viên
           </Link>
         </li>
-
-        {/* <li className="mb-1">
-          <Link to="/dashboard/staff" className="d-flex align-items-center gap-3 py-3 px-4 text-dark text-decoration-none rounded-pill hover-bg-light transition-all">
-            <i className="bi bi-person-badge fs-5 text-primary"></i>Trạng thái đơn hàng
-          </Link>
-        </li> */}
       </ul>
 
       <div className="position-absolute bottom-0 w-100 p-3">
