@@ -52,12 +52,21 @@ function BarChart({ data }) {
   const slice = data.slice(-14)
   const max = Math.max(...slice.map(d => d.revenue))
   return (
-    <div style={{ display: "flex", alignItems: "flex-end", gap: 5, height: 130 }}>
+    <div style={{ display: "flex", alignItems: "flex-end", gap: 5, height: 150 }}>
       {slice.map((d, i) => {
         const pct = max ? (d.revenue / max) * 100 : 0
         const isH = hov === i
         return (
-          <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 4, position: "relative" }}
+          <div
+            key={i}
+            style={{
+              flex: 1,
+              height: "100%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              position: "relative"
+            }}
             onMouseEnter={() => setHov(i)} onMouseLeave={() => setHov(null)}>
             {isH && (
               <div style={{
@@ -69,15 +78,19 @@ function BarChart({ data }) {
                 {(d.revenue / 1e6).toFixed(1)}M₫
               </div>
             )}
-            <div style={{
-              width: "100%", borderRadius: "5px 5px 0 0",
-              background: isH
-                ? "linear-gradient(180deg, var(--na-accent) 0%, var(--na-primary) 100%)"
-                : "linear-gradient(180deg, var(--na-primary-2) 0%, var(--na-primary-3) 100%)",
-              height: `${pct}%`, minHeight: 4,
-              transition: `height 0.6s cubic-bezier(.34,1.56,.64,1) ${i * 25}ms, background 0.2s`,
-              boxShadow: isH ? "0 0 14px rgba(111,66,193,.5)" : "none"
-            }} />
+            <div style={{ flex: 1, width: "100%", display: "flex", alignItems: "flex-end"}}>
+              <div style={{
+                width: "100%",
+                borderRadius: "5px 5px 0 0",
+                background: isH
+                  ? "linear-gradient(180deg, var(--na-accent) 0%, var(--na-primary) 100%)"
+                  : "linear-gradient(180deg, var(--na-primary-2) 0%, var(--na-primary-3) 100%)",
+                height: `${Math.max(pct, 4)}%`,
+                minHeight: 4,
+                transition: `height 0.6s cubic-bezier(.34,1.56,.64,1) ${i * 25}ms, background 0.2s`,
+                boxShadow: isH ? "0 0 14px rgba(111,66,193,.5)" : "none"
+              }} />
+            </div>
             <div style={{ fontSize: 8, color: "var(--na-muted)", writingMode: "vertical-rl", transform: "rotate(180deg)", height: 26 }}>
               {d._id.day}/{d._id.month}
             </div>
@@ -154,7 +167,7 @@ function KpiCard({ icon, label, value, sub, color, sparkData, suffix = "", delay
         <div style={{ fontSize: 27, fontWeight: 800, color: "var(--na-ink)", letterSpacing: "-0.5px", lineHeight: 1.1, fontFamily: "Quicksand" }}>
           {vis ? <AnimCounter to={typeof value === "number" ? value : 0} suffix={suffix} /> : "0"}
         </div>
-        <div style={{ fontSize: 12, color: "var(--na-muted)", marginTop: 3, fontWeight: 600 }}>{label}</div>
+        <div style={{ fontSize: 13.5, color: "var(--na-muted)", marginTop: 3, fontWeight: 600 }}>{label}</div>
       </div>
       {sub && <div style={{ fontSize: 11, color: color, fontWeight: 700 }}>{sub}</div>}
     </div>
@@ -204,7 +217,7 @@ export default function Dashboard() {
   if (loading) return (
     <div style={S.centerFull}>
       <div style={S.spinner} />
-      <p style={{ color: "var(--na-muted)", fontSize: 13, letterSpacing: 2, marginTop: 16 }}>ĐANG TẢI...</p>
+      <p style={{ color: "var(--na-muted)", fontSize: 13, marginTop: 16 }}>Đang tải...</p>
     </div>
   )
 
@@ -238,7 +251,7 @@ export default function Dashboard() {
         <header style={S.header}>
           <div>
             <h1 style={S.heading}>Dashboard</h1>
-            <p style={{ color: "var(--na-muted)", fontSize: 12, margin: 0 }}>
+            <p style={{ color: "var(--na-muted)", fontSize: 13.5, margin: 0 }}>
               {new Date().toLocaleDateString("vi-VN", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
             </p>
           </div>
@@ -261,14 +274,14 @@ export default function Dashboard() {
         {/* KPI cards */}
         {show("revenue") && (
           <div style={S.grid4}>
-            <KpiCard icon="₫" label="Tổng doanh thu" value={data.overview.revenue}
+            <KpiCard icon="🪙" label="Tổng doanh thu" value={data.overview.revenue}
               suffix=" ₫" color="#6f42c1" sparkData={sparkRev} delay={0}
               sub={`~${fmt(sparkRev.at(-1) || 0)} ngày gần nhất`} />
-            <KpiCard icon="📦" label="Tổng đơn hàng" value={data.overview.orders}
-              color="#5936a3" sparkData={sparkOrd} delay={80} sub="Tất cả trạng thái" />
+            <KpiCard icon="🧾" label="Tổng đơn hàng" value={data.overview.orders}
+              color="#c9a227" sparkData={sparkOrd} delay={80} sub="Tất cả trạng thái" />
             <KpiCard icon="👥" label="Khách hàng" value={data.overview.customers}
-              color="#c9a227" sparkData={sparkOrd.map(v => v * 1.2)} delay={160} sub="Tài khoản đăng ký" />
-            <KpiCard icon="🛍" label="Sản phẩm" value={data.overview.products}
+              color="#5936a3" sparkData={sparkOrd.map(v => v * 1.2)} delay={160} sub="Tài khoản đăng ký" />
+            <KpiCard icon="📦️" label="Sản phẩm" value={data.overview.products}
               color="#8c5fe0" sparkData={sparkOrd.map(v => v * 0.8)} delay={240} sub="Đang kinh doanh" />
           </div>
         )}
@@ -302,7 +315,7 @@ export default function Dashboard() {
                     return (
                       <div key={i} style={{ display: "flex", alignItems: "center", gap: 8 }}>
                         <div style={{ width: 8, height: 8, borderRadius: "50%", background: c, flexShrink: 0 }} />
-                        <span style={{ flex: 1, fontSize: 12, color: "var(--na-muted)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{k.keyword}</span>
+                        <span style={{ flex: 1, fontSize: 13.5, color: "var(--na-muted)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{k.keyword}</span>
                         <span style={{ fontSize: 11, color: c, fontWeight: 800 }}>{k.count}</span>
                       </div>
                     )
@@ -322,18 +335,15 @@ export default function Dashboard() {
                 <div style={S.cardSub}>5 sản phẩm có số lượng bán cao nhất</div>
               </div>
             </div>
-
-            {/* <div style={{ display: "grid", gridTemplateColumns: "36px 1fr 90px 130px", gap: 12, padding: "6px 12px", borderBottom: "2px solid var(--na-bg)" }}>
-              {["#", "ID Sản phẩm", "Tên sản phẩm", "Đã bán", "Tỷ lệ"].map((h, i) => ( */}
-              <div style={{
-                display: "grid",
-                gridTemplateColumns: "50px 220px 1fr 90px 130px",
-                gap: 12,
-                padding: "6px 12px",
-                borderBottom: "2px solid var(--na-bg)"
-              }}>
-                {["#", "Mã SP", "Tên sản phẩm", "Đã bán", "Tỷ lệ"].map((h, i) => (
-                <div key={i} style={{ fontSize: 10, color: "var(--na-muted)", fontWeight: 800, textTransform: "uppercase", letterSpacing: 1 }}>{h}</div>
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "50px 250px 1fr 100px 150px",
+              gap: 12,
+              padding: "6px 12px",
+              borderBottom: "2px solid var(--na-bg)"
+            }}>
+              {["#", "Mã sản phẩm", "Tên sản phẩm", "Đã bán", "Tỷ lệ"].map((h, i) => (
+                <div key={i} style={{ fontSize: 12, color: "var(--na-muted)", fontWeight: 800, textTransform: "uppercase", letterSpacing: 1, textAlign: i !== 2 ? "center" : "left" }}>{h}</div>
               ))}
             </div>
 
@@ -343,10 +353,9 @@ export default function Dashboard() {
               const medals = ["🥇","🥈","🥉","4️⃣","5️⃣"]
               return (
                 <div key={p._id}
-                  // style={{ display: "grid", gridTemplateColumns: "36px 1fr 90px 130px", gap: 12, padding: "13px 12px", borderRadius: 10, transition: "background 0.15s", cursor: "default" }}
                   style={{
                     display: "grid",
-                    gridTemplateColumns: "50px 220px 1fr 90px 130px",
+                    gridTemplateColumns: "50px 250px 1fr 100px 150px",
                     gap: 12,
                     padding: "13px 12px",
                     borderRadius: 10,
@@ -355,10 +364,10 @@ export default function Dashboard() {
                   }}
                   onMouseEnter={e => e.currentTarget.style.background = "var(--na-bg)"}
                   onMouseLeave={e => e.currentTarget.style.background = "transparent"}>
-                  <div style={{ fontSize: 18 }}>{medals[i]}</div>
-                  <div style={{ fontSize: 12, color: "var(--na-muted)", fontFamily: "monospace", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", display: "flex", alignItems: "center" }}>{p._id}</div>
+                  <div style={{ fontSize: 18, textAlign: "center" }}>{medals[i]}</div>
+                  <div style={{ fontSize: 13.5, color: "var(--na-muted)", fontFamily: "monospace", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center" }}>{p._id}</div>
                   <div style={{
-                    fontSize: 12,
+                    fontSize: 13.5,
                     color: "var(--na-ink)",
                     overflow: "hidden",
                     textOverflow: "ellipsis",
@@ -368,8 +377,8 @@ export default function Dashboard() {
                   }}>
                     {p.name || "Không có tên"}
                   </div>
-                  <div style={{ fontSize: 13, fontWeight: 800, color: "var(--na-ink)", display: "flex", alignItems: "center" }}>{p.totalSold.toLocaleString("vi-VN")}</div>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <div style={{ fontSize: 15, fontWeight: 800, color: "var(--na-ink)", display: "flex", alignItems: "center", justifyContent: "center" }}>{p.totalSold.toLocaleString("vi-VN")}</div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, justifyContent: "center" }}>
                     <div style={{ flex: 1, height: 5, borderRadius: 99, background: "var(--na-bg)", overflow: "hidden" }}>
                       <div style={{ width: `${pct}%`, height: "100%", background: "linear-gradient(90deg, var(--na-primary), var(--na-accent))", borderRadius: 99, transition: "width 1.1s ease" }} />
                     </div>
@@ -400,7 +409,7 @@ export default function Dashboard() {
                     background: isTop ? "linear-gradient(135deg, var(--na-primary), var(--na-accent))" : "var(--na-bg)",
                     border: `1.5px solid ${colors[i]}${isTop ? "ff" : "55"}`,
                     color: isTop ? "#fff" : "var(--na-ink)",
-                    fontSize: Math.max(14 - i * 1.5, 11), fontWeight: 700,
+                    fontSize: Math.max(15 - i * 1.2, 12), fontWeight: 700,
                     display: "flex", alignItems: "center", gap: 8,
                     cursor: "default", transition: "transform 0.2s, box-shadow 0.2s",
                     boxShadow: isTop ? "0 4px 14px rgba(111,66,193,.3)" : "none"
@@ -409,7 +418,9 @@ export default function Dashboard() {
                     onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = isTop ? "0 4px 14px rgba(111,66,193,.3)" : "none" }}>
                     {isTop && <span>🔥</span>}
                     <span>{k.keyword}</span>
-                    <span style={{ fontSize: 10, opacity: 0.65, fontWeight: 500 }}>{k.count} lượt</span>
+                    <span style={{   fontSize: 11, color: isTop ? "rgba(255,255,255,.85)" : colors[i], fontWeight: 700, background: isTop ? "rgba(255,255,255,.12)" : `${colors[i]}15`, padding: "3px 8px", borderRadius: 999}}>
+                      {k.count} lượt
+                    </span>
                   </div>
                 )
               })}
@@ -518,11 +529,10 @@ const S = {
     display: "flex", justifyContent: "space-between", alignItems: "center",
     padding: "26px 0 4px",
     position: "sticky", top: 0,
-    background: "linear-gradient(180deg, var(--na-bg) 65%, transparent)",
     zIndex: 5
   },
   heading: {
-    fontSize: 28, fontWeight: 800, color: "var(--na-ink)",
+    fontSize: 32, fontWeight: 800, color: "var(--na-ink)",
     letterSpacing: "-0.4px", margin: 0, fontFamily: "'Quicksand', sans-serif"
   },
   liveBadge: {
@@ -533,7 +543,7 @@ const S = {
   },
   btnOutline: {
     background: "#fff", border: "1.5px solid rgba(111,66,193,.3)",
-    color: "var(--na-primary)", fontSize: 12, fontWeight: 700,
+    color: "var(--na-primary)", fontSize: 13.5, fontWeight: 700,
     padding: "6px 14px", borderRadius: 10, cursor: "pointer",
     fontFamily: "'Quicksand', sans-serif",
     transition: "all 0.15s"
@@ -546,7 +556,7 @@ const S = {
   },
   tabBtn: {
     padding: "7px 18px", borderRadius: "1rem", border: "none",
-    background: "transparent", color: "var(--na-muted)", fontSize: 12,
+    background: "transparent", color: "var(--na-muted)", fontSize: 13.5,
     fontWeight: 700, cursor: "pointer", transition: "all 0.2s",
     fontFamily: "'Quicksand', sans-serif"
   },
@@ -556,13 +566,14 @@ const S = {
   },
   grid4: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(210px, 1fr))",
-    gap: 16
+    gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+    gap: 16,
+    width: "100%"
   },
   grid2: { display: "grid", gridTemplateColumns: "2fr 1fr", gap: 16 },
   cardHead: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
-  cardTitle: { fontSize: 15, fontWeight: 800, color: "var(--na-ink)" },
-  cardSub: { fontSize: 11, color: "var(--na-muted)", marginTop: 2 },
+  cardTitle: { fontSize: 17, fontWeight: 800, color: "var(--na-ink)" },
+  cardSub: { fontSize: 12.5, color: "var(--na-muted)", marginTop: 2 },
   pill: {
     fontSize: 11, fontWeight: 800, color: "var(--na-primary)",
     background: "rgba(111,66,193,.1)", padding: "4px 12px", borderRadius: 99,
