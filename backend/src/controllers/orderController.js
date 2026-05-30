@@ -83,7 +83,17 @@ export const createOrder = async (req, res) => {
     );
     await cart.save();
 
-    res.json(order);
+    let qrUrl = null;
+
+    if (paymentMethod === "SEPAY") {
+      qrUrl =
+        `https://qr.sepay.vn/img?bank=Sacombank&acc=060281585048&amount=${order.totalPrice}&des=${order.transferNote}&template=`;
+    }
+
+    res.json({
+      ...order.toObject(),
+      qrUrl
+    });
 
   } catch (error) {
     console.error(error);
@@ -91,31 +101,56 @@ export const createOrder = async (req, res) => {
   }
 };
 
-
 // Webhook SePay (auto xác nhận thanh toán)
 export const sepayWebhook = async (req, res) => {
   try {
-    const { content, amount } = req.body;
+    console.log("========== SEPAY WEBHOOK ==========");
+    console.log(JSON.stringify(req.body, null, 2));
 
-    const order = await Order.findOne({ transferNote: content });
+    const { content, transferAmount } = req.body;
+
+    console.log("content:", content);
+    console.log("transferAmount:", transferAmount);
+
+    // lấy mã DH từ nội dung chuyển khoản
+    const transferCode = content?.match(/DH[a-zA-Z0-9]+/)?.[0];
+
+    console.log("transferCode:", transferCode);
+
+    if (!transferCode) {
+      console.log("TRANSFER CODE NOT FOUND");
+      return res.sendStatus(200);
+    }
+
+    const order = await Order.findOne({
+      transferNote: transferCode
+    });
+
+    console.log("order:", order);
 
     if (!order) {
+      console.log("ORDER NOT FOUND");
       return res.sendStatus(200);
     }
 
-    // check số tiền (tránh fake hoặc sai)
-    if (amount && amount < order.totalPrice) {
+    if (transferAmount < order.totalPrice) {
+      console.log("AMOUNT NOT ENOUGH");
       return res.sendStatus(200);
     }
 
-    // cập nhật trạng thái
-    order.status = "paid";
+    if (order.status === "confirmed") {
+      console.log("ALREADY CONFIRMED");
+      return res.sendStatus(200);
+    }
+
+    order.status = "confirmed";
     await order.save();
 
-    res.sendStatus(200);
+    console.log("ORDER CONFIRMED:", order._id);
 
-  } catch (error) {
-    console.error("SePay webhook error:", error);
+    res.sendStatus(200);
+  } catch (err) {
+    console.error(err);
     res.sendStatus(500);
   }
 };
@@ -184,6 +219,28 @@ export const getOrders = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const getMyOrderById = async (req, res) => {
+  try {
+    const order = await Order.findOne({
+      _id: req.params.id,
+      user: req.user._id
+    });
+
+    if (!order) {
+      return res.status(404).json({
+        message: "Order not found"
+      });
+    }
+
+    res.json(order);
+
+  } catch (err) {
+    res.status(500).json({
+      message: "Server error"
+    });
   }
 };
 

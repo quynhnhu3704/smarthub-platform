@@ -6,7 +6,8 @@ import {
   getOrders,
   getOrderById,
   updateOrder,
-  getMyOrders 
+  getMyOrders,
+  getMyOrderById
 } from "../controllers/orderController.js";
 import { protect } from "../middlewares/authMiddleware.js";
 import { authorizeRoles } from "../middlewares/roleMiddleware.js";
@@ -18,6 +19,7 @@ router.post("/sepay-webhook", sepayWebhook); // 🔥 webhook KHÔNG cần login
 
 router.get("/", protect, authorizeRoles("owner", "staff"), getOrders);
 router.get("/my-orders", protect, getMyOrders);
+router.get("/my-orders/:id", protect, getMyOrderById);
 router.get("/:id", protect, authorizeRoles("owner", "staff"), getOrderById);
 router.put("/:id", protect, authorizeRoles("owner", "staff"), updateOrder);
 
