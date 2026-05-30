@@ -1,10 +1,17 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import Navbar from "../components/Navbar"
 import Sidebar from "../components/Sidebar"
 import Footer from "../components/Footer"
+import { AuthContext } from "../context/AuthContext"
 
 export default function Layout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+
+  // THÊM ĐOẠN NÀY
+  const { user } = useContext(AuthContext)
+  
+  const isAdmin =
+    user && ["owner", "staff"].includes(user.role)
 
   // Load trạng thái từ localStorage
   useEffect(() => {
@@ -22,11 +29,13 @@ export default function Layout({ children }) {
       <Navbar toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
 
       <div className="d-flex">
-        <Sidebar open={sidebarOpen} />
+        {isAdmin && <Sidebar open={sidebarOpen} />}
         
         <div
           id="mainContent"
-          className={`flex-grow-1 ${sidebarOpen ? "shifted" : ""}`}
+          className={`flex-grow-1 ${
+            isAdmin && sidebarOpen ? "shifted" : ""
+          }`}
         >
           {children}
           <Footer />

@@ -1,7 +1,15 @@
 // // src/components/Sidebar.jsx
 import { Link } from "react-router-dom"
+import { useContext } from "react"
+import { AuthContext } from "../context/AuthContext"
 
 export default function Sidebar({ open }) {
+  const { user } = useContext(AuthContext)
+
+  if (!user || !["owner", "staff"].includes(user.role)) {
+    return null
+  }
+  
   return (
     <div className={`sidebar bg-white shadow-sm ${open ? "active" : ""}`}>
       <ul className="list-unstyled mt-3 px-2">
