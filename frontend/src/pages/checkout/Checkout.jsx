@@ -137,7 +137,8 @@ export default function Checkout() {
           state: {
             orderId: data._id,
             amount: data.totalPrice,
-            transferNote: data.transferNote
+            transferNote: data.transferNote,
+            qrUrl: data.qrUrl
           }
         });
 
@@ -326,8 +327,8 @@ export default function Checkout() {
                         <div className="d-flex justify-content-between align-items-start">
                           <div>
                             <strong className="fs-6">Chuyển khoản ngân hàng</strong>
-                            <div className="text-muted small mt-1">Vietcombank • <strong>123456789</strong></div>
-                            <div className="text-muted small">Chủ tài khoản: NGUYỄN VĂN A</div>
+                            <div className="text-success small mt-1">✓ Phí giao dịch: <strong>Miễn phí</strong></div>
+                            <div className="text-muted small">Thanh toán thành công sẽ được ghi nhận tự động</div>
                           </div>
                           <input type="radio" className="form-check-input mt-1" checked={paymentMethod === "sepay"} readOnly />
                         </div>
