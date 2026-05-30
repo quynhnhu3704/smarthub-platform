@@ -12,7 +12,7 @@ import brandRoutes from "./routes/brandRoutes.js"
 import searchRoutes from "./routes/searchRoutes.js"
 import surveyRoutes from "./routes/surveyRoutes.js"
 import chatbotRoutes from "./routes/chatbotRoutes.js"
-import orderRoutes from "./routes/orderRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js"
 import dashboardRoutes from "./routes/dashboardRoutes.js"
 import recommendationRoutes from "./routes/recommendationRoutes.js"; // Phần của Oanh
 
