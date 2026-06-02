@@ -1,3 +1,4 @@
+# recommender/recommend_service.py
 import os
 import pickle
 from collections import defaultdict
@@ -450,5 +451,15 @@ def recommend_products(user_id, top_n=10):
 
         except:
             pass
+        # =====================================
+    # COLD START FALLBACK
+    # =====================================
 
+    if not final_result:
+
+        print("\nNo personalized recommendation")
+        print("Return popular products")
+
+        return get_popular_products(top_n)
+    
     return final_result

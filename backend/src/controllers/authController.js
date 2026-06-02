@@ -23,14 +23,12 @@ export const register = async (req, res) => {
       return res.status(400).json({ message: "Username already exists" })
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10)
-
-    const user = await User.create({
+    await User.create({
       name,
       username,
       email,
       phone,
-      password: hashedPassword
+      password
     })
 
     res.status(201).json({ message: "User created successfully" })
